@@ -1,0 +1,8 @@
+<div *ngIf="data; else nonetask">
+    <div *ngFor="let item of data">
+        <p>{{item.id}}</p>
+        <h5>{{item.title}}</h5>
+        <p>{{item.completed}}</p>
+    </div>
+</div>
+<ng-template #nonetask> -----------------------------------</ng-template>

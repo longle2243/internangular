@@ -1,0 +1,9 @@
+<p>formgroup works!</p>
+<form [formGroup]="accountform" (ngSubmit)="onSubmit()">
+    <label for="usernamelable">username</label>
+    <input type="text" id="username" formControlName="username">
+    <br>
+    <label for="passwordlable">password</label>
+    <input type="text" id="password" formControlName="password">
+    <button type="submit" [disabled]="!accountform.valid">ok</button>
+</form>
