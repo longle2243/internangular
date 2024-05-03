@@ -14,6 +14,5 @@ export class FormgroupComponent {
 
   onSubmit(){
     console.log(this.accountform.value);
-    
   }
 }

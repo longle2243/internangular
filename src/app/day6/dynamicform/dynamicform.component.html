@@ -1,0 +1,12 @@
+<div [formGroup]="form">
+    <button (click)="addItem()">Add</button>
+    <div formArrayName="items">
+        <div *ngFor="let item of items.controls; let i = index" [formGroupName]="i">
+            <input type="text" formControlName="name">
+            <!-- <input type="text" formControlName="age"> -->
+            <button (click)="deleteItems(i)">Delete</button>
+        </div>
+    </div>
+</div>
+
+{{form.value | json}}

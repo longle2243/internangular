@@ -1,5 +1,5 @@
-<p>form works!</p>
-<label for="name">Name: </label>
+<label for="name">Enter any: </label>
 <input type="text" id="name" [formControl]="name">
-<p>Value: {{ name.value }}</p>
+<p>-----------------------</p>
+<p>{{ name.value }}</p>
 <button (click)="updateName()">UPDATE</button>

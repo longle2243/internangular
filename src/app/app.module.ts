@@ -13,6 +13,8 @@ import { FormComponent } from './form/form.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FormgroupComponent } from './formgroup/formgroup.component';
 import { FormbuilderComponent } from './formbuilder/formbuilder.component';
+import { Day2Component } from './day2/day2.component';
+import { Day1RoutingModule } from './day1/day1-routing.module';
 
 @NgModule({
   declarations: [
@@ -24,13 +26,15 @@ import { FormbuilderComponent } from './formbuilder/formbuilder.component';
     TodolistComponent,
     FormComponent,
     FormgroupComponent,
-    FormbuilderComponent
+    FormbuilderComponent,
+    Day2Component
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    Day1RoutingModule
   ],
   providers: [
     provideClientHydration()
