@@ -11,8 +11,8 @@ export class TemplatedrivenComponent {
   userform: any = {
     fullname: "",
     birthday: "",
-    gender: "",
-    country: "",
+    gender: "Male",
+    country: "New York",
     phone: "",
     bio: "",
   }
@@ -21,16 +21,47 @@ export class TemplatedrivenComponent {
     username: "",
     email: "",
     password: "",
-    country: "",
     confirmpassword: "",
     checkbox: "",
   }
 
-  usersubmit(form: NgForm) {
+  countrylist = [
+    { name: 'New York', phone: '01' },
+    { name: 'Viet nam', phone: '84' },
+  ]
 
+  genderlist = [
+    "Male",
+    "Female"
+  ]
+
+  usersubmit(form: NgForm) {
+    console.log(form.controls);
+    if(form.valid){
+      console.log("OK");
+      
+    }
   }
 
   accountsubmit(form: NgForm) {
+    console.log(form.controls);
+    if(form.valid){
+      console.log("OK");
+    }
+  }
 
+  count = 0;
+  countChar(event: any ){
+    this.count =(event.target as HTMLInputElement).value.length;
+  }
+
+  isInternationalPhone(country: any, phone: string) : boolean{
+    const selectcounry = this.countrylist.find(c => c.name === country);
+    const firstTwoDigits = phone.substring(0,2);
+    return selectcounry?.phone == firstTwoDigits;
+  }
+
+  isMatch(password: string, confirm: string): boolean{
+    return password === confirm;
   }
 }

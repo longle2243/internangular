@@ -12,8 +12,8 @@ export class ReactiveComponent {
   accountform: FormGroup;
 
   countrylist = [
-    { name: 'New York', phone: 48 },
-    { name: 'Viet nam', phone: 84 },
+    { name: 'New York', phone: '01' },
+    { name: 'Viet nam', phone: '84' },
   ]
   genderlist = [
     "Male",

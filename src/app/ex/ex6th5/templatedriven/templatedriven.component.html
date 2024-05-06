@@ -23,75 +23,69 @@
                         <h5 class="card-title">User details</h5>
                         <form #usertemplateform="ngForm" (ngSubmit)="usersubmit(usertemplateform)">
                             <div class="form-group">
-                                <label for="fullname"
-                                    [ngStyle]="{'color': fullname.invalid && (fullname.dirty || fullname.touched) ? 'red' : 'black'}">Full
-                                    Name*</label>
+                                <label for="fullname" [ngStyle]="{'color': fullname.invalid && (fullname.dirty || fullname.touched) ? 'red' : 'black'}">Full Name*</label>
                                 <input type="text" class="form-control" name="fullname" #fullname="ngModel"
-                                    [(ngModel)]="userform.fullname"
-                                    [ngStyle]="{'border-color': fullname.invalid && (fullname.dirty || fullname.touched) ? 'red' : 'black'}">
+                                    [(ngModel)]="userform.fullname" required [ngStyle]="{'color': fullname.invalid && (fullname.dirty || fullname.touched) ? 'red' : 'black'}">
                                 <div *ngIf="fullname.invalid && (fullname.dirty || fullname.touched)">
                                     <div class="text-danger" *ngIf="fullname.errors?.['required']">
                                         Full name is required.
                                     </div>
                                 </div>
                             </div>
-                            <!-- <div class="form-group">
-                                <label for="birthday"
-                                    [ngStyle]="{'color': userform.controls['birthday'].invalid && (userform.controls['birthday'].dirty || userform.controls['birthday'].touched) ? 'red' : 'black'}">Your
-                                    birthday*</label>
-                                <input type="date" class="form-control" name="birthday" formControlName="birthday"
-                                    [ngStyle]="{'border-color': userform.controls['birthday'].invalid && (userform.controls['birthday'].dirty || userform.controls['birthday'].touched) ? 'red' : 'black'}">
-                                <div
-                                    *ngIf="userform.controls['birthday'].invalid && (userform.controls['birthday'].dirty || userform.controls['birthday'].touched)">
-                                    <div class="text-danger" *ngIf="userform.controls['birthday'].errors?.['required']">
+                            <div class="form-group">
+                                <label for="birthday" [ngStyle]="{'color': birthday.invalid && (birthday.dirty || birthday.touched) ? 'red' : 'black'}">
+                                    Your birthday*</label>
+                                <input type="date" class="form-control" name="birthday" #birthday="ngModel"
+                                    [(ngModel)]="userform.birthday" required
+                                    [ngStyle]="{'border-color': birthday.invalid && (birthday.dirty || birthday.touched) ? 'red' : 'black'}">
+                                <div *ngIf="birthday.invalid && (birthday.dirty || birthday.touched)">
+                                    <div class="text-danger" *ngIf="birthday.errors?.['required']">
                                         Birthday is required.
                                     </div>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="gender">Gender</label>
-                                <select id="country" class="form-control" formControlName="gender">
+                                <select id="country" class="form-control" name="gender" #gender="ngModel" [(ngModel)]="userform.gender">
                                     <option *ngFor=" let g of genderlist" [ngValue]="g">{{g}}</option>
                                 </select>
                             </div>
+
                             <div class="row">
                                 <div class="form-group country">
                                     <label for="country">Country</label>
-                                    <select id="country" class="form-control" formControlName="country">
-                                        <option *ngFor=" let ct of countrylist" [ngValue]="ct.name">{{ct.name}}</option>
+                                    <select id="country" class="form-control" name="country" #country="ngModel" [(ngModel)]="userform.country">
+                                        <option *ngFor=" let ct of countrylist" [ngValue]="ct.name" >{{ct.name}}</option>
                                     </select>
                                 </div>
+
                                 <div class="form-group phone col">
                                     <label for="phone"
-                                        [ngStyle]="{'color': userform.controls['phone'].invalid && (userform.controls['phone'].dirty || userform.controls['phone'].touched) ? 'red' : 'black'}">Phone*</label>
-                                    <input type="text" class="form-control" name="phone" formControlName="phone"
-                                        [ngStyle]="{'border-color': userform.controls['phone'].invalid && (userform.controls['phone'].dirty || userform.controls['phone'].touched) ? 'red' : 'black'}">
-                                    <div
-                                        *ngIf="userform.controls['phone'].invalid && (userform.controls['phone'].dirty || userform.controls['phone'].touched)">
+                                        [ngStyle]="{'color': phone.invalid && (phone.dirty || phone.touched) ? 'red' : 'black'}">Phone*</label>
+                                    <input type="text" class="form-control" name="phone" #phone="ngModel" [(ngModel)]="userform.phone" required pattern="[0-9]*"
+                                        [ngStyle]="{'border-color': phone.invalid && (phone.dirty || phone.touched) ? 'red' : 'black'}">
+                                    <div *ngIf="phone.invalid && (phone.dirty || phone.touched)">
                                         <div class="text-danger"
-                                            *ngIf="userform.controls['phone'].errors?.['required']">
+                                            *ngIf="phone.errors?.['required']">
                                             Phone is required.
                                         </div>
-                                        <div class="text-danger" *ngIf="userform.controls['phone'].errors?.['pattern']">
+                                        <div class="text-danger" *ngIf="phone.errors?.['pattern']">
                                             Only number
                                         </div>
                                     </div>
                                     <div class="text-danger"
-                                        *ngIf="userform.errors?.['isinternationalphone'] && (userform.controls['phone'].dirty || userform.controls['phone'].touched)">
+                                        *ngIf="!isInternationalPhone(userform.country, userform.phone) && (phone.dirty || phone.touched)">
                                         Phone incorrect for the selected country
                                     </div>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="bio">Bio</label>
-                                <input type="text" class="form-control" name="bio" formControlName="bio"
+                                <input type="text" class="form-control" name="bio" #bio="ngModel" [(ngModel)]="userform.bio" maxlength="256"
                                     (input)="countChar($event)">
-                                <div
-                                    *ngIf="userform.controls['bio'].invalid && (userform.controls['bio'].dirty || userform.controls['phone'].touched)">
-                                    <div class="text-danger" *ngIf="userform.controls['bio'].errors?.['maxlength']">
-                                        bio cannot exceed
-                                        256
-                                        characters.
+                                <div *ngIf="bio.invalid && (bio.dirty || bio.touched)">
+                                    <div class="text-danger" *ngIf="bio.errors?.['maxlength']">
+                                        bio cannot exceed 256 characters.
                                     </div>
                                 </div>
 
@@ -99,9 +93,10 @@
                                     <label for="bio">Tell us about yourself</label>
                                     <label for="bio">{{count}}/256</label>
                                 </div>
-                            </div> -->
+                            </div>
                             <button type="submit" class="btn btn-secondary"
-                                [disabled]="userform.invalid">Submit</button>
+                                [disabled]="!userform.valid"
+                                >Submit</button>
                             <!-- <div>{{userform.value | json}}</div> -->
                         </form>
                     </div>
@@ -110,95 +105,99 @@
         </div>
 
         <!-- account details -->
-        <!-- <div>
+        <div>
             <div class="formcenter">
                 <div>
                     <div class="card-body">
                         <h5 class="card-title">Account details</h5>
-                        <form [formGroup]="accountform" (ngSubmit)="accountsubmit()">
+                        <form #accounttemplateform="ngForm" (ngSubmit)="accountsubmit(accounttemplateform)">
                             <div class="form-group">
                                 <label for="username"
-                                    [ngStyle]="{'color': accountform.controls['username'].invalid && (accountform.controls['username'].dirty || accountform.controls['username'].touched) ? 'red' : 'black'}">Username*</label>
-                                <input type="text" class="form-control" name="username" formControlName="username"
-                                    [ngStyle]="{'border-color': accountform.controls['username'].invalid && (accountform.controls['username'].dirty || accountform.controls['username'].touched) ? 'red' : 'black'}">
+                                    [ngStyle]="{'color': username.invalid && (username.dirty || username.touched) ? 'red' : 'black'}">Username*</label>
+                                <input type="text" class="form-control" name="username" #username="ngModel" [(ngModel)]="accountform.username" required minlength="5" maxlength="16" pattern="[0-9A-Za-z]{6,16}"
+                                    [ngStyle]="{'border-color': username.invalid && (username.dirty || username.touched) ? 'red' : 'black'}">
                                 <div
-                                    *ngIf="accountform.controls['username'].invalid && (accountform.controls['username'].dirty || accountform.controls['username'].touched)">
+                                    *ngIf="username.invalid && (username.dirty || username.touched)">
                                     <div class="text-danger"
-                                        *ngIf="accountform.controls['username'].errors?.['required']">
+                                        *ngIf="username.errors?.['required']">
                                         User name is required.
                                     </div>
                                     <div class="text-danger"
-                                        *ngIf="accountform.controls['username'].errors?.['minlength']">
+                                        *ngIf="username.errors?.['minlength']">
                                         Username must be at least 5 characters long.
                                     </div>
                                     <div class="text-danger"
-                                        *ngIf="accountform.controls['username'].errors?.['pattern']">
+                                        *ngIf="username.errors?.['pattern']">
                                         Username must contain only number and letters
                                     </div>
                                 </div>
                             </div>
+
                             <div class="form-group">
                                 <label for="email"
-                                    [ngStyle]="{'color': accountform.controls['email'].invalid && (accountform.controls['email'].dirty || accountform.controls['email'].touched) ? 'red' : 'black'}">Email*</label>
-                                <input type="text" class="form-control" name="email" formControlName="email"
-                                    [ngStyle]="{'border-color': accountform.controls['email'].invalid && (accountform.controls['email'].dirty || accountform.controls['email'].touched) ? 'red' : 'black'}">
+                                    [ngStyle]="{'color': email.invalid && (email.dirty || email.touched) ? 'red' : 'black'}">Email*</label>
+                                <input type="text" class="form-control" name="email" #email="ngModel" [(ngModel)]="accountform.email" required
+                                    [ngStyle]="{'border-color': email.invalid && (email.dirty || email.touched) ? 'red' : 'black'}">
                                 <div
-                                    *ngIf="accountform.controls['email'].invalid && (accountform.controls['email'].dirty || accountform.controls['email'].touched)">
-                                    <div class="text-danger" *ngIf="accountform.controls['email'].errors?.['required']">
+                                    *ngIf="email.invalid && (email.dirty || email.touched)">
+                                    <div class="text-danger" *ngIf="email.errors?.['required']">
                                         Email is required.
                                     </div>
-                                    <div class="text-danger" *ngIf="accountform.controls['email'].errors?.['email']">
+                                    <div class="text-danger" *ngIf="email.errors?.['email']">
                                         Invalid format Email
                                     </div>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="password"
-                                    [ngStyle]="{'color': accountform.controls['password'].invalid && (accountform.controls['password'].dirty || accountform.controls['password'].touched) ? 'red' : 'black'}">Password*</label>
-                                <input type="password" class="form-control" name="password" formControlName="password"
-                                    [ngStyle]="{'border-color': accountform.controls['password'].invalid && (accountform.controls['password'].dirty || accountform.controls['password'].touched) ? 'red' : 'black'}">
+                                    [ngStyle]="{'color': password.invalid && (password.dirty || password.touched) ? 'red' : 'black'}">Password*</label>
+                                <input type="password" class="form-control" name="password" #password="ngModel" [(ngModel)]="accountform.password" required minlength="5" pattern="(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{3,}"
+                                    [ngStyle]="{'border-color': password.invalid && (password.dirty || password.touched) ? 'red' : 'black'}">
                                 <div
-                                    *ngIf="accountform.controls['password'].invalid && (accountform.controls['password'].dirty || accountform.controls['password'].touched)">
+                                    *ngIf="password.invalid && (password.dirty || password.touched)">
                                     <div class="text-danger"
-                                        *ngIf="accountform.controls['password'].errors?.['required']">
+                                        *ngIf="password.errors?.['required']">
                                         Password is required.
                                     </div>
                                     <div class="text-danger"
-                                        *ngIf="accountform.controls['password'].errors?.['minlength']">
+                                        *ngIf="password.errors?.['minlength']">
                                         Password must be at least 5 characters long.
                                     </div>
                                     <div class="text-danger"
-                                        *ngIf="accountform.controls['password'].errors?.['pattern']">
+                                        *ngIf="password.errors?.['pattern']">
                                         Your password must contain at least one uppercase, one lowercase, and one number
                                     </div>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="confirmpassword"
-                                    [ngStyle]="{'color': accountform.controls['confirmpassword'].invalid && (accountform.controls['confirmpassword'].dirty || accountform.controls['confirmpassword'].touched) ? 'red' : 'black'}">Confirm
+                                    [ngStyle]="{'color': confirmpassword.invalid && (confirmpassword.dirty || confirmpassword.touched) ? 'red' : 'black'}">Confirm
                                     Password*</label>
                                 <input type="password" class="form-control" name="confirmpassword"
-                                    formControlName="confirmpassword"
-                                    [ngStyle]="{'border-color': accountform.controls['confirmpassword'].invalid && (accountform.controls['confirmpassword'].dirty || accountform.controls['confirmpassword'].touched) ? 'red' : 'black'}">
+                                    #confirmpassword="ngModel" [(ngModel)]="accountform.confirmpassword"
+                                    [ngStyle]="{'border-color': confirmpassword.invalid && (confirmpassword.dirty || confirmpassword.touched) ? 'red' : 'black'}">
                                 <div class="text-danger"
-                                    *ngIf="accountform.errors?.['checkpass'] && (accountform.controls['confirmpassword'].touched || accountform.controls['confirmpassword'].dirty)">
+                                    *ngIf="!isMatch(accountform.password, accountform.confirmpassword) && (confirmpassword.touched || confirmpassword.dirty)">
                                     Password mismatch</div>
                             </div>
                             <div class="form-check">
                                 <input class="form-check-input" type="checkbox" id="gridCheck"
-                                    formControlName="checkbox">
+                                    #checkbox required>
                                 <label class="form-check-label" for="gridCheck">
                                     I accept terms and conditions
                                 </label>
-                                <div *ngIf="accountform.controls['checkbox'].errors?.['requiredTrue']"></div>
+                                <div class="text-danger" *ngIf="accountform.checkbox.invalid">
+                                    Agreeing to the terms and conditions is required.
+                                </div>
                             </div>
                             <button type="submit" class="btn btn-secondary"
-                                [disabled]="accountform.invalid">Submit</button>
+                            
+                                >Submit</button>
                         </form>
                     </div>
                 </div>
             </div>
-        </div> -->
+        </div>
 
     </div>
 </div>

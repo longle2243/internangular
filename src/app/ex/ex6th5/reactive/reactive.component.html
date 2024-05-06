@@ -101,7 +101,7 @@
                                 </div>
                             </div>
                             <button type="submit" class="btn btn-secondary"
-                                [disabled]="userform.invalid">Submit</button>
+                                [disabled]="!userform.valid">Submit</button>
                             <!-- <div>{{userform.value | json}}</div> -->
                         </form>
                     </div>
@@ -193,7 +193,7 @@
                                 <div *ngIf="accountform.controls['checkbox'].errors?.['requiredTrue']"></div>
                             </div>
                             <button type="submit" class="btn btn-secondary"
-                                [disabled]="accountform.invalid">Submit</button>
+                                [disabled]="!accountform.valid">Submit</button>
                         </form>
                     </div>
                 </div>
