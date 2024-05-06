@@ -15,6 +15,7 @@ import { FormgroupComponent } from './formgroup/formgroup.component';
 import { FormbuilderComponent } from './formbuilder/formbuilder.component';
 import { Day2Component } from './day2/day2.component';
 import { Day1RoutingModule } from './day1/day1-routing.module';
+import { Ex1Component } from './ex/ex1/ex1.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { Day1RoutingModule } from './day1/day1-routing.module';
     FormComponent,
     FormgroupComponent,
     FormbuilderComponent,
-    Day2Component
+    Day2Component,
+    Ex1Component
   ],
   imports: [
     BrowserModule,
