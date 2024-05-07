@@ -1,0 +1,26 @@
+<ul>
+    <li><a routerLink="1">Pipes</a></li>
+    <li><a routerLink="2">Animation</a></li>
+</ul>
+
+<button class="btn btn-secondary" (click)="toggleVisibility()"> Test Animation</button>
+
+<div style="display: block; width: 70%;" *ngIf="isVisible" [@fadeInOut]>
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Pipes</th>
+                <th scope="col">Animation</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <th scope="row">1</th>
+                <td>là tình năng angular cho phép định dạng format dữ liệu như: json, date, uppercase,.. </td>
+                <td>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

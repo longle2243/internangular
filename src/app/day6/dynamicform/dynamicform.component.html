@@ -1,12 +1,37 @@
-<div [formGroup]="form">
+<!-- <div [formGroup]="form">
     <button (click)="addItem()">Add</button>
     <div formArrayName="items">
         <div *ngFor="let item of items.controls; let i = index" [formGroupName]="i">
             <input type="text" formControlName="name">
-            <!-- <input type="text" formControlName="age"> -->
             <button (click)="deleteItems(i)">Delete</button>
         </div>
     </div>
-</div>
+</div> -->
 
-{{form.value | json}}
+<div class="dynamic">
+    <form [formGroup]="profile" (ngSubmit)="onSubmit()">
+        <div>
+            <div style="display: flex; flex-direction: column; margin: auto;">
+                <h5>FirstName</h5>
+                <input type="text" name="firstname" formControlName="firstname">
+            </div>
+            <div
+                *ngIf="profile.controls['firstname'].invalid && (profile.controls['firstname'].touched || profile.controls['firstname'].dirty)">
+                <span class="text-danger" *ngIf="profile.controls['firstname'].errors?.['required']">First name is required</span>
+            </div>
+        </div>
+        <button class="btn btn-secondary" (click)="addEmail()">More Email</button>
+        <div>
+            <div formArrayName="emails" *ngFor="let e of getControls(); let i = index">
+                <div>
+                    <input type="text" name="{{i}}" formControlName="{{i}}">
+                    <button class="btn btn-danger" (click)="removeEmail(i)">Remove</button>
+                </div>
+                <div *ngIf="e.invalid && (e.touched || e.dirty)">
+                    <span class="text-danger" *ngIf="e.errors?.['required']">Email is required</span>
+                </div>
+            </div>
+        </div>
+        <button class="btn btn-success" type="submit" [disabled]="!profile.valid">SUBMIT</button>
+    </form>
+</div>
