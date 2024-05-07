@@ -181,13 +181,15 @@
                                     Password mismatch</div>
                             </div>
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox" id="gridCheck"
-                                    #checkbox required>
+                                <input class="form-check-input" type="checkbox" id="gridCheck" name="check"
+                                    #check [(ngModel)]="accountform.check" required>
                                 <label class="form-check-label" for="gridCheck">
                                     I accept terms and conditions
                                 </label>
-                                <div class="text-danger" *ngIf="accountform.checkbox.invalid">
-                                    Agreeing to the terms and conditions is required.
+                                <div class="text-danger" *ngIf="accountform.check.invalid">
+                                    <div *ngIf="check">
+                                        Agreeing to the terms and conditions is required.
+                                    </div>
                                 </div>
                             </div>
                             <button type="submit" class="btn btn-secondary"

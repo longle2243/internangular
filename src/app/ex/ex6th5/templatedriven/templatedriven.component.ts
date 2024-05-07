@@ -22,7 +22,7 @@ export class TemplatedrivenComponent {
     email: "",
     password: "",
     confirmpassword: "",
-    checkbox: "",
+    check: false,
   }
 
   countrylist = [
@@ -36,7 +36,7 @@ export class TemplatedrivenComponent {
   ]
 
   usersubmit(form: NgForm) {
-    console.log(form.controls);
+    // console.log(form.controls);
     if(form.valid){
       console.log("OK");
       alert("User valid")
@@ -44,7 +44,7 @@ export class TemplatedrivenComponent {
   }
 
   accountsubmit(form: NgForm) {
-    console.log(form.controls);
+    // console.log(form.controls);
     if(form.valid){
       console.log("OK");
       alert("Account valid")
