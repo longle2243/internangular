@@ -95,7 +95,7 @@
                                 </div>
                             </div>
                             <button type="submit" class="btn btn-secondary"
-                                [disabled]="!userform.valid"
+                                [disabled]="!usertemplateform.valid"
                                 >Submit</button>
                             <!-- <div>{{userform.value | json}}</div> -->
                         </form>
@@ -136,7 +136,7 @@
                             <div class="form-group">
                                 <label for="email"
                                     [ngStyle]="{'color': email.invalid && (email.dirty || email.touched) ? 'red' : 'black'}">Email*</label>
-                                <input type="text" class="form-control" name="email" #email="ngModel" [(ngModel)]="accountform.email" required
+                                <input type="email" class="form-control" name="email" #email="ngModel" [(ngModel)]="accountform.email" required
                                     [ngStyle]="{'border-color': email.invalid && (email.dirty || email.touched) ? 'red' : 'black'}">
                                 <div
                                     *ngIf="email.invalid && (email.dirty || email.touched)">
@@ -191,7 +191,7 @@
                                 </div>
                             </div>
                             <button type="submit" class="btn btn-secondary"
-                            
+                                [disabled]="!accounttemplateform.valid"
                                 >Submit</button>
                         </form>
                     </div>

@@ -39,7 +39,7 @@ export class TemplatedrivenComponent {
     console.log(form.controls);
     if(form.valid){
       console.log("OK");
-      
+      alert("User valid")
     }
   }
 
@@ -47,6 +47,7 @@ export class TemplatedrivenComponent {
     console.log(form.controls);
     if(form.valid){
       console.log("OK");
+      alert("Account valid")
     }
   }
 
