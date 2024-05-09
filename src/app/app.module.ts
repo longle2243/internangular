@@ -21,6 +21,9 @@ import { HttpClientModule } from '@angular/common/http';
 import { Day3Component } from './day3/day3.component';
 import { Day4Component } from './day4/day4.component';
 import { Day5Component } from './day5/day5.component';
+import { NgxIntlTelInputModule } from 'ngx-intl-tel-input-gg';
+import { MatSelectCountryModule } from '@angular-material-extensions/select-country';
+// import { Ng2TelInputModule } from 'ng2-tel-input';
 
 @NgModule({
   declarations: [
@@ -45,7 +48,10 @@ import { Day5Component } from './day5/day5.component';
     AppRoutingModule,
     BrowserAnimationsModule,
     ReactiveFormsModule,
-    Day1RoutingModule
+    Day1RoutingModule,
+    // Ng2TelInputModule
+    NgxIntlTelInputModule,
+    MatSelectCountryModule
   ],
   providers: [
     provideClientHydration(),

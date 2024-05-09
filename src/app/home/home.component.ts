@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { CountryISO, SearchCountryField, PhoneNumberFormat } from 'ngx-intl-tel-input-gg';
 
 @Component({
   selector: 'app-home',
@@ -20,4 +21,8 @@ export class HomeComponent {
     'background-color': 'lightgreen',
     'color': 'white'
   };
+
+  CountryISO = CountryISO;
+  SearchCountryField = SearchCountryField;
+  PhoneNumberFormat = PhoneNumberFormat;
 }

@@ -9,7 +9,7 @@ import { Ex6th5Component } from './ex6th5/ex6th5.component';
 @NgModule({
   declarations: [
     ExComponent,
-    Ex6th5Component
+    Ex6th5Component,
   ],
   imports: [
     CommonModule,

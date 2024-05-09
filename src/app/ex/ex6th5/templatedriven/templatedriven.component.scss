@@ -1,3 +1,47 @@
+.flexrow{
+    display: flex;
+    flex-direction: row;
+}
+
+.flexrowbetween{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 85%;
+}
+
+.flexcolumn{
+    display: flex;
+    flex-direction: column;
+}
+
+.profile1 {
+    margin-top: 30px;
+    width: 20%;
+    text-align: center;
+    div{
+        margin: auto;
+        display: block;
+
+        img{
+            width: 130px;
+            border-radius: 50%;
+        }
+
+        h5{
+            width: 70%;
+            margin: auto;
+            margin-top: 10px;
+        }
+
+        p{
+            width: 50%;
+            margin: auto;
+            margin-top: 10px;
+        }
+    }
+}
+
 .form-control {
     border-width: 0;
     border-bottom: 1px solid black;
@@ -27,15 +71,15 @@
     }
 }
 
-.profile1 {
-    margin-top: 30px;
-}
-
-.img-thumbnail {
-    border-radius: 50%;
-}
-
-
 .form-control.error {
+    border-color: red;
+}
+
+// VALIDATE
+.invalid-label {
+    color: red;
+}
+
+.invalid-input {
     border-color: red;
 }

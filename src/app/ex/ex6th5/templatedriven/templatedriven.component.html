@@ -1,205 +1,143 @@
-<div style="width: 99%; background-color: white;">
-    <div style="display: flex; flex-direction: row;">
-        <!-- profile -->
-        <div style="width: 20%; text-align: center;" class="profile1">
-            <div style="display: flex; flex-direction: column;">
-                <div style="width: 130px; display: block; margin: auto;"><img src="./assets/avatar.png"
-                        class="img-thumbnail" alt="...">
+<div>
+    <div class="flexrow">
+        <!-- PROFILE -->
+        <div class="profile1">
+            <div class="flexcolumn">
+                <div>
+                    <img src="./assets/avatar.png" class="img-thumbnail" alt="...">
                 </div>
-                <div style="margin-top: 10px;">
-                    <h5 style="width: 70%; margin: auto; margin-top: 10px;">Homero Simpson</h5>
-                    <p style="width: 50%; margin: auto; margin-top: 10px;">Lorem Ipsum is simply dummy text of the
-                        printing and typesetting industry. Lorem Ipsum has been
-                        the
+                <div>
+                    <h5>Homero Simpson</h5>
+                    <p>Lorem Ipsum is simply dummy text of the
+                        printing and typesetting industry. Lorem Ipsum has been the
                         industry's standard dummy text ever since the 1500s</p>
                 </div>
             </div>
         </div>
-        <!-- user details -->
-        <div>
-            <div class="formcenter">
-                <div>
-                    <div class="card-body">
-                        <h5 class="card-title">User details</h5>
-                        <form #usertemplateform="ngForm" (ngSubmit)="usersubmit(usertemplateform)">
-                            <div class="form-group">
-                                <label for="fullname" [ngStyle]="{'color': fullname.invalid && (fullname.dirty || fullname.touched) ? 'red' : 'black'}">Full Name*</label>
-                                <input type="text" class="form-control" name="fullname" #fullname="ngModel"
-                                    [(ngModel)]="userform.fullname" required [ngStyle]="{'color': fullname.invalid && (fullname.dirty || fullname.touched) ? 'red' : 'black'}">
-                                <div *ngIf="fullname.invalid && (fullname.dirty || fullname.touched)">
-                                    <div class="text-danger" *ngIf="fullname.errors?.['required']">
-                                        Full name is required.
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="birthday" [ngStyle]="{'color': birthday.invalid && (birthday.dirty || birthday.touched) ? 'red' : 'black'}">
-                                    Your birthday*</label>
-                                <input type="date" class="form-control" name="birthday" #birthday="ngModel"
-                                    [(ngModel)]="userform.birthday" required
-                                    [ngStyle]="{'border-color': birthday.invalid && (birthday.dirty || birthday.touched) ? 'red' : 'black'}">
-                                <div *ngIf="birthday.invalid && (birthday.dirty || birthday.touched)">
-                                    <div class="text-danger" *ngIf="birthday.errors?.['required']">
-                                        Birthday is required.
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="gender">Gender</label>
-                                <select id="country" class="form-control" name="gender" #gender="ngModel" [(ngModel)]="userform.gender">
-                                    <option *ngFor=" let g of genderlist" [ngValue]="g">{{g}}</option>
-                                </select>
-                            </div>
 
-                            <div class="row">
-                                <div class="form-group country">
-                                    <label for="country">Country</label>
-                                    <select id="country" class="form-control" name="country" #country="ngModel" [(ngModel)]="userform.country">
-                                        <option *ngFor=" let ct of countrylist" [ngValue]="ct.name" >{{ct.name}}</option>
-                                    </select>
-                                </div>
-
-                                <div class="form-group phone col">
-                                    <label for="phone"
-                                        [ngStyle]="{'color': phone.invalid && (phone.dirty || phone.touched) ? 'red' : 'black'}">Phone*</label>
-                                    <input type="text" class="form-control" name="phone" #phone="ngModel" [(ngModel)]="userform.phone" required pattern="[0-9]*"
-                                        [ngStyle]="{'border-color': phone.invalid && (phone.dirty || phone.touched) ? 'red' : 'black'}">
-                                    <div *ngIf="phone.invalid && (phone.dirty || phone.touched)">
-                                        <div class="text-danger"
-                                            *ngIf="phone.errors?.['required']">
-                                            Phone is required.
-                                        </div>
-                                        <div class="text-danger" *ngIf="phone.errors?.['pattern']">
-                                            Only number
-                                        </div>
-                                    </div>
-                                    <div class="text-danger"
-                                        *ngIf="!isInternationalPhone(userform.country, userform.phone) && (phone.dirty || phone.touched)">
-                                        Phone incorrect for the selected country
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="bio">Bio</label>
-                                <input type="text" class="form-control" name="bio" #bio="ngModel" [(ngModel)]="userform.bio" maxlength="256"
-                                    (input)="countChar($event)">
-                                <div *ngIf="bio.invalid && (bio.dirty || bio.touched)">
-                                    <div class="text-danger" *ngIf="bio.errors?.['maxlength']">
-                                        bio cannot exceed 256 characters.
-                                    </div>
-                                </div>
-
-                                <div style="display: flex; text-decoration: row; justify-content: space-between;">
-                                    <label for="bio">Tell us about yourself</label>
-                                    <label for="bio">{{count}}/256</label>
-                                </div>
-                            </div>
-                            <button type="submit" class="btn btn-secondary"
-                                [disabled]="!usertemplateform.valid"
-                                >Submit</button>
-                            <!-- <div>{{userform.value | json}}</div> -->
-                        </form>
+        
+        <!-- USER DETAILS -->
+        <div class="formcenter">
+            <div class="card-body">
+                <h5 class="card-title">User details</h5>
+                <form #usertemplateform="ngForm" (ngSubmit)="usersubmit(usertemplateform)">
+                    <div class="form-group">
+                        <label for="fullname" [class.invalid-label]="isInValidandTouched(fullname)">Full Name*</label>
+                        <input type="text" class="form-control" name="fullname" required #fullname="ngModel"
+                            [(ngModel)]="userform.fullname" [class.invalid-input]="isInValidandTouched(fullname)">
+                        <app-showerrortemplate [model]="fullname" />
                     </div>
-                </div>
+
+                    <div class="form-group">
+                        <label for="birthday" [class.invalid-label]="isInValidandTouched(birthday)">
+                            Your birthday*</label>
+                        <input type="date" class="form-control" name="birthday" required #birthday="ngModel"
+                            [(ngModel)]="userform.birthday" [class.invalid-input]="isInValidandTouched(birthday)">
+                        <app-showerrortemplate [model]="birthday" />
+                        <div class="text-danger" *ngIf="isUnder13Yd(birthday)">
+                            You must be at least 13 years old
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="gender">Gender</label>
+                        <select id="country" class="form-control" name="gender" [(ngModel)]="userform.gender">
+                            <option *ngFor=" let g of genderlist" [ngValue]="g">{{g}}</option>
+                        </select>
+                    </div>
+
+                    <div class="flexrow">
+                        <div class="form-group country">
+                            <label for="country">Country</label>
+                            <select id="country" class="form-control" name="country" #country="ngModel"
+                                [(ngModel)]="userform.country">
+                                <option *ngFor=" let ct of countrylist" [ngValue]="ct.name">{{ct.name}}</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group phone col">
+                            <label for="phone" [class.invalid-label]="isInValidandTouched(phone)">Phone*</label>
+                            <input type="text" class="form-control" name="phone" #phone="ngModel"
+                                [(ngModel)]="userform.phone" required pattern="[0-9]*"
+                                [class.invalid-input]="isInValidandTouched(phone)">
+                            <app-showerrortemplate [model]="phone" />
+                            <div *ngIf="isInValidandTouched(phone)">
+                                <div class="text-danger" *ngIf="!isItnlPhone(userform.country, userform.phone)">
+                                    Phone incorrect for the selected country
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="bio">Bio</label>
+                        <input type="text" class="form-control" name="bio" #bio="ngModel" [(ngModel)]="userform.bio"
+                            maxlength="256">
+                        <app-showerrortemplate [model]="bio" />
+
+                        <div class="flexrowbetween">
+                            <label for="bio">Tell us about yourself</label>
+                            <label for="bio">{{ userform.bio.length }}/256</label>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-secondary">Submit</button>
+                </form>
             </div>
         </div>
 
-        <!-- account details -->
-        <div>
-            <div class="formcenter">
-                <div>
-                    <div class="card-body">
-                        <h5 class="card-title">Account details</h5>
-                        <form #accounttemplateform="ngForm" (ngSubmit)="accountsubmit(accounttemplateform)">
-                            <div class="form-group">
-                                <label for="username"
-                                    [ngStyle]="{'color': username.invalid && (username.dirty || username.touched) ? 'red' : 'black'}">Username*</label>
-                                <input type="text" class="form-control" name="username" #username="ngModel" [(ngModel)]="accountform.username" required minlength="5" maxlength="16" pattern="[0-9A-Za-z]{6,16}"
-                                    [ngStyle]="{'border-color': username.invalid && (username.dirty || username.touched) ? 'red' : 'black'}">
-                                <div
-                                    *ngIf="username.invalid && (username.dirty || username.touched)">
-                                    <div class="text-danger"
-                                        *ngIf="username.errors?.['required']">
-                                        User name is required.
-                                    </div>
-                                    <div class="text-danger"
-                                        *ngIf="username.errors?.['minlength']">
-                                        Username must be at least 5 characters long.
-                                    </div>
-                                    <div class="text-danger"
-                                        *ngIf="username.errors?.['pattern']">
-                                        Username must contain only number and letters
-                                    </div>
-                                </div>
-                            </div>
 
-                            <div class="form-group">
-                                <label for="email"
-                                    [ngStyle]="{'color': email.invalid && (email.dirty || email.touched) ? 'red' : 'black'}">Email*</label>
-                                <input type="email" class="form-control" name="email" #email="ngModel" [(ngModel)]="accountform.email" required
-                                    [ngStyle]="{'border-color': email.invalid && (email.dirty || email.touched) ? 'red' : 'black'}">
-                                <div
-                                    *ngIf="email.invalid && (email.dirty || email.touched)">
-                                    <div class="text-danger" *ngIf="email.errors?.['required']">
-                                        Email is required.
-                                    </div>
-                                    <div class="text-danger" *ngIf="email.errors?.['email']">
-                                        Invalid format Email
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="password"
-                                    [ngStyle]="{'color': password.invalid && (password.dirty || password.touched) ? 'red' : 'black'}">Password*</label>
-                                <input type="password" class="form-control" name="password" #password="ngModel" [(ngModel)]="accountform.password" required minlength="5" pattern="(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{3,}"
-                                    [ngStyle]="{'border-color': password.invalid && (password.dirty || password.touched) ? 'red' : 'black'}">
-                                <div
-                                    *ngIf="password.invalid && (password.dirty || password.touched)">
-                                    <div class="text-danger"
-                                        *ngIf="password.errors?.['required']">
-                                        Password is required.
-                                    </div>
-                                    <div class="text-danger"
-                                        *ngIf="password.errors?.['minlength']">
-                                        Password must be at least 5 characters long.
-                                    </div>
-                                    <div class="text-danger"
-                                        *ngIf="password.errors?.['pattern']">
-                                        Your password must contain at least one uppercase, one lowercase, and one number
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="confirmpassword"
-                                    [ngStyle]="{'color': confirmpassword.invalid && (confirmpassword.dirty || confirmpassword.touched) ? 'red' : 'black'}">Confirm
-                                    Password*</label>
-                                <input type="password" class="form-control" name="confirmpassword"
-                                    #confirmpassword="ngModel" [(ngModel)]="accountform.confirmpassword"
-                                    [ngStyle]="{'border-color': confirmpassword.invalid && (confirmpassword.dirty || confirmpassword.touched) ? 'red' : 'black'}">
-                                <div class="text-danger"
-                                    *ngIf="!isMatch(accountform.password, accountform.confirmpassword) && (confirmpassword.touched || confirmpassword.dirty)">
-                                    Password mismatch</div>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" id="gridCheck" name="check"
-                                    #check [(ngModel)]="accountform.check" required>
-                                <label class="form-check-label" for="gridCheck">
-                                    I accept terms and conditions
-                                </label>
-                                <div class="text-danger" *ngIf="accountform.check.invalid">
-                                    <div *ngIf="check">
-                                        Agreeing to the terms and conditions is required.
-                                    </div>
-                                </div>
-                            </div>
-                            <button type="submit" class="btn btn-secondary"
-                                [disabled]="!accounttemplateform.valid"
-                                >Submit</button>
-                        </form>
+        <!-- ACCOUNT DETAILS -->
+        <div class="formcenter">
+            <div class="card-body">
+                <h5 class="card-title">Account details</h5>
+                <form #accounttemplateform="ngForm" (ngSubmit)="accountsubmit(accounttemplateform)">
+                    <div class="form-group">
+                        <label for="username" [class.invalid-label]="isInValidandTouched(username)">Username*</label>
+                        <input type="text" class="form-control" name="username" #username="ngModel" required
+                            minlength="5" maxlength="16" pattern="(?=.*[a-z])(?=.*\d).{2,}"
+                            [(ngModel)]="accountform.username" [class.invalid-input]="isInValidandTouched(username)">
+                        <app-showerrortemplate [model]="username" />
                     </div>
-                </div>
+
+                    <div class="form-group">
+                        <label for="email" [class.invalid-label]="isInValidandTouched(email)">Email*</label>
+                        <input type="email" class="form-control" name="email" #email="ngModel" required
+                            [(ngModel)]="accountform.email" [class.invalid-input]="isInValidandTouched(email)">
+                        <app-showerrortemplate [model]="email" />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="password" [class.invalid-label]="isInValidandTouched(password)">Password*</label>
+                        <input type="password" class="form-control" name="password" #password="ngModel" required
+                            minlength="5" pattern="(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{3,}"
+                            [(ngModel)]="accountform.password" [class.invalid-input]="isInValidandTouched(password)">
+                        <app-showerrortemplate [model]="password" />
+                    </div>
+                    <div class="form-group">
+                        <label for="confirmpassword"
+                            [class.invalid-label]="isInValidandTouched(confirmpassword)">
+                            Confirm Password*</label>
+                        <input type="password" class="form-control" name="confirmpassword" #confirmpassword="ngModel"
+                            [(ngModel)]="accountform.confirmpassword"
+                            [class.invalid-input]="isInValidandTouched(confirmpassword)">
+                        <div class="text-danger"
+                            *ngIf="isNotMatch(accountform.password, accountform.confirmpassword) && isInValidandTouched(confirmpassword)">
+                            Password mismatch</div>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="gridCheck" name="check" #check
+                            [(ngModel)]="accountform.check" required>
+                        <label class="form-check-label" for="gridCheck">
+                            I accept terms and conditions
+                        </label>
+                        <div class="text-danger" *ngIf="accountform.check.invalid">
+                            <div *ngIf="check">
+                                Agreeing to the terms and conditions is required.
+                            </div>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-secondary">Submit</button>
+                </form>
             </div>
         </div>
-
     </div>
 </div>

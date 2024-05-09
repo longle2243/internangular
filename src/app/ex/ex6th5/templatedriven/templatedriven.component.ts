@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NgForm } from '@angular/forms';
+import { NgForm, NgModel } from '@angular/forms';
 
 @Component({
   selector: 'app-templatedriven',
@@ -36,7 +36,7 @@ export class TemplatedrivenComponent {
   ]
 
   usersubmit(form: NgForm) {
-    // console.log(form.controls);
+    form.form.markAllAsTouched();
     if(form.valid){
       console.log("OK");
       alert("User valid")
@@ -44,25 +44,34 @@ export class TemplatedrivenComponent {
   }
 
   accountsubmit(form: NgForm) {
-    // console.log(form.controls);
+    form.form.markAllAsTouched();
     if(form.valid){
       console.log("OK");
       alert("Account valid")
     }
   }
 
-  count = 0;
-  countChar(event: any ){
-    this.count =(event.target as HTMLInputElement).value.length;
-  }
-
-  isInternationalPhone(country: any, phone: string) : boolean{
+  isItnlPhone(country: any, phone: any) : boolean{
     const selectcounry = this.countrylist.find(c => c.name === country);
     const firstTwoDigits = phone.substring(0,2);
     return selectcounry?.phone == firstTwoDigits;
   }
 
-  isMatch(password: string, confirm: string): boolean{
-    return password === confirm;
+  isNotMatch(password: string, confirm: string): boolean{
+    return password !== confirm;
+  }
+
+  isInValidandTouched(model: NgModel) {
+    return model.invalid && (model.dirty || model.touched);
+  }
+  isTouchedandDirty(model: NgModel) {
+    return model.invalid && (model.dirty || model.touched);
+  }
+
+  isUnder13Yd(model: NgModel): boolean {
+    const birthday = new Date(model.value);
+    const today = new Date();
+    const age = today.getFullYear() - birthday.getFullYear();
+    return age < 13
   }
 }
