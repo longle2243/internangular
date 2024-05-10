@@ -11,6 +11,7 @@ import { NgxIntlTelInputModule } from 'ngx-intl-tel-input-gg';
 import { MatSelectCountryModule } from '@angular-material-extensions/select-country';
 import { PopupComponent } from './popup/popup.component';
 import { ShowerrortemplateComponent } from './common/showerrortemplate/showerrortemplate.component';
+import { NgxCountriesDropdownModule } from 'ngx-countries-dropdown';
 // import { NgxIntlTelInputModule } from '@khazii/ngx-intl-tel-input';
 // import { Ng2TelInputModule } from 'ng2-tel-input';
 
@@ -31,7 +32,8 @@ import { ShowerrortemplateComponent } from './common/showerrortemplate/showerror
     FormsModule,
     // Ng2TelInputModule,
     NgxIntlTelInputModule,
-    MatSelectCountryModule
+    MatSelectCountryModule,
+    NgxCountriesDropdownModule
   ]
 })
 export class Ex6th5Module { }

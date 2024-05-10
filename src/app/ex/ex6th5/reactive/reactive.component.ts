@@ -1,18 +1,22 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
-import { log } from 'console';
 import { CountryISO, SearchCountryField, PhoneNumberFormat } from 'ngx-intl-tel-input-gg';
 import { PhoneNumberUtil, PhoneNumber } from 'google-libphonenumber';
-// import * as i18nIsoCountries from 'i18n-iso-countries-regions';
-// const countryNames = i18nIsoCountries.getNames('en');
-// console.log(countryNames);
-import { MatSelectCountryModule } from "@angular-material-extensions/select-country"; 
+
+import { HttpClient } from '@angular/common/http';
+interface Countries {
+  name: string;
+  dial_code: string;
+  code: string;
+}
+
 @Component({
   selector: 'app-reactive',
   templateUrl: './reactive.component.html',
   styleUrl: './reactive.component.scss'
 })
-export class ReactiveComponent {
+
+export class ReactiveComponent implements OnInit {
   userform: FormGroup;
   accountform: FormGroup;
   CountryISO = CountryISO;
@@ -21,24 +25,31 @@ export class ReactiveComponent {
   isPopupOpen = false;
   popupImageSrc = '';
 
-  countrylist = [
-    { name: 'New York', phone: '01' },
-    { name: 'Viet nam', phone: '84' },
-  ]
+  // countrylist = [
+  //   { name: 'New York', phone: '01' },
+  //   { name: 'Viet nam', phone: '84' },
+  // ]
   genderlist = [
     "Male",
     "Female"
   ]
 
-  constructor() {
+  countries: any;
+
+  fetchData() {
+    this.http.get<Countries>('assets/countrycode.json').subscribe(data => {
+      this.countries = data;
+    });
+  }
+  constructor(private http: HttpClient) {
     this.userform = new FormGroup({
       fullname: new FormControl("", [Validators.required, Validators.minLength(5), this.isWhiteSpace]),
       birthday: new FormControl("", [Validators.required, this.isUnder13YearOld]),
       gender: new FormControl(this.genderlist[0], [Validators.required]),
-      country: new FormControl(this.countrylist[0].name, [Validators.required]),
+      country: new FormControl("VN", [Validators.required]),
       phone: new FormControl("", [Validators.required, Validators.pattern(/^[0-9]*$/)]),
       bio: new FormControl("", [Validators.maxLength(256)])
-    }, { validators: this.isInValidIntlPhone }),
+    }, { validators: this.isValidIntlPhone }),
 
       this.accountform = new FormGroup({
         username: new FormControl("", [Validators.required, Validators.minLength(5), Validators.pattern(/^(?=.*[a-z])(?=.*\d).{2,}$/), this.isWhiteSpace]),
@@ -48,20 +59,25 @@ export class ReactiveComponent {
         checkbox: new FormControl(false, Validators.requiredTrue)
       }, { validators: this.isPassNotMatch })
   }
+  ngOnInit(): void {
+    this.fetchData();
+    // console.log(this.countries);
+  }
 
-  isInValidIntlPhone: ValidatorFn = (control: AbstractControl): ValidationErrors | null => {
+  isValidIntlPhone: ValidatorFn = (control: AbstractControl): ValidationErrors | null => {
     const phone = control.get('phone');
-    const country = control.get('country');
-    const selectcounry = this.countrylist.find(ct => ct.name === country?.value);
-
+    const countryCode = control.get('country')
     const phoneUtil: PhoneNumberUtil = PhoneNumberUtil.getInstance();
-    const number = phoneUtil.parseAndKeepRawInput('202-456-1414', 'VN');
-
-    // console.log(number.getCountryCode());
-    // console.log(phoneUtil.getSupportedRegions());
-    // console.log(i18nIsoCountries);
-    
-    return phone?.value.substr(0, 2) != selectcounry?.phone ? { itnlphone: true } : null;
+    if (phone?.value.length > 1) {
+      const numberPhone = phoneUtil.parse(phone?.value, countryCode?.value)
+      const validIntlPhone = phoneUtil.isValidNumberForRegion(numberPhone, countryCode?.value);
+      // console.log(validIntlPhone);
+      const number = phoneUtil.parseAndKeepRawInput(phone?.value, countryCode?.value);
+      console.log(phoneUtil.getRegionCodeForNumber(number));
+      
+      return validIntlPhone ? { itnlphone: true } : null;
+    }
+    return null
   }
 
   isPassNotMatch: ValidatorFn = (control: AbstractControl): ValidationErrors | null => {
@@ -88,6 +104,10 @@ export class ReactiveComponent {
   }
 
   usersubmit() {
+    for (let c of this.countries) {
+      // console.log(c);
+    }
+
     this.userform.markAllAsTouched();
     if (this.userform.valid) {
       alert("USER VALID")

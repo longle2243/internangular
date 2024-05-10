@@ -51,7 +51,7 @@
                         <div class="form-group country">
                             <label for="country">Country</label>
                             <select id="country" class="form-control" formControlName="country">
-                                <option *ngFor=" let ct of countrylist" [ngValue]="ct.name">{{ct.name}}</option>
+                                <option *ngFor=" let ct of countries" [ngValue]="ct.code">{{ct.name +"  :  "+ct.dial_code}}</option>
                             </select>
                         </div>
                         <div class="form-group phone col">
@@ -60,6 +60,11 @@
                             <input type="text" class="form-control" name="phone" formControlName="phone"
                                 [class.invalid-input]="isInValidandTouched(userform, 'phone')">
                             <app-showerror [form]="userform" [controlname]="'phone'" />
+                            <div>
+                                <div class="text-danger" *ngIf="!userform.errors?.['itnlphone'] &&(userform.controls['phone'].touched || userform.controls['phone'].dirty)">
+                                    Phone incorrect for the selected country
+                                </div>
+                            </div>
                         </div>
                     </div>
 

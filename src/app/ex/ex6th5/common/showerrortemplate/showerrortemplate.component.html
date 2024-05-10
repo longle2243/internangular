@@ -20,9 +20,9 @@
         <div class="text-danger" *ngIf="model.errors?.['pattern']">
             {{model.name}} Only number
         </div>
-        <div class="text-danger" *ngIf="model.errors?.['itnlphone']">
+        <!-- <div class="text-danger" *ngIf="model.errors?.['itnlphone']">
             Phone incorrect for the selected country
-        </div>
+        </div> -->
     </div>
     <div class="text-danger" *ngIf="model.name=='username' && model.errors?.['pattern']">
         {{model.name}} must contain only number and letters
