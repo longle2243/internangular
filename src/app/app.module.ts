@@ -23,6 +23,7 @@ import { Day4Component } from './day4/day4.component';
 import { Day5Component } from './day5/day5.component';
 import { NgxIntlTelInputModule } from 'ngx-intl-tel-input-gg';
 import { MatSelectCountryModule } from '@angular-material-extensions/select-country';
+import { DynamicformComponent } from './exercises/9th5/dynamicform/dynamicform.component';
 // import { Ng2TelInputModule } from 'ng2-tel-input';
 
 @NgModule({
@@ -41,7 +42,8 @@ import { MatSelectCountryModule } from '@angular-material-extensions/select-coun
     Day7Component,
     Day3Component,
     Day4Component,
-    Day5Component
+    Day5Component,
+    DynamicformComponent
   ],
   imports: [
     BrowserModule,

@@ -6,13 +6,15 @@ import { QuestionComponent } from './question/question.component';
 import { AddressComponent } from './address/address.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ListquestionComponent } from './listquestion/listquestion.component';
+import { ExamComponent } from './exam/exam.component';
 
 
 @NgModule({
   declarations: [
     QuestionComponent,
     AddressComponent,
-    ListquestionComponent
+    ListquestionComponent,
+    ExamComponent
   ],
   imports: [
     CommonModule,

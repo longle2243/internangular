@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { HomeComponent } from './home/home.component';
+import { HomeComponent } from './modules/exercises/home/home.component';
 import { Day2Component } from './day2/day2.component';
 import { Day1Component } from './day1/day1.component';
 import { Day6Component } from './day6/day6.component';
@@ -28,6 +28,9 @@ const routes: Routes = [
 
   {path: 'ex1', component: Ex1Component},
   {path: 'ex', component: ExComponent},
+
+  {path: 'exercises', component: HomeComponent},
+  {path: 'exercises', loadChildren: () => import('./modules/exercises/exercises.module').then(m => m.ExercisesModule)}
 ];
 
 @NgModule({
