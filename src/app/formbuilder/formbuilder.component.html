@@ -1,9 +1,0 @@
-<p>formbuilder works!</p>
-<form [formGroup]="formbuilder" (ngSubmit)="onSubmit()">
-    <h5>first name</h5>
-    <input type="text" formControlName="firstname">
-    <h5>last name</h5>
-    <input type="text" formControlName="lastname">
-    <p>{{formbuilder.status}}</p>
-    <button type="submit" [disabled]="!formbuilder.valid">OK</button>
-</form>
