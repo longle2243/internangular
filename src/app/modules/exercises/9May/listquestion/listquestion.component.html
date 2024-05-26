@@ -1,0 +1,26 @@
+<div>
+  <nav class="nav">
+    <a routerLink="/exercises/9may/question" class="btn btn-success">Create</a>
+  </nav>
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Subject</th>
+        <th scope="col">Difficulty</th>
+        <th scope="col">Content</th>
+        <th scope="col">Detail</th>
+
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let question of questions; let i = index;">
+        <th scope="row">{{i+1}}</th>
+        <td>{{question.subject}}</td>
+        <td>{{question.difficulty}}</td>
+        <td>{{question.content}}</td>
+        <td><a  class="btn btn-secondary" [routerLink]="question.id">Detail</a></td>
+      </tr>
+    </tbody>
+  </table>
+</div>

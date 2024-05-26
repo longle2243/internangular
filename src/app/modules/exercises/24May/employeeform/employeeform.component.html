@@ -1,0 +1,23 @@
+<div>
+    <form [formGroup]="employee" (ngSubmit)="onSubmit()">
+        <app-userform [user]="employee" />
+        <div>
+            <div>
+                <label>Employee ID:</label>
+                <input formControlName="empID" />
+            </div>
+            <div>
+                <label>Position:</label>
+                <input formControlName="position" />
+            </div>
+            <div>
+                <label>Role:</label>
+                <input formControlName="role" />
+            </div>
+        </div>
+
+        <div>
+            <button class="btn btn-primary" type="submit">SUBMIT</button>
+        </div>
+    </form>
+</div>

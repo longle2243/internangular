@@ -9,7 +9,7 @@
                     <label for="question">Question: {{i+1}}</label>
                     <input type="text" class="form-control" formControlName="question" placeholder="What eat for lunch?">
                     <div formArrayName="answers" *ngFor="let answer of getAnswers(i).controls; let j =index">
-                        <div class="flexcolumn" [formGroupName]="j">
+                        <div class="flexcolumn" [formGroupName]="j">    
                             <div>
                                 <label for="answer">Answer: {{j+1}}</label>
                             </div>

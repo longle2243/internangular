@@ -42,7 +42,7 @@
                     <div class="form-group">
                         <label for="gender">Gender</label>
                         <select id="country" class="form-control" name="gender" [(ngModel)]="userform.gender">
-                            <option *ngFor=" let g of genderlist" [ngValue]="g">{{g}}</option>
+                            <option *ngFor=" let g of genderlist" [value]="g">{{g}}</option>
                         </select>
                     </div>
 
@@ -51,7 +51,7 @@
                             <label for="country">Country</label>
                             <select id="country" class="form-control" name="country" #country="ngModel"
                                 [(ngModel)]="userform.country">
-                                <option *ngFor=" let ct of countrylist" [ngValue]="ct.name">{{ct.name}}</option>
+                                <option *ngFor=" let ct of countrylist" [value]="ct.name">{{ct.name}}</option>
                             </select>
                         </div>
 

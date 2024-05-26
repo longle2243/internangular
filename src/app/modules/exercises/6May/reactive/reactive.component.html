@@ -43,7 +43,7 @@
                     <div class="form-group">
                         <label for="gender">Gender</label>
                         <select id="country" class="form-control" formControlName="gender">
-                            <option *ngFor=" let g of genderlist" [ngValue]="g">{{g}}</option>
+                            <option *ngFor=" let g of genderlist" [value]="g">{{g}}</option>
                         </select>
                     </div>
 
@@ -51,7 +51,7 @@
                         <div class="form-group country">
                             <label for="country">Country</label>
                             <select id="country" class="form-control" formControlName="country">
-                                <option *ngFor=" let ct of countries" [ngValue]="ct.code">{{ct.name +"  :  "+ct.dial_code}}</option>
+                                <option *ngFor=" let ct of countries" [value]="ct.code">{{ct.name +"  :  "+ct.dial_code}}</option>
                             </select>
                         </div>
                         <div class="form-group phone col">

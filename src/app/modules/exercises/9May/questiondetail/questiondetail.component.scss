@@ -1,0 +1,29 @@
+.flexrow{
+    display: flex;
+    flex-direction: row;
+    padding: 10px;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.body{
+    width: 40%;
+    margin: auto;
+    margin-top: 50px;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    padding: 25px;
+    border-radius: 10px;
+}
+
+.btn{
+    margin: 10px 0px 10px 0px;
+}
+
+.width50{
+    width: 50%;
+}
+
+.back{
+    position: fixed;
+    margin: 10px 0px 0px 20px;
+}
