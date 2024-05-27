@@ -1,5 +1,5 @@
-.body{
-    width: 50%;
+.body {
+    width: 70%;
     margin: auto;
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
     padding: 15px;
@@ -7,44 +7,91 @@
     margin-top: 30px;
 }
 
-.btn{
-    margin: 10px 0px 10px 0px;
+.btn {
+    margin: 0px 0px 10px 0px;
 }
 
-.flexrow{
+.flexrow {
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
 }
 
-.flexcolumn{
+.flexspace{
+    justify-content: space-evenly;
+
+}
+.flexcenter {
+    align-items: center;
+}
+.flexbetween{
+    justify-content: space-between;
+
+}
+.flexcolumn {
     display: flex;
     flex-direction: column;
 }
 
-.form-control{
+.flex2{
+    flex-grow: 1;
+}
+.form-control {
     margin: 10px 0px 10px 0px;
 }
 
 
-.titleform{
+.titleform {
     text-align: center;
     font-size: 40px;
 }
 
-.width50{
+.width50 {
     width: 50%;
 }
 
-.width30{
+.width30 {
     width: 30%;
 }
 
-.radio{
+.radio {
     margin: 0px 20px 0px 20px;
 }
 
-.nav{
+.nav {
     margin: 10px;
 }
+
+.submit{
+    margin-top: 10px;
+}
+
+/* width */
+.scrollable {
+    width: 100%;
+    height: 200px;
+    overflow: auto;
+  }
+
+  /* Định dạng thanh cuộn cho các trình duyệt WebKit */
+  .scrollable::-webkit-scrollbar {
+    width: 12px;
+  }
+
+  .scrollable::-webkit-scrollbar-track {
+    background: #f1f1f1; /* Màu nền của track */
+  }
+
+  .scrollable::-webkit-scrollbar-thumb {
+    background: #888; /* Màu của thumb */
+    border-radius: 6px;
+  }
+
+  .scrollable::-webkit-scrollbar-thumb:hover {
+    background: #555; /* Màu của thumb khi hover */
+  }
+
+  /* Định dạng thanh cuộn cho Firefox */
+  .scrollable {
+    scrollbar-width: thin; /* Độ rộng của thanh cuộn */
+    scrollbar-color: #888 #f1f1f1; /* Màu của thumb và track */
+  }

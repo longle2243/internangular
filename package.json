@@ -37,6 +37,7 @@
     "ng2-tel-input": "^2.3.0",
     "ngx-countries-dropdown": "^1.0.6",
     "ngx-intl-tel-input-gg": "^1.0.10",
+    "ngx-pagination": "^6.0.3",
     "rxjs": "~7.8.0",
     "sweetalert2": "^11.11.0",
     "tslib": "^2.3.0",

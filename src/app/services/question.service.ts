@@ -27,7 +27,7 @@ export class QuestionService {
     return this.http.post<Question>(this.url, data);
   }
 
-  update(id: number, data: Question): Observable<Question> {
-    return this.http.put<Question>(this.url + '/' + id, data)
+  update(id: number, data: Question): Observable<HttpResponse<Question>> {
+    return this.http.put<Question>(this.url + '/' + id, data, {observe: 'response'})
   }
 }

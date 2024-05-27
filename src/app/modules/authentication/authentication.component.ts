@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
+import { isWhiteSpace } from './function/whiteSpace-validators';
 
 @Component({
   selector: 'app-authentication',
@@ -13,12 +14,24 @@ export class AuthenticationComponent {
 
   constructor(private fb: FormBuilder, private authService: AuthService, private router: Router) {
     this.form = this.fb.group({
-      username: ['long'],
-      password: ['haha']
+      // username: ['long1', [Validators.required, Validators.minLength(5), Validators.pattern(/^(?=.*[a-z])(?=.*\d).{2,}$/), isWhiteSpace]],
+      // password: ['long1A', [Validators.required, Validators.minLength(5), Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{3,}$/)]],
+
+      username: ['', [Validators.required]],
+      password: ['', [Validators.required]]
     });
   }
 
+  Unauthorized = false;
   login() {
-    this.authService.login(this.form.value).subscribe(() => { this.router.navigateByUrl('/exercises/9may/list'); });
+    this.form.markAllAsTouched();
+    if (this.form.valid) {
+      this.authService.login(this.form.value).subscribe({
+        next: () => { this.router.navigateByUrl('/exercises/9may/list'); },
+        error: (err) => {
+          this.Unauthorized = true
+        }
+      });
+    }
   }
 }

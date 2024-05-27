@@ -24,9 +24,11 @@
                     {{form.controls['subject'].value}}</option>
                 <option *ngFor="let subject of subjects" [value]="subject.name">{{subject.name}}</option>
             </select>
+            <app-showerror [form]="form" [controlname]="'subject'" />
 
             <label for="questionContent">Question</label>
             <textarea class="form-control" formControlName="content" placeholder="What eat have lunch"></textarea>
+            <app-showerror [form]="form" [controlname]="'content'" />
 
             <label for="difficulty">Difficulty</label>
             <select class="custom-select" formControlName="difficulty">
@@ -34,6 +36,7 @@
                     {{form.controls['difficulty'].value}}</option>
                 <option *ngFor="let difficulty of questionDifficulty" [value]="difficulty">{{difficulty}}</option>
             </select>
+            <app-showerror [form]="form" [controlname]="'difficulty'" />
 
             <ng-container formArrayName="answers">
                 <ng-container *ngFor="let answer of answers.controls; let i = index">
@@ -45,8 +48,13 @@
                                 <input class="radio" type="checkbox" formControlName="iscorrect" [value]="true">
                                 <label for="correct"> Correct</label>
                             </div>
-                            <button class="btn btn-danger" (click)="deleteAnswer(i)"
-                                [hidden]="!isEdit">Delete</button>
+                            <button class="btn btn-danger" (click)="deleteAnswer(i)" [hidden]="!isEdit">Delete</button>
+                        </div>
+                        
+                        <!-- Hiển thị thông báo lỗi -->
+                        <div class="text-danger"
+                            *ngIf="answers.controls[i].get('content')?.invalid && answers.controls[i].get('content')?.touched">
+                            <div *ngIf="answers.controls[i].get('content')?.errors">answer content is required.</div>
                         </div>
                     </div>
                 </ng-container>

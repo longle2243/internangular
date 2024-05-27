@@ -4,11 +4,13 @@ import { CommonModule } from '@angular/common';
 import { AuthenticationRoutingModule } from './authentication-routing.module';
 import { AuthenticationComponent } from './authentication.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { ShowerrorComponent } from './common/showerror/showerror.component';
 
 
 @NgModule({
   declarations: [
-    AuthenticationComponent
+    AuthenticationComponent,
+    ShowerrorComponent
   ],
   imports: [
     CommonModule,

@@ -4,11 +4,19 @@
         <form [formGroup]="form">
             <div class="form-group">
                 <label for="username">Username</label>
-                <input type="text" class="form-control" name="username" formControlName="username" placeholder="long">
+                <input type="text" class="form-control" name="username" formControlName="username"
+                    placeholder="Enter your username">
+                <app-showerror [form]="form" [controlname]="'username'" />
             </div>
             <div class="form-group">
                 <label for="password">Password</label>
-                <input type="password" class="form-control" name="password" formControlName="password" placeholder="haha">
+                <input type="password" class="form-control" name="password" formControlName="password"
+                    placeholder="Enter your password">
+                <app-showerror [form]="form" [controlname]="'password'" />
+
+                <div class="text-danger" *ngIf="Unauthorized">
+                    <div>Account is Unauthorized</div>
+                </div>
             </div>
             <button type="submit" class="btn btn-primary" (click)="login()">Submit</button>
         </form>

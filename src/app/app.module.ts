@@ -19,6 +19,9 @@ import { AddressformComponent } from './modules/exercises/24May/addressform/addr
 import { UserformComponent } from './modules/exercises/24May/userform/userform.component';
 import { AdminformComponent } from './modules/exercises/24May/adminform/adminform.component';
 import { EmployeeformComponent } from './modules/exercises/24May/employeeform/employeeform.component';
+import { ShowerrorComponent } from './components/common/showerror/showerror.component';
+import { FilterPipe } from './filter.pipe';
+// import { RouterEx9mayModule } from './modules/exercises/9May/router-ex9may/router-ex9may.module';
 
 
 @NgModule({
@@ -26,12 +29,14 @@ import { EmployeeformComponent } from './modules/exercises/24May/employeeform/em
     AppComponent,
     HomeComponent,
     QuestionformComponent,
-    ListquestionComponent,
+    // ListquestionComponent,
     QuestiondetailComponent,
     AddressformComponent,
     UserformComponent,
     AdminformComponent,
     EmployeeformComponent,
+    ShowerrorComponent,
+    FilterPipe,
   ],
   imports: [
     BrowserModule,
@@ -40,6 +45,7 @@ import { EmployeeformComponent } from './modules/exercises/24May/employeeform/em
     ReactiveFormsModule,
     NgxIntlTelInputModule,
     MatSelectCountryModule,
+    // RouterEx9mayModule
   ],
   providers: [
     provideClientHydration(),

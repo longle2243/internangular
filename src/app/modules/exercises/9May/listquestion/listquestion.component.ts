@@ -1,5 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { QuestionService } from '../../../../services/question.service';
+import { PopupService } from '../../../../services/popup.service';
+import { HttpResponse } from '@angular/common/http';
+import { Router } from '@angular/router';
+import { SubjectService } from '../../../../services/subject.service';
+import { Question } from '../../../../interfaces/question';
 
 @Component({
   selector: 'app-listquestion',
@@ -7,12 +12,70 @@ import { QuestionService } from '../../../../services/question.service';
   styleUrl: './listquestion.component.scss'
 })
 export class ListquestionComponent implements OnInit {
+  p: number = 1;
   questions: any;
-  constructor(private questionSV: QuestionService) { }
+  subjects: any;
+  datafilter?: any;
+
+  constructor(
+    private questionSV: QuestionService,
+    private popupSV: PopupService,
+    private subjectSV: SubjectService
+  ) { }
 
   ngOnInit(): void {
-    this.questionSV.getAll().subscribe((res) =>{
-      this.questions = res
+    this.loadQuestion()
+    this.loadSubject()
+  }
+
+  items: any;
+
+  loadSubject() {
+    this.subjectSV.getData().subscribe((res) => {
+      this.subjects = res
     })
+  }
+
+  loadQuestion() {
+    this.questionSV.getAll().subscribe((res) => {
+      this.questions = res
+      this.datafilter = this.questions
+    })
+  }
+
+  delete(id: number) {
+    this.popupSV.popUpConfirm("Are you sure?").then((result) => {
+      if (result.isConfirmed) {
+        this.questionSV.deleteItem(id).subscribe({
+          next: (res: HttpResponse<any>) => {
+            if (res.status == 200) {
+              this.popupSV.popUpSuccess("Deleted!");
+              this.loadQuestion();
+            }
+          },
+          error: (error) => {
+            this.popupSV.showError(error)
+          }
+        })
+      }
+    });
+  }
+
+  valuefilter?: string
+  filterSubject() {
+    if (!this.valuefilter) {
+      this.datafilter = this.questions
+    } else {
+      this.datafilter = this.questions.filter((question: { subject: any; }) => question.subject === this.valuefilter);
+    }
+  }
+
+  valuesearch?: string
+  searchContent() {
+    if (!this.valuesearch) {
+      this.datafilter = this.questions
+    } else {
+      this.datafilter = this.questions.filter((question: { content: any; }) => question.content.toLowerCase().includes(this.valuesearch?.toLowerCase()));
+    }
   }
 }

@@ -7,6 +7,7 @@ import { SubjectService } from '../../../../services/subject.service';
 import { Answer } from '../../../../interfaces/answer';
 import Swal from 'sweetalert2'
 import { HttpResponse } from '@angular/common/http';
+
 @Component({
   selector: 'app-questiondetail',
   templateUrl: './questiondetail.component.html',
@@ -28,13 +29,8 @@ export class QuestiondetailComponent implements OnInit {
     subject: ['', Validators.required],
     difficulty: ['', Validators.required],
     content: ['', Validators.required],
-
     answers: this.fb.array([])
   });
-
-  get answers() {
-    return this.form.controls['answers'] as FormArray;
-  }
 
   constructor(
     private fb: FormBuilder,
@@ -46,10 +42,8 @@ export class QuestiondetailComponent implements OnInit {
 
   ngOnInit(): void {
     this.id = this.acrouter.snapshot.params['id'];
-    this.subjectSV.getData().subscribe((res) => {
-      this.subjects = res;
-    })
     this.onOffEdit();
+    this.loadSubject();
     this.loadQuestion();
   }
 
@@ -57,39 +51,90 @@ export class QuestiondetailComponent implements OnInit {
     this.questionSV.getItem(this.id).subscribe((res) => {
       this.question = res;
       this.patchValue();
-      // this.onOffEdit();
     })
   }
 
-  onSubmit() {
-    Swal.fire({
-      title: "Are you sure?",
+  loadSubject() {
+    this.subjectSV.getData().subscribe((res) => {
+      this.subjects = res;
+    })
+  }
+
+  popUpConfirm(title: string) {
+    return Swal.fire({
+      title: title,
       showCancelButton: true,
       confirmButtonColor: "#3085d6",
       cancelButtonColor: "#d33",
       confirmButtonText: "Confirm"
-    }).then((result) => {
+    });
+  }
+
+  popUpSuccess(title: string) {
+    return Swal.fire({
+      title: title,
+      icon: "success"
+    })
+  }
+
+  popUpFailed(title: string) {
+    return Swal.fire({
+      title: title,
+      icon: "error"
+    })
+  }
+
+  showError(error: any) {
+    if (error.status == 404) {
+      this.popUpFailed("Not Found!");
+    } else {
+      this.popUpFailed("Failed!");
+    }
+  }
+
+  onSubmit() {
+    this.form.markAllAsTouched()
+    if (this.form.valid) {
+    this.popUpConfirm("Are you sure?").then((result) => {
       if (result.isConfirmed) {
-        if (this.form.valid) {
-          this.questionSV.update(this.id, this.form.value as Question).subscribe((res) => {
-            if (res) {
-              Swal.fire({
-                title: "Updated!",
-                icon: "success"
-              }).then(() => {
+        this.questionSV.update(this.id, this.form.value as Question).subscribe({
+          next: (res: HttpResponse<any>) => {
+            if (res.status == 200) {
+              this.popUpSuccess("Updated!").then(() => {
                 location.reload();
               });
             }
-          })
-        }
+          },
+          error: (error) => {
+            this.showError(error)
+          }
+        })
       }
     });
+    }
+  }
 
-    // if (this.form.valid) {
-    //   this.questionSV.update(this.id, this.form.value as Question).subscribe((res) => {
-    //     location.reload();
-    //   })
-    // }
+  delelte() {
+    this.popUpConfirm("Are you sure?").then((result) => {
+      if (result.isConfirmed) {
+        this.questionSV.deleteItem(this.id).subscribe({
+          next: (res: HttpResponse<any>) => {
+            if (res.status == 200) {
+              this.popUpSuccess("Deleted!").then(() => {
+                this.router.navigateByUrl('exercises/9may/list');
+              });
+            }
+          },
+          error: (error) => {
+            this.showError(error)
+          }
+        })
+      }
+    });
+  }
+
+  get answers() {
+    return this.form.controls['answers'] as FormArray;
   }
 
   addAnswer() {
@@ -119,7 +164,7 @@ export class QuestiondetailComponent implements OnInit {
     })
 
     this.answers.clear();
-    this.question?.answers.forEach(answer => {
+    this.question?.answers.map(answer => {
       this.answers.push(this.createAnswer(answer))
     })
     this.form.controls['answers'].disable();
@@ -138,29 +183,5 @@ export class QuestiondetailComponent implements OnInit {
       this.form.controls['content'].disable();
       this.form.controls['answers'].disable();
     }
-  }
-
-
-  delelte() {
-    Swal.fire({
-      title: "Are you sure?",
-      showCancelButton: true,
-      confirmButtonColor: "#3085d6",
-      cancelButtonColor: "#d33",
-      confirmButtonText: "Confirm"
-    }).then((result) => {
-      if (result.isConfirmed) {
-        this.questionSV.deleteItem(this.id).subscribe((res: HttpResponse<any>) => {
-          if (res.status == 200) {
-            Swal.fire({
-              title: "Deleted!",
-              icon: "success"
-            }).then(() => {
-              this.router.navigateByUrl('exercises/9may/list');
-            });
-          }
-        })
-      }
-    });
   }
 }

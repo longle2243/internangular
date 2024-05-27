@@ -1,39 +1,91 @@
-<nav class="nav">
-    <a routerLink="/exercises/9may/list" class="btn btn-secondary">Back</a>
-  </nav>
-<div class="body">
-    <h5 class="titleform">Question Form</h5>
-    <form class="flexcolumn" [formGroup]="form" (ngSubmit)="onSubmit()">
-        <label for="subject">Subject</label>
-        <select class="custom-select" formControlName="subject">
-            <option *ngFor="let subject of subjects" [value]="subject.name">{{subject.name}}</option>
-        </select>
+<div class="flexrow">
+    <div>
+        <nav class="nav">
+            <a routerLink="/exercises/9may/list" class="btn btn-secondary">Back</a>
+        </nav>
+    </div>
+    <div class="body">
+        <h5 class="titleform">Question Form</h5>
+        <form class="flexrow flexspace" [formGroup]="form">
+            <div class="flexcolumn width50">
+                <label for="subject">Subject</label>
+                <select class="custom-select" formControlName="subject">
+                    <option *ngFor="let subject of subjects" [value]="subject.name">{{subject.name}}</option>
+                </select>
+                <app-showerror [form]="form" [controlname]="'subject'" />
 
-        <label for="questionContent">Question</label>
-        <textarea class="form-control" formControlName="content" placeholder="What eat have lunch"></textarea>
+                <label for="questionContent">Question</label>
+                <textarea class="form-control" formControlName="content" placeholder="What eat have lunch"></textarea>
+                <app-showerror [form]="form" [controlname]="'content'" />
 
-        <label for="difficulty">Difficulty</label>
-        <select class="custom-select" formControlName="difficulty">
-            <option *ngFor="let difficulty of questionDifficulty" [value]="difficulty">{{difficulty}}</option>
-        </select>
+                <div class="flexrow flexbetween">
+                    <div>
+                        <label for="difficulty">Difficulty</label>
+                        <select class="custom-select " formControlName="difficulty">
+                            <option *ngFor="let difficulty of questionDifficulty" [value]="difficulty">{{difficulty}}
+                            </option>
+                        </select>
+                        <app-showerror [form]="form" [controlname]="'difficulty'" />
+                    </div>
 
-        <button class="btn btn-success width30" (click)="addAnswer()">Add Answer</button>
-
-        <ng-container formArrayName="answers">
-            <ng-container *ngFor="let answer of answers.controls; let i = index">
-                <div [formGroupName]="i">
-                    <label for="answerContent">Answer {{i + 1}}</label>
-                    <div class="flexrow">
-                        <input class="form-control width50" type="text" formControlName="content">
-                        <div>
-                            <input class="radio" type="checkbox" formControlName="iscorrect" [value]="true">
-                            <label for="correct"> is Correct</label>
-                        </div>
-                        <button class="btn btn-danger" (click)="deleteAnswer(i)">Delete</button>
+                    <div>
+                        <label for="difficulty">Type Answer</label>
+                        <select class="custom-select" formControlName="type">
+                            <!-- <option [defaultSelected]="true" [value]="answerType[0]">{{answerType[0]}}</option> -->
+                            <option *ngFor="let type of answerType" [value]="type">{{type}}</option>
+                        </select>
+                        <app-showerror [form]="form" [controlname]="'type'" />
                     </div>
                 </div>
-            </ng-container>
-        </ng-container>
-        <button class="btn btn-primary" type="submit">Submit</button>
-    </form>
+                <button class="btn submit btn-primary" type="submit" (click)="onSubmit()">Submit</button>
+            </div>
+
+            <hr>
+            <div class="flexcolumn">
+                <h5>Answer</h5>
+                <button class="btn btn-success width50" (click)="addAnswer()">Add Answer</button>
+
+                <div class="scrollable">
+                    <ng-container formArrayName="answers">
+                        <ng-container *ngFor="let answer of answers.controls; let i = index">
+                            <div [formGroupName]="i">
+                                <label for="answerContent">Answer {{i + 1}}</label>
+                                <div class="flexrow flexspace flexcenter">
+                                    <input class="form-control width50" type="text" formControlName="content">
+                                    <div>
+                                        <!-- <input class="radio" type="checkbox" formControlName="iscorrect" [value]="true"> -->
+
+                                        <!-- <input class="radio" type="radio" formControlName="iscorrect" [value]="true"
+                                    name="iscorrect"> -->
+
+                                        <input
+                                            type="{{ form.controls['type'].value === 'multiple' ? 'checkbox' : 'radio' }}"
+                                            formControlName="iscorrect" name="choice" [value]="true">
+
+                                        <label for="correct">CORRECT</label>
+                                    </div>
+                                    <button class="btn btn-danger" (click)="deleteAnswer(i)">Delete</button>
+                                </div>
+                                <div class="text-danger"
+                                    *ngIf="answers.controls[i].get('content')?.invalid && answers.controls[i].get('content')?.touched">
+                                    <div *ngIf="answers.controls[i].get('content')?.errors">answer content is required.
+                                    </div>
+                                </div>
+                            </div>
+                        </ng-container>
+                        <hr>
+                    </ng-container>
+                </div>
+            </div>
+
+            <!-- <div formArrayName="choices">
+                <div *ngFor="let choice of choices.controls; let i=index">
+                    <input type="{{ form.controls['type'].value === 'multiple' ? 'checkbox' : 'radio' }}"
+                        formControlName="isCorrect" name="choice">
+                    <input type="text" [formControlName]="'choice' + i">
+                </div>
+            </div> -->
+
+        </form>
+    </div>
 </div>

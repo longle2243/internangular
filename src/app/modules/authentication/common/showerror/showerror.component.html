@@ -1,0 +1,18 @@
+<div *ngIf="isInvalidandTouched(form, controlname)">
+    <div class="text-danger" *ngIf="form.controls[controlname].errors?.['required']">
+        {{controlname}} is required.
+    </div>
+    <div class="text-danger" *ngIf="form.controls[controlname].errors?.['minlength']">
+        {{controlname}} must be at least {{form.controls[controlname].errors?.['minlength'].requiredLength}} characters
+        long.
+    </div>
+    <div class="text-danger" *ngIf="controlname=='username' && form.controls[controlname].errors?.['pattern']">
+        {{controlname}} must contain only number and letters
+    </div>
+    <div class="text-danger" *ngIf="controlname=='password' && form.controls[controlname].errors?.['pattern']">
+        {{controlname}} must contain at least one uppercase, one lowercase, and one number
+    </div>
+    <div class="text-danger" *ngIf="form.controls[controlname].errors?.['whitespace']">
+        {{controlname}} cannot contain white space
+    </div>
+</div>
