@@ -30,8 +30,7 @@
 
                     <div>
                         <label for="difficulty">Type Answer</label>
-                        <select class="custom-select" formControlName="type">
-                            <!-- <option [defaultSelected]="true" [value]="answerType[0]">{{answerType[0]}}</option> -->
+                        <select class="custom-select" formControlName="type" (change)="onTypeCheck()">
                             <option *ngFor="let type of answerType" [value]="type">{{type}}</option>
                         </select>
                         <app-showerror [form]="form" [controlname]="'type'" />
@@ -60,7 +59,7 @@
 
                                         <input
                                             type="{{ form.controls['type'].value === 'multiple' ? 'checkbox' : 'radio' }}"
-                                            formControlName="iscorrect" name="choice" [value]="true">
+                                            formControlName="iscorrect" name="choice"  (change)="onOptionChange(i)" >
 
                                         <label for="correct">CORRECT</label>
                                     </div>
@@ -77,14 +76,6 @@
                     </ng-container>
                 </div>
             </div>
-
-            <!-- <div formArrayName="choices">
-                <div *ngFor="let choice of choices.controls; let i=index">
-                    <input type="{{ form.controls['type'].value === 'multiple' ? 'checkbox' : 'radio' }}"
-                        formControlName="isCorrect" name="choice">
-                    <input type="text" [formControlName]="'choice' + i">
-                </div>
-            </div> -->
 
         </form>
     </div>

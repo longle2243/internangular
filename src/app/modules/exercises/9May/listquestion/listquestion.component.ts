@@ -2,9 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { QuestionService } from '../../../../services/question.service';
 import { PopupService } from '../../../../services/popup.service';
 import { HttpResponse } from '@angular/common/http';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { SubjectService } from '../../../../services/subject.service';
 import { Question } from '../../../../interfaces/question';
+import { TimeoutError, timeout } from 'rxjs';
 
 @Component({
   selector: 'app-listquestion',
@@ -16,19 +17,31 @@ export class ListquestionComponent implements OnInit {
   questions: any;
   subjects: any;
   datafilter?: any;
+  items: any;
+  valuefilter?: string
+  valuesearch?: string
+  isloadDone = false;
+  isTimeOut = false;
 
   constructor(
     private questionSV: QuestionService,
     private popupSV: PopupService,
-    private subjectSV: SubjectService
+    private subjectSV: SubjectService,
+    private acrouter: ActivatedRoute,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
     this.loadQuestion()
     this.loadSubject()
-  }
 
-  items: any;
+    this.acrouter.queryParams.subscribe(param => {
+      this.valuesearch = param['search'] || '';
+      this.valuefilter = param['filter'] || '';
+      this.searchContent();
+      this.filterSubject();
+    })
+  }
 
   loadSubject() {
     this.subjectSV.getData().subscribe((res) => {
@@ -37,9 +50,14 @@ export class ListquestionComponent implements OnInit {
   }
 
   loadQuestion() {
-    this.questionSV.getAll().subscribe((res) => {
-      this.questions = res
-      this.datafilter = this.questions
+    this.questionSV.getAll().pipe(timeout(2000)).subscribe({
+      next: (res) => {
+        this.questions = res
+        this.datafilter = this.questions
+      },
+      error: () => {
+        this.isTimeOut = true;
+      }
     })
   }
 
@@ -61,7 +79,6 @@ export class ListquestionComponent implements OnInit {
     });
   }
 
-  valuefilter?: string
   filterSubject() {
     if (!this.valuefilter) {
       this.datafilter = this.questions
@@ -70,12 +87,30 @@ export class ListquestionComponent implements OnInit {
     }
   }
 
-  valuesearch?: string
   searchContent() {
     if (!this.valuesearch) {
       this.datafilter = this.questions
     } else {
       this.datafilter = this.questions.filter((question: { content: any; }) => question.content.toLowerCase().includes(this.valuesearch?.toLowerCase()));
+    }
+  }
+
+  searchAndFilter() {
+    this.datafilter = this.questions.filter((question: { subject: any; }) => question.subject === this.valuefilter);
+    this.datafilter = this.questions.filter((question: { content: any; }) => question.content.toLowerCase().includes(this.valuesearch?.toLowerCase()));
+  }
+
+  search() {
+    this.router.navigate([], { queryParams: { search: this.valuesearch } });
+  }
+
+  filter() {
+    this.router.navigate([], { queryParams: { filter: this.valuefilter } });
+  }
+
+  loadData() {
+    if (this.valuefilter && this.valuesearch) {
+      this
     }
   }
 }
