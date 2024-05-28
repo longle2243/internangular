@@ -1,10 +1,11 @@
 <div class="flexrow">
   <nav class="nav">
-    <a class="nav-link" routerLink="/">Home</a>
-    <a class="nav-link" routerLink="/topics">TOPICS</a>
-    <a class="nav-link" routerLink="/exercises">EXERCISES</a>
+    <a class="nav-link" routerLink="/public/topics">TOPICS</a>
+    <a class="nav-link" routerLink="/private/exercises">EXERCISES</a>
   </nav>
-  <button class="btn btn-secondary" (click)="logout()" *ngIf="isLoggedIn()">LOG OUT</button>
+  <button class="btn btn-secondary" (click)="logout()" *ngIf="isLoggedIn()">
+    LOG OUT
+  </button>
 </div>
 
 <router-outlet />

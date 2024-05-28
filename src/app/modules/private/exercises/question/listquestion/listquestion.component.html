@@ -1,0 +1,74 @@
+<div *ngIf="!questions && !isTimeOut" class="loader center"></div>
+<div *ngIf="isTimeOut" class="center">
+  <h5>Cannot get value from api</h5>
+</div>
+
+<div *ngIf="questions">
+  <div class="flexrow">
+    <nav class="nav">
+      <a routerLink="/private/exercises/question/create" class="btn btn-success"
+        >Create</a
+      >
+    </nav>
+    <div class="search">
+      <input
+        type="text"
+        placeholder="Search Question Content"
+        [(ngModel)]="valuesearch"
+        (input)="onSearchFilter()"
+        name="search"
+      />
+    </div>
+  </div>
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">
+          <div>
+            Subject
+            <select
+              [(ngModel)]="valuefilter"
+              (change)="onSearchFilter()"
+              name="filter"
+            >
+              <option [defaultSelected]="true" value="">All</option>
+              <option *ngFor="let subject of subjects" [value]="subject.name">
+                {{ subject.name }}
+              </option>
+            </select>
+          </div>
+        </th>
+        <th scope="col">Difficulty</th>
+        <th scope="col">Content</th>
+        <th scope="col">Detail</th>
+        <th scope="col">Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr
+        *ngFor="
+          let question of datafilter
+            | paginate : { itemsPerPage: 3, currentPage: p };
+          let i = index
+        "
+      >
+        <th scope="row">{{ i + 1 }}</th>
+        <td>{{ question.subject }}</td>
+        <td>{{ question.difficulty }}</td>
+        <td>{{ question.content }}</td>
+        <td>
+          <a class="btn btn-secondary" [routerLink]="question.id">Details</a>
+        </td>
+        <td>
+          <button class="btn btn-danger" (click)="delete(question.id)">
+            Delete
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="magrinCenter">
+    <pagination-controls (pageChange)="p = $event"></pagination-controls>
+  </div>
+</div>

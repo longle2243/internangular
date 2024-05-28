@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { User } from '../interfaces/user';
+import { User } from '../interfaces/user.interface';
 import { Observable, tap } from 'rxjs';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { jwtDecode } from "jwt-decode";
@@ -10,19 +10,9 @@ import { jwtDecode } from "jwt-decode";
 })
 export class AuthService {
     private apiUrl = 'http://localhost:3000/auth';
-
     constructor(public jwtHelper: JwtHelperService, private http: HttpClient) { }
 
-    test(): Observable<any> {
-        return this.http.post<any>('http://localhost:3000/auth/login', { username: "long", password: "haha" })
-            .pipe(tap((res) => {
-                localStorage.setItem("token", res.access_token);
-            }))
-        // return this.http.post<any>('http://localhost:3000/auth/login', { username: "long", password: "haha" });
-    }
-
     login(user: User): Observable<any> {
-        //   return this.http.post<any>(`${this.apiUrl}/login`, user)
         return this.http.post<any>(this.apiUrl + "/login", user)
             .pipe(tap((res) => {
                 if (res && res.access_token) {
@@ -54,10 +44,5 @@ export class AuthService {
             this.logout();
         }
     }
-    // getDecodedToken(): any {
-    //     const token = this.getToken();
-    //     if (token) return jwtDecode(token);
-    //     return null
-    // }
 }
 
