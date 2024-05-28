@@ -3,9 +3,7 @@ import { FormArray, FormBuilder, Validators } from '@angular/forms';
 import { SubjectService } from '../../../../services/subject.service';
 import { QuestionService } from '../../../../services/question.service';
 import { Question } from '../../../../interfaces/question';
-import Swal from 'sweetalert2';
 import { PopupService } from '../../../../services/popup.service';
-// import { AuthService } from '../../../../services/auth.service';
 
 @Component({
   selector: 'app-questionform',
@@ -48,6 +46,7 @@ export class QuestionformComponent implements OnInit {
       this.subjects = res;
     })
   }
+
 
   // FORM
   form = this.fb.group({
@@ -103,41 +102,32 @@ export class QuestionformComponent implements OnInit {
     })
   }
 
+
+  // LOGIC HANDLE TYPE SINGLE/MULTIPLE CHOICE ANSWER
   onTypeCheck(): void {
     if (this.form.controls['type'].value === 'single') {
       this.answers.controls.map(answer => {
         answer.get('iscorrect')?.setValue(false);
-        console.log(answer);
-        
+        // console.log(answer);
       })
-      this._cdr.detectChanges();
+      // this._cdr.detectChanges();
     }
   }
+
 
   onOptionChange(id: number) {
     if (this.form.controls['type'].value === 'single') {
       this.answers.controls.map(answer => {
-        answer.get('iscorrect')?.reset(false);
+        answer.get('iscorrect')?.setValue(false);
       })
-      // this.answers.at(id).get('iscorrect')?.setValue(true)
+      this.answers.at(id).get('iscorrect')?.setValue(true)
     } else {
-      const currentValue = this.answers.at(id).get('iscorrect')?.value
-      var check: boolean = currentValue === 'true';
-      var check1=!!currentValue
-      // console.log(typeof(currentValue)+"  value  "+currentValue);
-      // console.log(typeof(check)+"  value  "+check);
-    
-      if (check) {
+      var currentValue = this.answers.at(id).get('iscorrect')?.value
+      if (!currentValue) {
         this.answers.at(id).get('iscorrect')?.setValue(false)
-        // console.log(this.answers.at(id).get('iscorrect')?.value);
       } else {
         this.answers.at(id).get('iscorrect')?.setValue(true)
-        // console.log(this.answers.at(id).get('iscorrect')?.value);
       }
-
     }
   }
 }
-
-
-

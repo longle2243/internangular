@@ -2,7 +2,6 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { User } from '../interfaces/user';
 import { Observable, tap } from 'rxjs';
-// import { decode } from 'jsonwebtoken'
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { jwtDecode } from "jwt-decode";
 

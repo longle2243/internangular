@@ -3,17 +3,17 @@ import { CommonModule } from '@angular/common';
 
 import { RouterExercisesRoutingModule } from './router-exercises-routing.module';
 import { RouterExercisesComponent } from './router-exercises.component';
-import { NgxPaginationModule } from 'ngx-pagination';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
   declarations: [
-    RouterExercisesComponent
+    RouterExercisesComponent,
   ],
   imports: [
     CommonModule,
     RouterExercisesRoutingModule,
-    // NgxPaginationModule
+    ReactiveFormsModule
   ]
 })
 export class RouterExercisesModule { }

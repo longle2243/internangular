@@ -95,22 +95,22 @@ export class QuestiondetailComponent implements OnInit {
   onSubmit() {
     this.form.markAllAsTouched()
     if (this.form.valid) {
-    this.popUpConfirm("Are you sure?").then((result) => {
-      if (result.isConfirmed) {
-        this.questionSV.update(this.id, this.form.value as Question).subscribe({
-          next: (res: HttpResponse<any>) => {
-            if (res.status == 200) {
-              this.popUpSuccess("Updated!").then(() => {
-                location.reload();
-              });
+      this.popUpConfirm("Are you sure?").then((result) => {
+        if (result.isConfirmed) {
+          this.questionSV.update(this.id, this.form.value as Question).subscribe({
+            next: (res: HttpResponse<any>) => {
+              if (res.status == 200) {
+                this.popUpSuccess("Updated!").then(() => {
+                  location.reload();
+                });
+              }
+            },
+            error: (error) => {
+              this.showError(error)
             }
-          },
-          error: (error) => {
-            this.showError(error)
-          }
-        })
-      }
-    });
+          })
+        }
+      });
     }
   }
 
@@ -172,16 +172,15 @@ export class QuestiondetailComponent implements OnInit {
 
   onOffEdit() {
     this.isEdit = !this.isEdit;
-    if (this.isEdit) {
-      this.form.controls['subject'].enable();
-      this.form.controls['difficulty'].enable();
-      this.form.controls['content'].enable();
-      this.form.controls['answers'].enable();
-    } else {
-      this.form.controls['subject'].disable();
-      this.form.controls['difficulty'].disable();
-      this.form.controls['content'].disable();
-      this.form.controls['answers'].disable();
-    }
+    // Object.keys return key with type string
+    // keyof typeof this.form.controls (Ép kiểu cho hệ thống hiểu đây là key controls)
+    const controlNames = Object.keys(this.form.controls) as (keyof typeof this.form.controls)[];
+    controlNames.map(control => {
+      if (this.isEdit) {
+        this.form.controls[control].enable();
+      } else {
+        this.form.controls[control].disable();
+      }
+    })
   }
 }

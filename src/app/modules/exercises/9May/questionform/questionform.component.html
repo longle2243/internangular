@@ -12,11 +12,11 @@
                 <select class="custom-select" formControlName="subject">
                     <option *ngFor="let subject of subjects" [value]="subject.name">{{subject.name}}</option>
                 </select>
-                <app-showerror [form]="form" [controlname]="'subject'" />
+                <!-- <app-showerror [form]="form" [controlname]="'subject'" /> -->
 
                 <label for="questionContent">Question</label>
                 <textarea class="form-control" formControlName="content" placeholder="What eat have lunch"></textarea>
-                <app-showerror [form]="form" [controlname]="'content'" />
+                <!-- <app-showerror [form]="form" [controlname]="'content'" /> -->
 
                 <div class="flexrow flexbetween">
                     <div>
@@ -25,7 +25,7 @@
                             <option *ngFor="let difficulty of questionDifficulty" [value]="difficulty">{{difficulty}}
                             </option>
                         </select>
-                        <app-showerror [form]="form" [controlname]="'difficulty'" />
+                        <!-- <app-showerror [form]="form" [controlname]="'difficulty'" /> -->
                     </div>
 
                     <div>
@@ -33,7 +33,7 @@
                         <select class="custom-select" formControlName="type" (change)="onTypeCheck()">
                             <option *ngFor="let type of answerType" [value]="type">{{type}}</option>
                         </select>
-                        <app-showerror [form]="form" [controlname]="'type'" />
+                        <!-- <app-showerror [form]="form" [controlname]="'type'" /> -->
                     </div>
                 </div>
                 <button class="btn submit btn-primary" type="submit" (click)="onSubmit()">Submit</button>
@@ -57,9 +57,16 @@
                                         <!-- <input class="radio" type="radio" formControlName="iscorrect" [value]="true"
                                     name="iscorrect"> -->
 
-                                        <input
-                                            type="{{ form.controls['type'].value === 'multiple' ? 'checkbox' : 'radio' }}"
-                                            formControlName="iscorrect" name="choice"  (change)="onOptionChange(i)" >
+                                        <!-- <input type="{{ form.controls['type'].value === 'multiple' ? 'checkbox' : 'radio' }}"
+                                            formControlName="iscorrect" name="iscorrect" (change)="onOptionChange(i)"> -->
+
+                                        <input type="radio" name="iscorrect" formControlName="iscorrect"
+                                            *ngIf="this.form.controls['type'].value==='single'"
+                                            (change)="onOptionChange(i)">
+
+                                        <input type="checkbox" name="iscorrect" formControlName="iscorrect"
+                                            *ngIf="this.form.controls['type'].value==='multiple'"
+                                            (change)="onOptionChange(i)">
 
                                         <label for="correct">CORRECT</label>
                                     </div>

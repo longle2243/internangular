@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
-import { CountryISO, SearchCountryField, PhoneNumberFormat } from 'ngx-intl-tel-input-gg';
-import { PhoneNumberUtil, PhoneNumber } from 'google-libphonenumber';
+import { PhoneNumberUtil } from 'google-libphonenumber';
 
 import { HttpClient } from '@angular/common/http';
 interface Countries {
@@ -19,9 +18,7 @@ interface Countries {
 export class ReactiveComponent implements OnInit {
   userform: FormGroup;
   accountform: FormGroup;
-  CountryISO = CountryISO;
-  SearchCountryField = SearchCountryField;
-  PhoneNumberFormat = PhoneNumberFormat;
+
   isPopupOpen = false;
   popupImageSrc = '';
 

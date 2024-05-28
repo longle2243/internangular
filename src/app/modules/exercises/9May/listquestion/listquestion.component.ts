@@ -32,17 +32,13 @@ export class ListquestionComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.loadQuestion()
-    this.loadSubject()
-
-    this.acrouter.queryParams.subscribe(param => {
-      this.valuesearch = param['search'] || '';
-      this.valuefilter = param['filter'] || '';
-      this.searchContent();
-      this.filterSubject();
-    })
+    this.loadQuestion(),
+      this.loadSubject(),
+      this.getParam()
   }
 
+
+  // SERVICE API
   loadSubject() {
     this.subjectSV.getData().subscribe((res) => {
       this.subjects = res
@@ -61,6 +57,16 @@ export class ListquestionComponent implements OnInit {
     })
   }
 
+  getParam() {
+    this.acrouter.queryParams.subscribe(param => {
+      this.valuesearch = param['search'] || '';
+      this.valuefilter = param['filter'] || '';
+      this.loadData()
+    })
+  }
+
+
+  // POP UP CONFIRM
   delete(id: number) {
     this.popupSV.popUpConfirm("Are you sure?").then((result) => {
       if (result.isConfirmed) {
@@ -79,38 +85,35 @@ export class ListquestionComponent implements OnInit {
     });
   }
 
-  filterSubject() {
-    if (!this.valuefilter) {
-      this.datafilter = this.questions
-    } else {
-      this.datafilter = this.questions.filter((question: { subject: any; }) => question.subject === this.valuefilter);
-    }
-  }
 
-  searchContent() {
-    if (!this.valuesearch) {
-      this.datafilter = this.questions
-    } else {
-      this.datafilter = this.questions.filter((question: { content: any; }) => question.content.toLowerCase().includes(this.valuesearch?.toLowerCase()));
-    }
-  }
-
-  searchAndFilter() {
-    this.datafilter = this.questions.filter((question: { subject: any; }) => question.subject === this.valuefilter);
-    this.datafilter = this.questions.filter((question: { content: any; }) => question.content.toLowerCase().includes(this.valuesearch?.toLowerCase()));
-  }
-
-  search() {
-    this.router.navigate([], { queryParams: { search: this.valuesearch } });
-  }
-
-  filter() {
-    this.router.navigate([], { queryParams: { filter: this.valuefilter } });
+  // FUNCTION GROUP: SEARCH & FILTER
+  onSearchFilter() {
+    this.router.navigate([], { queryParams: { filter: this.valuefilter, search: this.valuesearch } });
   }
 
   loadData() {
     if (this.valuefilter && this.valuesearch) {
-      this
+      this.searchfilter()
+    } else if (this.valuefilter) {
+      this.filter()
+    } else if (this.valuesearch) {
+      this.search()
+    } else {
+      this.datafilter = this.questions
     }
+  }
+
+  filter() {
+    this.datafilter = this.questions.filter((question: { subject: any; }) => question.subject === this.valuefilter);
+  }
+
+  search() {
+    this.datafilter = this.questions.filter((question: { content: any; }) => question.content.toLowerCase().includes(this.valuesearch?.toLowerCase()));
+  }
+
+  searchfilter() {
+    var dataTemp = []
+    dataTemp = this.questions.filter((question: { subject: any; }) => question.subject === this.valuefilter);
+    this.datafilter = dataTemp.filter((question: { content: any; }) => question.content.toLowerCase().includes(this.valuesearch?.toLowerCase()));
   }
 }

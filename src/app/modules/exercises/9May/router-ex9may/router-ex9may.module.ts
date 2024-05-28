@@ -7,13 +7,17 @@ import { DynamicformComponent } from '../dynamicform/dynamicform.component';
 import { RouterEx9mayComponent } from './router-ex9may.component';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { ListquestionComponent } from '../listquestion/listquestion.component';
+import { QuestionformComponent } from '../questionform/questionform.component';
+import { QuestiondetailComponent } from '../questiondetail/questiondetail.component';
 
 
 @NgModule({
   declarations: [
     DynamicformComponent,
     RouterEx9mayComponent,
-    ListquestionComponent
+    ListquestionComponent,
+    QuestionformComponent,
+    QuestiondetailComponent
   ],
   imports: [
     CommonModule,
