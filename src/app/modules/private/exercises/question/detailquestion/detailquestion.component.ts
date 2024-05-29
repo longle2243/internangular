@@ -63,7 +63,7 @@ export class DetailquestionComponent {
 
 
   onSubmit() {
-    this.form.markAllAsTouched()
+    this.form.markAllAsTouched();
     if (this.form.valid) {
       this.popupSV.popUpConfirm("Are you sure?").then((result) => {
         if (result.isConfirmed) {
@@ -76,7 +76,7 @@ export class DetailquestionComponent {
               }
             },
             error: (error) => {
-              this.popupSV.showError(error)
+              this.popupSV.showError(error);
             }
           })
         }
@@ -96,7 +96,7 @@ export class DetailquestionComponent {
             }
           },
           error: (error) => {
-            this.popupSV.showError(error)
+            this.popupSV.showError(error);
           }
         })
       }
@@ -112,7 +112,7 @@ export class DetailquestionComponent {
       content: [null, Validators.required],
       iscorrect: [false, Validators.required]
     })
-    this.answers.push(answer)
+    this.answers.push(answer);
   }
 
   createAnswer(answer: Answer): FormGroup {
@@ -143,7 +143,7 @@ export class DetailquestionComponent {
   onOffEdit() {
     this.isEdit = !this.isEdit;
     // Object.keys return key with type string
-    // keyof typeof this.form.controls (Ép kiểu cho hệ thống hiểu đây là key controls)
+    // keyof typeof this.form.controls (Press Type for angular know this is key controls)
     const controlNames = Object.keys(this.form.controls) as (keyof typeof this.form.controls)[];
     controlNames.map(control => {
       if (this.isEdit) {

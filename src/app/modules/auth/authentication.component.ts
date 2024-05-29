@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
-import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { AuthService } from '../../services/auth.service';
-import { isWhiteSpace } from './function/whiteSpace-validators';
+import { AuthService } from '@app/services/auth.service';
+
 
 @Component({
   selector: 'app-authentication',

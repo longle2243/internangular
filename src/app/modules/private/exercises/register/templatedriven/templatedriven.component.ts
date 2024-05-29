@@ -4,60 +4,56 @@ import { NgForm, NgModel } from '@angular/forms';
 @Component({
   selector: 'app-templatedriven',
   templateUrl: './templatedriven.component.html',
-  styleUrl: './templatedriven.component.scss'
+  styleUrl: './templatedriven.component.scss',
 })
 export class TemplatedrivenComponent {
-
   userform: any = {
-    fullname: "",
-    birthday: "",
-    gender: "Male",
-    country: "New York",
-    phone: "",
-    bio: "",
-  }
+    fullname: '',
+    birthday: '',
+    gender: 'Male',
+    country: 'New York',
+    phone: '',
+    bio: '',
+  };
 
   accountform: any = {
-    username: "",
-    email: "",
-    password: "",
-    confirmpassword: "",
+    username: '',
+    email: '',
+    password: '',
+    confirmpassword: '',
     check: false,
-  }
+  };
 
   countrylist = [
     { name: 'New York', phone: '01' },
     { name: 'Viet nam', phone: '84' },
-  ]
+  ];
 
-  genderlist = [
-    "Male",
-    "Female"
-  ]
+  genderlist = ['Male', 'Female'];
 
   usersubmit(form: NgForm) {
     form.form.markAllAsTouched();
-    if(form.valid){
-      console.log("OK");
-      alert("User valid")
+    if (form.valid) {
+      console.log('OK');
+      alert('User valid');
     }
   }
 
   accountsubmit(form: NgForm) {
     form.form.markAllAsTouched();
-    if(form.valid){
-      console.log("OK");
-      alert("Account valid")
+    if (form.valid) {
+      console.log('OK');
+      alert('Account valid');
     }
   }
 
-  isItnlPhone(country: any, phone: any) : boolean{
-    const selectcounry = this.countrylist.find(c => c.name === country);
-    const firstTwoDigits = phone.substring(0,2);
+  isItnlPhone(country: any, phone: any): boolean {
+    const selectcounry = this.countrylist.find((c) => c.name === country);
+    const firstTwoDigits = phone.substring(0, 2);
     return selectcounry?.phone == firstTwoDigits;
   }
 
-  isNotMatch(password: string, confirm: string): boolean{
+  isNotMatch(password: string, confirm: string): boolean {
     return password !== confirm;
   }
 
@@ -72,6 +68,6 @@ export class TemplatedrivenComponent {
     const birthday = new Date(model.value);
     const today = new Date();
     const age = today.getFullYear() - birthday.getFullYear();
-    return age < 13
+    return age < 13;
   }
 }

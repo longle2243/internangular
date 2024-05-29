@@ -12,8 +12,8 @@ import { SubjectService } from '@app/services/subject.service';
 })
 export class CreatequestionComponent {
   subjects: any;
-  questionDifficulty = ['Easy', 'Medium', 'Hard']
-  answerType = ['single', 'multiple',]
+  questionDifficulty = ['Easy', 'Medium', 'Hard'];
+  answerType = ['single', 'multiple'];
   ischecked = false;
 
   constructor(
@@ -22,20 +22,18 @@ export class CreatequestionComponent {
     private questionSV: QuestionService,
     private popupSV: PopupService,
   ) {
-    this.addAnswer()
+    this.addAnswer();
   }
 
   ngOnInit(): void {
-    this.loadSubject()
-    this.form.controls['type'].setValue(this.answerType[0])
+    this.loadSubject();
+    this.form.controls['type'].setValue(this.answerType[0]);
   }
 
   onSubmit() {
-    console.log(this.answers.value);
-    // console.log(this.form.controls['answers'].value);
-    this.form.markAllAsTouched()
+    this.form.markAllAsTouched();
     if (this.form.valid) {
-      this.createQuestion()
+      this.createQuestion();
     }
   }
 
@@ -65,7 +63,7 @@ export class CreatequestionComponent {
       content: [null, Validators.required],
       iscorrect: [false, Validators.required]
     })
-    this.answers.push(answer)
+    this.answers.push(answer);
   }
 
   deleteAnswer(index: number) {
@@ -95,8 +93,8 @@ export class CreatequestionComponent {
   createQuestion() {
     this.questionSV.create(this.form.value as Question).subscribe((res) => {
       if (res) {
-        this.popupSV.popUpSuccess("Created!")
-        this.form.reset()
+        this.popupSV.popUpSuccess("Created!");
+        this.form.reset();
       }
     })
   }
@@ -111,19 +109,18 @@ export class CreatequestionComponent {
     }
   }
 
-
   onOptionChange(id: number) {
     if (this.form.controls['type'].value === 'single') {
       this.answers.controls.map(answer => {
         answer.get('iscorrect')?.setValue(false);
       })
-      this.answers.at(id).get('iscorrect')?.setValue(true)
+      this.answers.at(id).get('iscorrect')?.setValue(true);
     } else {
-      var currentValue = this.answers.at(id).get('iscorrect')?.value
+      var currentValue = this.answers.at(id).get('iscorrect')?.value;
       if (!currentValue) {
-        this.answers.at(id).get('iscorrect')?.setValue(false)
+        this.answers.at(id).get('iscorrect')?.setValue(false);
       } else {
-        this.answers.at(id).get('iscorrect')?.setValue(true)
+        this.answers.at(id).get('iscorrect')?.setValue(true);
       }
     }
   }
