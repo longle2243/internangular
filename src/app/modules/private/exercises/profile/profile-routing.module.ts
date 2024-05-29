@@ -4,8 +4,10 @@ import { AdminformComponent } from './adminform/adminform.component';
 import { EmployeeformComponent } from './employeeform/employeeform.component';
 
 const routes: Routes = [
-  { path: 'admin', component: AdminformComponent },
+  { path: '', component: EmployeeformComponent },
   { path: 'employee', component: EmployeeformComponent },
+  { path: 'admin', component: AdminformComponent },
+
 ];
 
 @NgModule({

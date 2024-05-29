@@ -16,14 +16,14 @@
             {{ subject.name }}
           </option>
         </select>
-        <!-- <app-showerror [form]="form" [controlname]="'subject'" /> -->
+        <app-showerror [form]="form" [controlname]="'subject'" />
 
         <label for="questionContent">Question</label>
         <textarea
           class="form-control"
           formControlName="content"
           placeholder="What eat have lunch"></textarea>
-        <!-- <app-showerror [form]="form" [controlname]="'content'" /> -->
+        <app-showerror [form]="form" [controlname]="'content'" />
 
         <div class="flexrow flexbetween">
           <div>
@@ -35,7 +35,7 @@
                 {{ difficulty }}
               </option>
             </select>
-            <!-- <app-showerror [form]="form" [controlname]="'difficulty'" /> -->
+            <app-showerror [form]="form" [controlname]="'difficulty'" />
           </div>
 
           <div>
@@ -48,7 +48,7 @@
                 {{ type }}
               </option>
             </select>
-            <!-- <app-showerror [form]="form" [controlname]="'type'" /> -->
+            <app-showerror [form]="form" [controlname]="'type'" />
           </div>
         </div>
         <button
@@ -78,14 +78,6 @@
                     type="text"
                     formControlName="content" />
                   <div>
-                    <!-- <input class="radio" type="checkbox" formControlName="iscorrect" [value]="true"> -->
-
-                    <!-- <input class="radio" type="radio" formControlName="iscorrect" [value]="true"
-                                    name="iscorrect"> -->
-
-                    <!-- <input type="{{ form.controls['type'].value === 'multiple' ? 'checkbox' : 'radio' }}"
-                                            formControlName="iscorrect" name="iscorrect" (change)="onOptionChange(i)"> -->
-
                     <input
                       type="radio"
                       [value]="true"
