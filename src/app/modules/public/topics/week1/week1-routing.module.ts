@@ -5,13 +5,13 @@ import { FolderstructureComponent } from './components/folderstructure/folderstr
 import { PageComponent } from './page/page.component';
 
 const routes: Routes = [
-  { path: '', component: PageComponent},
+  { path: '', component: PageComponent },
   { path: '1', component: SetupenvComponent },
   { path: '2', component: FolderstructureComponent },
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class Week1RoutingModule { }
+export class Week1RoutingModule {}

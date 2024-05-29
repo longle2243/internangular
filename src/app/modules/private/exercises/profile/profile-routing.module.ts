@@ -4,12 +4,12 @@ import { AdminformComponent } from './adminform/adminform.component';
 import { EmployeeformComponent } from './employeeform/employeeform.component';
 
 const routes: Routes = [
-  {path: 'admin', component: AdminformComponent},
-  {path: 'employee', component: EmployeeformComponent}
+  { path: 'admin', component: AdminformComponent },
+  { path: 'employee', component: EmployeeformComponent },
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class ProfileRoutingModule { }
+export class ProfileRoutingModule {}

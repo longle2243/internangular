@@ -5,11 +5,11 @@
   </div>
   <div class="text-danger" *ngIf="model.errors?.['minlength']">
     {{ model.name }} must be at least
-    {{model.errors?.['minlength'].requiredLength}} characters long.
+    {{ model.errors?.['minlength'].requiredLength }} characters long.
   </div>
   <div class="text-danger" *ngIf="model.errors?.['maxlength']">
     {{ model.name }} cannot exceed
-    {{model.errors?.['maxlength'].requiredLength}} characters.
+    {{ model.errors?.['maxlength'].requiredLength }} characters.
   </div>
   <div class="text-danger" *ngIf="model.errors?.['email']">
     Invalid format Email
@@ -27,14 +27,12 @@
   </div>
   <div
     class="text-danger"
-    *ngIf="model.name==='username' && model.errors?.['pattern']"
-  >
+    *ngIf="model.name === 'username' && model.errors?.['pattern']">
     {{ model.name }} must contain only number and letters
   </div>
   <div
     class="text-danger"
-    *ngIf="model.name==='password' && model.errors?.['pattern']"
-  >
+    *ngIf="model.name === 'password' && model.errors?.['pattern']">
     Your password must contain at least one uppercase, one lowercase, and one
     number
   </div>
@@ -44,7 +42,6 @@
 </div>
 <div
   class="text-danger"
-  *ngIf="model.name==='confirmpassword' && model.errors?.['mismatch']"
->
+  *ngIf="model.name === 'confirmpassword' && model.errors?.['mismatch']">
   Password mismatch
 </div>

@@ -1,9 +1,9 @@
-import { Answer } from "./answer.interface";
+import { Answer } from './answer.interface';
 
 export interface Question {
-    id: number;
-    subject: string;
-    content: string;
-    difficulty: string;
-    answers: Answer[];
+  id: number;
+  subject: string;
+  content: string;
+  difficulty: string;
+  answers: Answer[];
 }

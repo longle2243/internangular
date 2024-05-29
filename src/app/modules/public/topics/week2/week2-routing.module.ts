@@ -5,6 +5,6 @@ const routes: Routes = [];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class Week2RoutingModule { }
+export class Week2RoutingModule {}

@@ -24,6 +24,7 @@ export class ListquestionComponent implements OnInit {
   datafilter?: Question[];
   valuefilter?: string;
   valuesearch?: string;
+  pageNumber?: number;
   isloadDone = false;
   isTimeOut = false;
 
@@ -40,7 +41,7 @@ export class ListquestionComponent implements OnInit {
 
   // SERVICE API
   loadSubject() {
-    this.subjectSV.getData().subscribe((res) => {
+    this.subjectSV.getData().subscribe(res => {
       this.subjects = res;
     });
   }
@@ -50,7 +51,7 @@ export class ListquestionComponent implements OnInit {
       .getAll()
       .pipe(timeout(2000))
       .subscribe({
-        next: (res) => {
+        next: res => {
           this.questions = res;
           this.datafilter = this.questions;
         },
@@ -61,16 +62,17 @@ export class ListquestionComponent implements OnInit {
   }
 
   getParam() {
-    this.acrouter.queryParams.subscribe((param) => {
+    this.acrouter.queryParams.subscribe(param => {
       this.valuesearch = param['search'] || '';
       this.valuefilter = param['filter'] || '';
+      this.valuefilter = param['page'] || '';
       this.loadData();
     });
   }
 
   // POP UP CONFIRM
   delete(id: number) {
-    popUpConfirm('Are you sure?').then((result) => {
+    popUpConfirm('Are you sure?').then(result => {
       if (result.isConfirmed) {
         this.questionSV.deleteItem(id).subscribe({
           next: () => {
@@ -99,6 +101,8 @@ export class ListquestionComponent implements OnInit {
       this.filter();
     } else if (this.valuesearch) {
       this.search();
+    } else if (this.pageNumber) {
+
     } else {
       this.datafilter = this.questions;
     }
@@ -124,5 +128,12 @@ export class ListquestionComponent implements OnInit {
     this.datafilter = dataTemp.filter((question: { content: string }) =>
       question.content.toLowerCase().includes(this.valuesearch!.toLowerCase())
     );
+  }
+
+  pageChanged(page:number){
+    // this.p = this.pageNumber |
+    this.router.navigate([], {
+      queryParams: { filter: this.valuefilter, search: this.valuesearch, page: page },
+    });
   }
 }

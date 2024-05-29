@@ -49,14 +49,14 @@ export class DetailquestionComponent implements OnInit {
   }
 
   loadQuestion() {
-    this.questionSV.getItem(this.id!).subscribe((res) => {
+    this.questionSV.getItem(this.id!).subscribe(res => {
       this.question = res;
       this.patchValue();
     });
   }
 
   loadSubject() {
-    this.subjectSV.getData().subscribe((res) => {
+    this.subjectSV.getData().subscribe(res => {
       this.subjects = res;
     });
   }
@@ -64,7 +64,7 @@ export class DetailquestionComponent implements OnInit {
   onSubmit() {
     this.form.markAllAsTouched();
     if (this.form.valid) {
-      popUpConfirm('Are you sure?').then((result) => {
+      popUpConfirm('Are you sure?').then(result => {
         if (result.isConfirmed) {
           this.questionSV
             .update(this.id!, this.form.value as Question)
@@ -84,7 +84,7 @@ export class DetailquestionComponent implements OnInit {
   }
 
   delelte() {
-    popUpConfirm('Are you sure?').then((result) => {
+    popUpConfirm('Are you sure?').then(result => {
       if (result.isConfirmed) {
         this.questionSV.deleteItem(this.id!).subscribe({
           next: () => {
@@ -131,7 +131,7 @@ export class DetailquestionComponent implements OnInit {
     });
 
     this.answers.clear();
-    this.question?.answers.map((answer) => {
+    this.question?.answers.map(answer => {
       this.answers.push(this.createAnswer(answer));
     });
     this.form.controls['answers'].disable();
@@ -144,7 +144,7 @@ export class DetailquestionComponent implements OnInit {
     const controlNames = Object.keys(
       this.form.controls
     ) as (keyof typeof this.form.controls)[];
-    controlNames.map((control) => {
+    controlNames.map(control => {
       if (this.isEdit) {
         this.form.controls[control].enable();
       } else {

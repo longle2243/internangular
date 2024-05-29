@@ -3,12 +3,8 @@ import { CommonModule } from '@angular/common';
 
 import { Week2RoutingModule } from './week2-routing.module';
 
-
 @NgModule({
   declarations: [],
-  imports: [
-    CommonModule,
-    Week2RoutingModule
-  ]
+  imports: [CommonModule, Week2RoutingModule],
 })
-export class Week2Module { }
+export class Week2Module {}

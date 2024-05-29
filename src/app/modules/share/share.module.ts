@@ -3,14 +3,8 @@ import { CommonModule } from '@angular/common';
 import { ShowerrorComponent } from './showerror/showerror.component';
 
 @NgModule({
-  declarations: [
-    ShowerrorComponent
-  ],
-  imports: [
-    CommonModule,
-  ],
-  exports: [
-    ShowerrorComponent
-  ]
+  declarations: [ShowerrorComponent],
+  imports: [CommonModule],
+  exports: [ShowerrorComponent],
 })
-export class ShareModule { }
+export class ShareModule {}

@@ -39,7 +39,7 @@ export class CreatequestionComponent implements OnInit {
 
   // SERVICE
   loadSubject() {
-    this.subjectSV.getData().subscribe((res) => {
+    this.subjectSV.getData().subscribe(res => {
       this.subjects = res;
     });
   }
@@ -66,7 +66,7 @@ export class CreatequestionComponent implements OnInit {
   }
 
   deleteAnswer(index: number) {
-    popUpConfirm('Are you sure ?').then((res) => {
+    popUpConfirm('Are you sure ?').then(res => {
       if (res.isConfirmed) {
         this.answers.removeAt(index);
       }
@@ -74,7 +74,7 @@ export class CreatequestionComponent implements OnInit {
   }
 
   deleteChoice(index: number) {
-    popUpConfirm('Are you sure ?').then((res) => {
+    popUpConfirm('Are you sure ?').then(res => {
       if (res.isConfirmed) {
         this.answers.removeAt(index);
       }
@@ -82,7 +82,7 @@ export class CreatequestionComponent implements OnInit {
   }
 
   deleteCorrect(index: number) {
-    popUpConfirm('Are you sure ?').then((res) => {
+    popUpConfirm('Are you sure ?').then(res => {
       if (res.isConfirmed) {
         this.answers.removeAt(index);
       }
@@ -90,7 +90,7 @@ export class CreatequestionComponent implements OnInit {
   }
 
   createQuestion() {
-    this.questionSV.create(this.form.value as Question).subscribe((res) => {
+    this.questionSV.create(this.form.value as Question).subscribe(res => {
       if (res) {
         popUpSuccess('Created!');
         this.form.reset();
@@ -101,7 +101,7 @@ export class CreatequestionComponent implements OnInit {
   // LOGIC HANDLE TYPE SINGLE/MULTIPLE CHOICE ANSWER
   onTypeCheck(): void {
     if (this.form.controls['type'].value === 'single') {
-      this.answers.controls.map((answer) => {
+      this.answers.controls.map(answer => {
         answer.get('iscorrect')?.setValue(false);
       });
     }
@@ -109,7 +109,7 @@ export class CreatequestionComponent implements OnInit {
 
   onOptionChange(id: number) {
     if (this.form.controls['type'].value === 'single') {
-      this.answers.controls.map((answer) => {
+      this.answers.controls.map(answer => {
         answer.get('iscorrect')?.setValue(false);
       });
       this.answers.at(id).get('iscorrect')?.setValue(true);
@@ -121,5 +121,6 @@ export class CreatequestionComponent implements OnInit {
         this.answers.at(id).get('iscorrect')?.setValue(true);
       }
     }
+    console.log(this.answers.value);
   }
 }

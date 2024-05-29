@@ -6,43 +6,46 @@ import { User } from '@app/interfaces/user.interface';
 import { Token } from '@app/interfaces/token.interface';
 
 @Injectable({
-    providedIn: 'root'
+  providedIn: 'root',
 })
 export class AuthService {
-    private apiUrl = 'http://localhost:3000/auth';
-    constructor(public jwtHelper: JwtHelperService, private http: HttpClient) { }
+  private apiUrl = 'http://localhost:3000/auth';
+  constructor(
+    public jwtHelper: JwtHelperService,
+    private http: HttpClient
+  ) {}
 
-    login(user: User): Observable<Token> {
-        return this.http.post<Token>(this.apiUrl + "/login", user)
-            .pipe(tap((res) => {
-                if (res && res.access_token) {
-                    localStorage.setItem("token", res.access_token);
-                }
-            }));
-    }
-
-    public isAuthenticated() {
-        if (typeof localStorage !== 'undefined') {
-            const token = this.getToken();
-            this.isTokenExpired()
-            return !this.jwtHelper.isTokenExpired(token);
+  login(user: User): Observable<Token> {
+    return this.http.post<Token>(this.apiUrl + '/login', user).pipe(
+      tap(res => {
+        if (res && res.access_token) {
+          localStorage.setItem('token', res.access_token);
         }
-        return false;
-    }
+      })
+    );
+  }
 
-    getToken(): string | null {
-        return localStorage.getItem('token');
+  public isAuthenticated() {
+    if (typeof localStorage !== 'undefined') {
+      const token = this.getToken();
+      this.isTokenExpired();
+      return !this.jwtHelper.isTokenExpired(token);
     }
-    
-    logout(): void {
-        localStorage.removeItem('token');
-    }
+    return false;
+  }
 
-    isTokenExpired(){
-        const token = this.getToken();
-        if (this.jwtHelper.isTokenExpired(token)) {
-            this.logout();
-        }
+  getToken(): string | null {
+    return localStorage.getItem('token');
+  }
+
+  logout(): void {
+    localStorage.removeItem('token');
+  }
+
+  isTokenExpired() {
+    const token = this.getToken();
+    if (this.jwtHelper.isTokenExpired(token)) {
+      this.logout();
     }
+  }
 }
-

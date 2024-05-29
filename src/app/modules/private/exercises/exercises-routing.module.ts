@@ -4,12 +4,20 @@ import { PageComponent } from './page/page.component';
 
 const routes: Routes = [
   { path: '', component: PageComponent },
-  { path: 'question', loadChildren: () => import('./question/question.module').then(m => m.QuestionModule) },
-  { path: 'register', loadChildren: () => import('./register/register.module').then(m => m.RegisterModule) },
+  {
+    path: 'question',
+    loadChildren: () =>
+      import('./question/question.module').then(m => m.QuestionModule),
+  },
+  {
+    path: 'register',
+    loadChildren: () =>
+      import('./register/register.module').then(m => m.RegisterModule),
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class ExercisesRoutingModule { }
+export class ExercisesRoutingModule {}

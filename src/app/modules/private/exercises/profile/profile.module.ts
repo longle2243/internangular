@@ -8,18 +8,13 @@ import { AdminformComponent } from './adminform/adminform.component';
 import { EmployeeformComponent } from './employeeform/employeeform.component';
 import { AddressformComponent } from './addressform/addressform.component';
 
-
 @NgModule({
   declarations: [
     UserformComponent,
     AdminformComponent,
     EmployeeformComponent,
-    AddressformComponent
+    AddressformComponent,
   ],
-  imports: [
-    CommonModule,
-    ProfileRoutingModule,
-    ReactiveFormsModule
-  ]
+  imports: [CommonModule, ProfileRoutingModule, ReactiveFormsModule],
 })
-export class ProfileModule { }
+export class ProfileModule {}

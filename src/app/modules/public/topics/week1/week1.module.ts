@@ -6,16 +6,8 @@ import { PageComponent } from './page/page.component';
 import { ParentComponent } from './components/parent/parent.component';
 import { ChildComponent } from './components/child/child.component';
 
-
 @NgModule({
-  declarations: [
-    PageComponent,
-    ParentComponent,
-    ChildComponent
-  ],
-  imports: [
-    CommonModule,
-    Week1RoutingModule
-  ]
+  declarations: [PageComponent, ParentComponent, ChildComponent],
+  imports: [CommonModule, Week1RoutingModule],
 })
-export class Week1Module { }
+export class Week1Module {}

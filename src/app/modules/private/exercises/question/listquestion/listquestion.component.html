@@ -16,8 +16,7 @@
         placeholder="Search Question Content"
         [(ngModel)]="valuesearch"
         (input)="onSearchFilter()"
-        name="search"
-      />
+        name="search" />
     </div>
   </div>
   <table class="table">
@@ -30,8 +29,7 @@
             <select
               [(ngModel)]="valuefilter"
               (change)="onSearchFilter()"
-              name="filter"
-            >
+              name="filter">
               <option [defaultSelected]="true" value="">All</option>
               <option *ngFor="let subject of subjects" [value]="subject.name">
                 {{ subject.name }}
@@ -49,16 +47,17 @@
       <tr
         *ngFor="
           let question of datafilter ?? []
-            | paginate : { itemsPerPage: 3, currentPage: p };
+            | paginate: { itemsPerPage: 3, currentPage: p };
           let i = index
-        "
-      >
+        ">
         <th scope="row">{{ i + 1 }}</th>
         <td>{{ question.subject }}</td>
         <td>{{ question.difficulty }}</td>
         <td>{{ question.content }}</td>
         <td>
-          <a class="btn btn-secondary" [routerLink]="question.id.toString()">Details</a>
+          <a class="btn btn-secondary" [routerLink]="question.id.toString()"
+            >Details</a
+          >
         </td>
         <td>
           <button class="btn btn-danger" (click)="delete(question.id)">
@@ -69,6 +68,7 @@
     </tbody>
   </table>
   <div class="magrinCenter">
-    <pagination-controls (pageChange)="p = $event"></pagination-controls>
+    <!-- <pagination-controls (pageChange)="p = $event"></pagination-controls> -->
+    <pagination-controls (pageChange)="pageChanged($event)"></pagination-controls>
   </div>
 </div>

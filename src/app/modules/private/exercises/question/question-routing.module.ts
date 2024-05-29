@@ -5,14 +5,14 @@ import { CreatequestionComponent } from './createquestion/createquestion.compone
 import { DetailquestionComponent } from './detailquestion/detailquestion.component';
 
 const routes: Routes = [
-  {path: '', component: ListquestionComponent},
-  {path: 'list', component: ListquestionComponent},
-  {path: 'list/:id', component: DetailquestionComponent},
-  {path: 'create', component: CreatequestionComponent},
+  { path: '', component: ListquestionComponent },
+  { path: 'list', component: ListquestionComponent },
+  { path: 'list/:id', component: DetailquestionComponent },
+  { path: 'create', component: CreatequestionComponent },
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class QuestionRoutingModule { }
+export class QuestionRoutingModule {}

@@ -1,50 +1,70 @@
 /* HTML: <div class="loader"></div> */
 .loader {
-    width: 60px;
-    aspect-ratio: 2;
-    --_g: no-repeat radial-gradient(circle closest-side,#000 90%,#0000);
-    background: 
-      var(--_g) 0%   50%,
-      var(--_g) 50%  50%,
-      var(--_g) 100% 50%;
-    background-size: calc(100%/3) 50%;
-    animation: l3 1s infinite linear;
+  width: 60px;
+  aspect-ratio: 2;
+  --_g: no-repeat radial-gradient(circle closest-side, #000 90%, #0000);
+  background:
+    var(--_g) 0% 50%,
+    var(--_g) 50% 50%,
+    var(--_g) 100% 50%;
+  background-size: calc(100% / 3) 50%;
+  animation: l3 1s infinite linear;
+}
+@keyframes l3 {
+  20% {
+    background-position:
+      0% 0%,
+      50% 50%,
+      100% 50%;
   }
-  @keyframes l3 {
-      20%{background-position:0%   0%, 50%  50%,100%  50%}
-      40%{background-position:0% 100%, 50%   0%,100%  50%}
-      60%{background-position:0%  50%, 50% 100%,100%   0%}
-      80%{background-position:0%  50%, 50%  50%,100% 100%}
+  40% {
+    background-position:
+      0% 100%,
+      50% 0%,
+      100% 50%;
   }
-
-.center{
-    position: fixed;
-    margin: auto;
-    top: 50%;
-    left: 50%;
+  60% {
+    background-position:
+      0% 50%,
+      50% 100%,
+      100% 0%;
+  }
+  80% {
+    background-position:
+      0% 50%,
+      50% 50%,
+      100% 100%;
+  }
 }
 
-.flexrow{
+.center {
+  position: fixed;
+  margin: auto;
+  top: 50%;
+  left: 50%;
+}
+
+.flexrow {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
 }
 
-.nav{
+.nav {
   margin: 10px;
 }
 
-.search{
+.search {
   margin-right: 10px;
 }
 
-.table{
+.table {
   width: 95%;
   margin: auto;
 }
 
-.magrinCenter{
+.magrinCenter {
   width: 40%;
   margin: auto;
   margin-top: 30px;

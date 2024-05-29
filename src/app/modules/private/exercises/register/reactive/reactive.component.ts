@@ -13,7 +13,6 @@ import { isWhiteSpace } from '@app/functions/whiteSpace-validators';
 import { HttpClient } from '@angular/common/http';
 import { Countries } from '@app/interfaces/country.interface';
 
-
 @Component({
   selector: 'app-reactive',
   templateUrl: './reactive.component.html',
@@ -35,7 +34,7 @@ export class ReactiveComponent implements OnInit {
   countries!: Countries[];
 
   fetchData() {
-    this.http.get<Countries[]>('assets/countrycode.json').subscribe((data) => {
+    this.http.get<Countries[]>('assets/countrycode.json').subscribe(data => {
       this.countries = data;
     });
   }

@@ -9,12 +9,11 @@ import { CreatequestionComponent } from './createquestion/createquestion.compone
 import { DetailquestionComponent } from './detailquestion/detailquestion.component';
 import { ShareModule } from '@app/modules/share/share.module';
 
-
 @NgModule({
   declarations: [
     ListquestionComponent,
     CreatequestionComponent,
-    DetailquestionComponent
+    DetailquestionComponent,
   ],
   imports: [
     CommonModule,
@@ -22,7 +21,7 @@ import { ShareModule } from '@app/modules/share/share.module';
     NgxPaginationModule,
     FormsModule,
     ReactiveFormsModule,
-    ShareModule
-  ]
+    ShareModule,
+  ],
 })
-export class QuestionModule { }
+export class QuestionModule {}

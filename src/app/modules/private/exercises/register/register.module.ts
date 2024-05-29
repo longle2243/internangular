@@ -9,21 +9,20 @@ import { ShowerrortemplateComponent } from './common/showerrortemplate/showerror
 import { ListformComponent } from './listform/listform.component';
 import { ShareModule } from '@app/modules/share/share.module';
 
-
 @NgModule({
   declarations: [
     ReactiveComponent,
     TemplatedrivenComponent,
     ShowerrortemplateComponent,
     PopupComponent,
-    ListformComponent
+    ListformComponent,
   ],
   imports: [
     CommonModule,
     RegisterRoutingModule,
     ReactiveFormsModule,
     FormsModule,
-    ShareModule
-  ]
+    ShareModule,
+  ],
 })
-export class RegisterModule { }
+export class RegisterModule {}

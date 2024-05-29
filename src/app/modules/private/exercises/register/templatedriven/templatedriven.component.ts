@@ -52,7 +52,7 @@ export class TemplatedrivenComponent {
   }
 
   isItnlPhone(country: string, phone: string): boolean {
-    const selectcounry = this.countrylist.find((c) => c.name === country);
+    const selectcounry = this.countrylist.find(c => c.name === country);
     const firstTwoDigits = phone.substring(0, 2);
     return selectcounry?.phone == firstTwoDigits;
   }

@@ -6,17 +6,13 @@ import { AuthenticationComponent } from './authentication.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ShareModule } from '@app/modules/share/share.module';
 
-
-
 @NgModule({
-  declarations: [
-    AuthenticationComponent,
-  ],
+  declarations: [AuthenticationComponent],
   imports: [
     CommonModule,
     AuthenticationRoutingModule,
     ReactiveFormsModule,
-    ShareModule
+    ShareModule,
   ],
 })
-export class AuthenticationModule { }
+export class AuthenticationModule {}

@@ -10,7 +10,10 @@ import { Router } from '@angular/router';
 export class AppComponent {
   title = 'learnangular';
 
-  constructor(private authSV: AuthService, private router: Router) { }
+  constructor(
+    private authSV: AuthService,
+    private router: Router
+  ) {}
 
   isLoggedIn(): boolean {
     return this.authSV.isAuthenticated();

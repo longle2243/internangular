@@ -4,7 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 @Component({
   selector: 'app-employeeform',
   templateUrl: './employeeform.component.html',
-  styleUrl: './employeeform.component.scss'
+  styleUrl: './employeeform.component.scss',
 })
 export class EmployeeformComponent {
   employee: FormGroup;
@@ -22,8 +22,7 @@ export class EmployeeformComponent {
     });
   }
 
-  onSubmit(){
+  onSubmit() {
     console.log(this.employee.value);
   }
-
 }

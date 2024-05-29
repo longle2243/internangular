@@ -11,11 +11,9 @@ import { animate, style, transition, trigger } from '@angular/animations';
         style({ opacity: 0 }),
         animate('500ms', style({ opacity: 1 })),
       ]),
-      transition(':leave', [
-        animate('500ms', style({ opacity: 0 }))
-      ])
-    ])
-  ]
+      transition(':leave', [animate('500ms', style({ opacity: 0 }))]),
+    ]),
+  ],
 })
 export class PageComponent {
   isVisible = false;

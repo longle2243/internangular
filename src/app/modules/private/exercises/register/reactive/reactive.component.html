@@ -1,140 +1,236 @@
 <div>
-    <div class="flexrow">
-        <!-- profile -->
-        <div class="profile1">
-            <div class="flexcolumn">
-                <div>
-                    <img src="./assets/avatar.png" class="img-thumbnail" alt="..." (click)="openPopup()">
-                </div>
-                <div>
-                    <h5>Homero Simpson</h5>
-                    <p>Lorem Ipsum is simply dummy text of the
-                        printing and typesetting industry. Lorem Ipsum has been
-                        the
-                        industry's standard dummy text ever since the 1500s</p>
-                </div>
-            </div>
-            <app-popup></app-popup>
-
+  <div class="flexrow">
+    <!-- profile -->
+    <div class="profile1">
+      <div class="flexcolumn">
+        <div>
+          <img
+            src="./assets/avatar.png"
+            class="img-thumbnail"
+            alt="..."
+            (click)="openPopup()" />
         </div>
-
-        <!-- user details -->
-        <div class="formcenter">
-            <div class="card-body">
-                <h5 class="card-title">User details</h5>
-                <form [formGroup]="userform" (ngSubmit)="usersubmit()">
-
-                    <div class="form-group">
-                        <label for="fullname" [class.invalid-label]="isInValidandTouched(userform, 'fullname')">
-                            Full Name*</label>
-                        <input type="text" class="form-control" name="fullname" formControlName="fullname"
-                            [class.invalid-input]="isInValidandTouched(userform, 'fullname')">
-                        <app-showerror [form]="userform" [controlname]="'fullname'" />
-                    </div>
-
-                    <div class="form-group">
-                        <label for="birthday" [class.invalid-label]="isInValidandTouched(userform, 'birthday')">
-                            Your birthday*</label>
-                        <input type="date" class="form-control" name="birthday" formControlName="birthday"
-                            [class.invalid-input]="isInValidandTouched(userform, 'birthday')">
-                        <app-showerror [form]="userform" [controlname]="'birthday'" />
-                    </div>
-
-                    <div class="form-group">
-                        <label for="gender">Gender</label>
-                        <select id="country" class="form-control" formControlName="gender">
-                            <option *ngFor=" let g of genderlist" [value]="g">{{g}}</option>
-                        </select>
-                    </div>
-
-                    <div class="flexrow">
-                        <div class="form-group country">
-                            <label for="country">Country</label>
-                            <select id="country" class="form-control" formControlName="country">
-                                <option *ngFor=" let ct of countries" [value]="ct.code">{{ct.name +"  :  "+ct.dial_code}}</option>
-                            </select>
-                        </div>
-                        <div class="form-group phone col">
-                            <label for="phone"
-                                [class.invalid-label]="isInValidandTouched(userform, 'phone')">Phone*</label>
-                            <input type="text" class="form-control" name="phone" formControlName="phone"
-                                [class.invalid-input]="isInValidandTouched(userform, 'phone')">
-                            <app-showerror [form]="userform" [controlname]="'phone'" />
-                            <div>
-                                <div class="text-danger" *ngIf="!userform.errors?.['itnlphone'] &&(userform.controls['phone'].touched || userform.controls['phone'].dirty)">
-                                    Phone incorrect for the selected country
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="bio">Bio</label>
-                        <input type="text" class="form-control" name="bio" formControlName="bio">
-                        <app-showerror [form]="userform" [controlname]="'bio'" />
-                        <div class="flexrowbetween">
-                            <label for="bio">Tell us about yourself</label>
-                            <label for="bio">{{userform.controls['bio'].value.length}}/256</label>
-                        </div>
-                    </div>
-                    <button type="submit" class="btn btn-secondary">Submit</button>
-                </form>
-            </div>
+        <div>
+          <h5>Homero Simpson</h5>
+          <p>
+            Lorem Ipsum is simply dummy text of the printing and typesetting
+            industry. Lorem Ipsum has been the industry's standard dummy text
+            ever since the 1500s
+          </p>
         </div>
-
-        <!-- account details -->
-        <div class="formcenter">
-            <div class="card-body">
-                <h5 class="card-title">Account details</h5>
-                <form [formGroup]="accountform" (ngSubmit)="accountsubmit()">
-                    <div class="form-group">
-                        <label for="username"
-                            [class.invalid-label]="isInValidandTouched(accountform, 'username')">Username*</label>
-                        <input type="text" class="form-control" name="username" formControlName="username"
-                            [class.invalid-input]="isInValidandTouched(accountform, 'username')">
-                        <app-showerror [form]="accountform" [controlname]="'username'" />
-                    </div>
-
-                    <div class="form-group">
-                        <label for="email"
-                            [class.invalid-label]="isInValidandTouched(accountform, 'email')">Email*</label>
-                        <input type="text" class="form-control" name="email" formControlName="email"
-                            [class.invalid-input]="isInValidandTouched(accountform, 'email')">
-                        <app-showerror [form]="accountform" [controlname]="'email'" />
-                    </div>
-
-                    <div class="form-group">
-                        <label for="password"
-                            [class.invalid-label]="isInValidandTouched(accountform, 'password')">Password*</label>
-                        <input type="password" class="form-control" name="password" formControlName="password"
-                            [class.invalid-input]="isInValidandTouched(accountform, 'password')">
-                        <app-showerror [form]="accountform" [controlname]="'password'" />
-                    </div>
-
-                    <div class="form-group">
-                        <label for="confirmpassword"
-                            [class.invalid-label]="isInValidandTouched(accountform, 'confirmpassword')">
-                            Confirm Password*</label>
-                        <input type="password" class="form-control" name="confirmpassword"
-                            formControlName="confirmpassword"
-                            [class.invalid-input]="isInValidandTouched(accountform, 'confirmpassword')">
-                        <app-showerror [form]="accountform" [controlname]="'confirmpassword'" />
-                    </div>
-
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" id="gridCheck" formControlName="checkbox">
-                        <label class="form-check-label" for="gridCheck">
-                            I accept terms and conditions
-                        </label>
-                        <div *ngIf="accountform.controls['checkbox'].errors?.['requiredTrue']"></div>
-                    </div>
-                    <button type="submit" class="btn btn-secondary">Submit</button>
-                </form>
-            </div>
-        </div>
-        <div id="popup" class="hidden" *ngIf="isPopupOpen">
-            <img id="popup-image" src="./assets/avatar.png">
-            <button class="btn btn-secondary" (click)="closePopup()">Close</button>
-        </div>
+      </div>
+      <app-popup></app-popup>
     </div>
+
+    <!-- user details -->
+    <div class="formcenter">
+      <div class="card-body">
+        <h5 class="card-title">User details</h5>
+        <form [formGroup]="userform" (ngSubmit)="usersubmit()">
+          <div class="form-group">
+            <label
+              for="fullname"
+              [class.invalid-label]="isInValidandTouched(userform, 'fullname')">
+              Full Name*</label
+            >
+            <input
+              type="text"
+              class="form-control"
+              name="fullname"
+              formControlName="fullname"
+              [class.invalid-input]="
+                isInValidandTouched(userform, 'fullname')
+              " />
+            <app-showerror [form]="userform" [controlname]="'fullname'" />
+          </div>
+
+          <div class="form-group">
+            <label
+              for="birthday"
+              [class.invalid-label]="isInValidandTouched(userform, 'birthday')">
+              Your birthday*</label
+            >
+            <input
+              type="date"
+              class="form-control"
+              name="birthday"
+              formControlName="birthday"
+              [class.invalid-input]="
+                isInValidandTouched(userform, 'birthday')
+              " />
+            <app-showerror [form]="userform" [controlname]="'birthday'" />
+          </div>
+
+          <div class="form-group">
+            <label for="gender">Gender</label>
+            <select id="country" class="form-control" formControlName="gender">
+              <option *ngFor="let g of genderlist" [value]="g">{{ g }}</option>
+            </select>
+          </div>
+
+          <div class="flexrow">
+            <div class="form-group country">
+              <label for="country">Country</label>
+              <select
+                id="country"
+                class="form-control"
+                formControlName="country">
+                <option *ngFor="let ct of countries" [value]="ct.code">
+                  {{ ct.name + '  :  ' + ct.dial_code }}
+                </option>
+              </select>
+            </div>
+            <div class="form-group phone col">
+              <label
+                for="phone"
+                [class.invalid-label]="isInValidandTouched(userform, 'phone')"
+                >Phone*</label
+              >
+              <input
+                type="text"
+                class="form-control"
+                name="phone"
+                formControlName="phone"
+                [class.invalid-input]="
+                  isInValidandTouched(userform, 'phone')
+                " />
+              <app-showerror [form]="userform" [controlname]="'phone'" />
+              <div>
+                <div
+                  class="text-danger"
+                  *ngIf="
+                    !userform.errors?.['itnlphone'] &&
+                    (userform.controls['phone'].touched ||
+                      userform.controls['phone'].dirty)
+                  ">
+                  Phone incorrect for the selected country
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="bio">Bio</label>
+            <input
+              type="text"
+              class="form-control"
+              name="bio"
+              formControlName="bio" />
+            <app-showerror [form]="userform" [controlname]="'bio'" />
+            <div class="flexrowbetween">
+              <label for="bio">Tell us about yourself</label>
+              <label for="bio"
+                >{{ userform.controls['bio'].value.length }}/256</label
+              >
+            </div>
+          </div>
+          <button type="submit" class="btn btn-secondary">Submit</button>
+        </form>
+      </div>
+    </div>
+
+    <!-- account details -->
+    <div class="formcenter">
+      <div class="card-body">
+        <h5 class="card-title">Account details</h5>
+        <form [formGroup]="accountform" (ngSubmit)="accountsubmit()">
+          <div class="form-group">
+            <label
+              for="username"
+              [class.invalid-label]="
+                isInValidandTouched(accountform, 'username')
+              "
+              >Username*</label
+            >
+            <input
+              type="text"
+              class="form-control"
+              name="username"
+              formControlName="username"
+              [class.invalid-input]="
+                isInValidandTouched(accountform, 'username')
+              " />
+            <app-showerror [form]="accountform" [controlname]="'username'" />
+          </div>
+
+          <div class="form-group">
+            <label
+              for="email"
+              [class.invalid-label]="isInValidandTouched(accountform, 'email')"
+              >Email*</label
+            >
+            <input
+              type="text"
+              class="form-control"
+              name="email"
+              formControlName="email"
+              [class.invalid-input]="
+                isInValidandTouched(accountform, 'email')
+              " />
+            <app-showerror [form]="accountform" [controlname]="'email'" />
+          </div>
+
+          <div class="form-group">
+            <label
+              for="password"
+              [class.invalid-label]="
+                isInValidandTouched(accountform, 'password')
+              "
+              >Password*</label
+            >
+            <input
+              type="password"
+              class="form-control"
+              name="password"
+              formControlName="password"
+              [class.invalid-input]="
+                isInValidandTouched(accountform, 'password')
+              " />
+            <app-showerror [form]="accountform" [controlname]="'password'" />
+          </div>
+
+          <div class="form-group">
+            <label
+              for="confirmpassword"
+              [class.invalid-label]="
+                isInValidandTouched(accountform, 'confirmpassword')
+              ">
+              Confirm Password*</label
+            >
+            <input
+              type="password"
+              class="form-control"
+              name="confirmpassword"
+              formControlName="confirmpassword"
+              [class.invalid-input]="
+                isInValidandTouched(accountform, 'confirmpassword')
+              " />
+            <app-showerror
+              [form]="accountform"
+              [controlname]="'confirmpassword'" />
+          </div>
+
+          <div class="form-check">
+            <input
+              class="form-check-input"
+              type="checkbox"
+              id="gridCheck"
+              formControlName="checkbox" />
+            <label class="form-check-label" for="gridCheck">
+              I accept terms and conditions
+            </label>
+            <div
+              *ngIf="
+                accountform.controls['checkbox'].errors?.['requiredTrue']
+              "></div>
+          </div>
+          <button type="submit" class="btn btn-secondary">Submit</button>
+        </form>
+      </div>
+    </div>
+    <div id="popup" class="hidden" *ngIf="isPopupOpen">
+      <img id="popup-image" src="./assets/avatar.png" />
+      <button class="btn btn-secondary" (click)="closePopup()">Close</button>
+    </div>
+  </div>
 </div>

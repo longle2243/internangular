@@ -8,10 +8,9 @@ describe('ShowerrortemplateComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ShowerrortemplateComponent]
-    })
-    .compileComponents();
-    
+      declarations: [ShowerrortemplateComponent],
+    }).compileComponents();
+
     fixture = TestBed.createComponent(ShowerrortemplateComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
