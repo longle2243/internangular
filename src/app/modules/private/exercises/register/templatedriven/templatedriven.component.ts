@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { NgForm, NgModel } from '@angular/forms';
+import { PersonalInfo } from '@app/interfaces/personalinfo.interface';
+import { Register } from '@app/interfaces/register.interface';
 
 @Component({
   selector: 'app-templatedriven',
@@ -7,29 +9,31 @@ import { NgForm, NgModel } from '@angular/forms';
   styleUrl: './templatedriven.component.scss',
 })
 export class TemplatedrivenComponent {
-  userform: any = {
-    fullname: '',
-    birthday: '',
-    gender: 'Male',
-    country: 'New York',
-    phone: '',
-    bio: '',
-  };
-
-  accountform: any = {
-    username: '',
-    email: '',
-    password: '',
-    confirmpassword: '',
-    check: false,
-  };
-
+  userform: PersonalInfo;
+  accountform: Register;
   countrylist = [
     { name: 'New York', phone: '01' },
     { name: 'Viet nam', phone: '84' },
   ];
-
   genderlist = ['Male', 'Female'];
+
+  constructor() {
+    this.userform = {
+      fullname: '',
+      birthday: '',
+      gender: 'Male',
+      country: 'New York',
+      phone: '',
+      bio: '',
+    };
+    this.accountform = {
+      username: '',
+      email: '',
+      password: '',
+      confirmpassword: '',
+      check: false,
+    };
+  }
 
   usersubmit(form: NgForm) {
     form.form.markAllAsTouched();
@@ -47,7 +51,7 @@ export class TemplatedrivenComponent {
     }
   }
 
-  isItnlPhone(country: any, phone: any): boolean {
+  isItnlPhone(country: string, phone: string): boolean {
     const selectcounry = this.countrylist.find((c) => c.name === country);
     const firstTwoDigits = phone.substring(0, 2);
     return selectcounry?.phone == firstTwoDigits;

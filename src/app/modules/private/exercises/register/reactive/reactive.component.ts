@@ -11,11 +11,8 @@ import { PhoneNumberUtil } from 'google-libphonenumber';
 import { isWhiteSpace } from '@app/functions/whiteSpace-validators';
 
 import { HttpClient } from '@angular/common/http';
-interface Countries {
-  name: string;
-  dial_code: string;
-  code: string;
-}
+import { Countries } from '@app/interfaces/country.interface';
+
 
 @Component({
   selector: 'app-reactive',
@@ -35,10 +32,10 @@ export class ReactiveComponent implements OnInit {
   // ]
   genderlist = ['Male', 'Female'];
 
-  countries: any;
+  countries!: Countries[];
 
   fetchData() {
-    this.http.get<Countries>('assets/countrycode.json').subscribe((data) => {
+    this.http.get<Countries[]>('assets/countrycode.json').subscribe((data) => {
       this.countries = data;
     });
   }
@@ -84,6 +81,7 @@ export class ReactiveComponent implements OnInit {
         { validators: this.isPassNotMatch }
       ));
   }
+
   ngOnInit(): void {
     this.fetchData();
   }

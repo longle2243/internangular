@@ -129,7 +129,7 @@
                         <label class="form-check-label" for="gridCheck">
                             I accept terms and conditions
                         </label>
-                        <div class="text-danger" *ngIf="accountform.check.invalid">
+                        <div class="text-danger" *ngIf="!accountform.check">
                             <div *ngIf="check">
                                 Agreeing to the terms and conditions is required.
                             </div>

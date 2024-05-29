@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable, tap } from 'rxjs';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { User } from '@app/interfaces/user.interface';
+import { Token } from '@app/interfaces/token.interface';
 
 @Injectable({
     providedIn: 'root'
@@ -11,8 +12,8 @@ export class AuthService {
     private apiUrl = 'http://localhost:3000/auth';
     constructor(public jwtHelper: JwtHelperService, private http: HttpClient) { }
 
-    login(user: User): Observable<any> {
-        return this.http.post<any>(this.apiUrl + "/login", user)
+    login(user: User): Observable<Token> {
+        return this.http.post<Token>(this.apiUrl + "/login", user)
             .pipe(tap((res) => {
                 if (res && res.access_token) {
                     localStorage.setItem("token", res.access_token);

@@ -1,12 +1,16 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpResponse } from '@angular/common/http';
+import { HttpErrorResponse } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
-import { TimeoutError, timeout } from 'rxjs';
+import { timeout } from 'rxjs';
 import { QuestionService } from '@app/services/question.service';
-import { PopupService } from '@app/services/popup.service';
 import { SubjectService } from '@app/services/subject.service';
 import { Question } from '@app/interfaces/question.interface';
 import { Subject } from '@app/interfaces/subject.interface';
+import {
+  popUpConfirm,
+  popUpSuccess,
+  showError,
+} from '@app/functions/popup-function';
 
 @Component({
   selector: 'app-listquestion',
@@ -22,11 +26,9 @@ export class ListquestionComponent implements OnInit {
   valuesearch?: string;
   isloadDone = false;
   isTimeOut = false;
-  test:string = 'haha';
 
   constructor(
     private questionSV: QuestionService,
-    private popupSV: PopupService,
     private subjectSV: SubjectService,
     private acrouter: ActivatedRoute,
     private router: Router
@@ -68,17 +70,15 @@ export class ListquestionComponent implements OnInit {
 
   // POP UP CONFIRM
   delete(id: number) {
-    this.popupSV.popUpConfirm('Are you sure?').then((result) => {
+    popUpConfirm('Are you sure?').then((result) => {
       if (result.isConfirmed) {
         this.questionSV.deleteItem(id).subscribe({
-          next: (res: HttpResponse<any>) => {
-            if (res.status == 200) {
-              this.popupSV.popUpSuccess('Deleted!');
-              this.loadQuestion();
-            }
+          next: () => {
+            popUpSuccess('Deleted!');
+            this.loadQuestion();
           },
-          error: (error) => {
-            this.popupSV.showError(error);
+          error: (error: HttpErrorResponse) => {
+            showError(error);
           },
         });
       }
@@ -117,7 +117,7 @@ export class ListquestionComponent implements OnInit {
   }
 
   searchfilter() {
-    var dataTemp = [];
+    let dataTemp = [];
     dataTemp = this.questions!.filter(
       (question: { subject: string }) => question.subject === this.valuefilter
     );
