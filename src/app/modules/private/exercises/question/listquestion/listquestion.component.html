@@ -48,7 +48,7 @@
     <tbody>
       <tr
         *ngFor="
-          let question of datafilter
+          let question of datafilter ?? []
             | paginate : { itemsPerPage: 3, currentPage: p };
           let i = index
         "
@@ -58,7 +58,7 @@
         <td>{{ question.difficulty }}</td>
         <td>{{ question.content }}</td>
         <td>
-          <a class="btn btn-secondary" [routerLink]="question.id">Details</a>
+          <a class="btn btn-secondary" [routerLink]="question.id.toString()">Details</a>
         </td>
         <td>
           <button class="btn btn-danger" (click)="delete(question.id)">

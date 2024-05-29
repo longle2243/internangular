@@ -1,6 +1,7 @@
-import { ChangeDetectorRef, Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, Validators } from '@angular/forms';
 import { Question } from '@app/interfaces/question.interface';
+import { Subject } from '@app/interfaces/subject.interface';
 import { PopupService } from '@app/services/popup.service';
 import { QuestionService } from '@app/services/question.service';
 import { SubjectService } from '@app/services/subject.service';
@@ -10,8 +11,8 @@ import { SubjectService } from '@app/services/subject.service';
   templateUrl: './createquestion.component.html',
   styleUrl: './createquestion.component.scss'
 })
-export class CreatequestionComponent {
-  subjects: any;
+export class CreatequestionComponent implements OnInit{
+  subjects?: Subject[];
   questionDifficulty = ['Easy', 'Medium', 'Hard'];
   answerType = ['single', 'multiple'];
   ischecked = false;
@@ -116,7 +117,7 @@ export class CreatequestionComponent {
       })
       this.answers.at(id).get('iscorrect')?.setValue(true);
     } else {
-      var currentValue = this.answers.at(id).get('iscorrect')?.value;
+      const currentValue = this.answers.at(id).get('iscorrect')?.value;
       if (!currentValue) {
         this.answers.at(id).get('iscorrect')?.setValue(false);
       } else {

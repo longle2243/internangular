@@ -8,6 +8,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { PhoneNumberUtil } from 'google-libphonenumber';
+import { isWhiteSpace } from '@app/functions/whiteSpace-validators';
 
 import { HttpClient } from '@angular/common/http';
 interface Countries {
@@ -47,7 +48,7 @@ export class ReactiveComponent implements OnInit {
         fullname: new FormControl('', [
           Validators.required,
           Validators.minLength(5),
-          this.isWhiteSpace,
+          isWhiteSpace,
         ]),
         birthday: new FormControl('', [
           Validators.required,
@@ -69,7 +70,7 @@ export class ReactiveComponent implements OnInit {
             Validators.required,
             Validators.minLength(5),
             Validators.pattern(/^(?=.*[a-z])(?=.*\d).{2,}$/),
-            this.isWhiteSpace,
+            isWhiteSpace,
           ]),
           email: new FormControl('', [Validators.required, Validators.email]),
           password: new FormControl('', [
@@ -129,15 +130,8 @@ export class ReactiveComponent implements OnInit {
   ): ValidationErrors | null => {
     const birhday = new Date(control.value);
     const today = new Date();
-    let age = today.getFullYear() - birhday.getFullYear();
+    const age = today.getFullYear() - birhday.getFullYear();
     return age < 13 ? { under13yd: true } : null;
-  };
-
-  isWhiteSpace: ValidatorFn = (
-    control: AbstractControl
-  ): ValidationErrors | null => {
-    const isSpace = control.value.match(/\s/g);
-    return isSpace ? { whitespace: true } : null;
   };
 
   usersubmit() {

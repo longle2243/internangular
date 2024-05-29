@@ -5,6 +5,8 @@ import { TimeoutError, timeout } from 'rxjs';
 import { QuestionService } from '@app/services/question.service';
 import { PopupService } from '@app/services/popup.service';
 import { SubjectService } from '@app/services/subject.service';
+import { Question } from '@app/interfaces/question.interface';
+import { Subject } from '@app/interfaces/subject.interface';
 
 @Component({
   selector: 'app-listquestion',
@@ -13,14 +15,14 @@ import { SubjectService } from '@app/services/subject.service';
 })
 export class ListquestionComponent implements OnInit {
   p: number = 1;
-  questions: any;
-  subjects: any;
-  datafilter?: any;
-  items: any;
+  questions?: Question[];
+  subjects?: Subject[];
+  datafilter?: Question[];
   valuefilter?: string;
   valuesearch?: string;
   isloadDone = false;
   isTimeOut = false;
+  test:string = 'haha';
 
   constructor(
     private questionSV: QuestionService,
@@ -28,7 +30,7 @@ export class ListquestionComponent implements OnInit {
     private subjectSV: SubjectService,
     private acrouter: ActivatedRoute,
     private router: Router
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     this.loadQuestion(), this.loadSubject(), this.getParam();
@@ -103,24 +105,24 @@ export class ListquestionComponent implements OnInit {
   }
 
   filter() {
-    this.datafilter = this.questions.filter(
-      (question: { subject: any }) => question.subject === this.valuefilter
+    this.datafilter = this.questions!.filter(
+      (question: { subject: string }) => question.subject === this.valuefilter
     );
   }
 
   search() {
-    this.datafilter = this.questions.filter((question: { content: any }) =>
-      question.content.toLowerCase().includes(this.valuesearch?.toLowerCase())
+    this.datafilter = this.questions!.filter((question: { content: string }) =>
+      question.content.toLowerCase().includes(this.valuesearch!.toLowerCase())
     );
   }
 
   searchfilter() {
     var dataTemp = [];
-    dataTemp = this.questions.filter(
-      (question: { subject: any }) => question.subject === this.valuefilter
+    dataTemp = this.questions!.filter(
+      (question: { subject: string }) => question.subject === this.valuefilter
     );
-    this.datafilter = dataTemp.filter((question: { content: any }) =>
-      question.content.toLowerCase().includes(this.valuesearch?.toLowerCase())
+    this.datafilter = dataTemp.filter((question: { content: string }) =>
+      question.content.toLowerCase().includes(this.valuesearch!.toLowerCase())
     );
   }
 }

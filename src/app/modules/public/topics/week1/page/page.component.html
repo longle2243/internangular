@@ -1,0 +1,122 @@
+<table class="table">
+    <thead>
+        <tr>
+            <th >Day 1</th>
+            <th >Day 2</th>
+            <th >Day 3</th>
+            <th >Day 4</th>
+            <th >Day 5</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>
+                <ul>
+                    <li><a routerLink="1">Setup Enviroment</a></li>
+                    <li><a routerLink="2">Angular Folder structure</a></li>
+                    <li>Getting started</li>
+                </ul>
+            </td>
+            <td>
+                <ul>
+                    <li>What is component</li>
+                    <li>Create component</li>
+                    <li>Data Service</li>
+                </ul>
+            </td>
+            <td>
+                <ul>
+                    <li>String Interpolation</li>
+                    <li>Property Binding</li>
+                    <li>Event Binding</li>
+                    <li>Two-way Binding</li>
+                    <li>Component life cycle</li>
+                </ul>
+            </td>
+            <td>
+                <ul>
+                    <li>Communicate between component</li>
+                    <li>Directive</li>
+                    <li>ngIf, ngFor, ngSwitch</li>
+                    <li>ngStyle, ngClass, ngContainer</li>
+                </ul>
+            </td>
+            <td>
+                <ul>
+                    <li>Pipes</li>
+                    <li>Animation</li>
+                </ul>
+            </td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>
+                <div>
+                    <p>Thành phần component gồm 4 file:</p>
+                    <p>.component.ts <br> .html <br> .scss <br> spec.ts</p>
+                    <h6>generate component CLI without spec.ts:</h6>
+                    <p>ng g c name --skip-tests</p>
+                </div>
+            </td>
+            <td>
+                <div>
+                    <p>Để hiển thị dữ liệu ở phía template cần sử dụng {{ } }</p>
+                    <p>Để truyền dữ liệu từ component cha vào component con</p>
+                    <p>Ở component cha tạo biến với nội dung cần truyền. Tại component con khai báo decorator &#64;Input
+                    </p>
+                    <app-parent></app-parent>
+                </div>
+            </td>
+            <td>
+                <div style="display: block; width: 70%;">
+                    <table class="table">
+                        <tbody>
+                            <tr>
+                                <td>Communicate component</td>
+                                <td>Các component tương tác với nhau, truyền dữ liệu và bắt sự kiện sử dụng chủ yếu
+                                    Decorator &#64;Input &#64;Output</td>
+                            </tr>
+                            <tr>
+                                <td>Directive</td>
+                                <td>
+                                    <p>Dùng để tùy chỉnh template có 2 loại chính Attribute, Structural</p>
+                                    <p>Attribute: ngStyle, ngClass, ngModel</p>
+                                    <p>ngStyle(css dựa theo giá trị của đối tượng, có thể kết hợp vs ngIf để tùy chỉnh
+                                        giao diện)</p>
+                                    <p>ngClass thêm hoặc bỏ css theo 1 điều kiện</p>
+                                    <p>ngModel(dùng liên kết dữ liệu 1 biến ở component và tempalte input)</p>
+                                    <!-- Structural -->
+                                    <p>Structural: ngFor, ngIf</p>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </td>
+            <td>
+                <div><button class="btn btn-secondary" (click)="toggleVisibility()"> Test Animation</button>
+                    <div style="display: block; width: 70%;" *ngIf="isVisible" [@fadeInOut]>
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th >#</th>
+                                    <th >Pipes</th>
+                                    <th >Animation</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <th scope="row">1</th>
+                                    <td>là tình năng angular cho phép định dạng format dữ liệu như: json, date,
+                                        uppercase,.. </td>
+                                    <td>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </td>
+        </tr>
+    </tbody>
+</table>

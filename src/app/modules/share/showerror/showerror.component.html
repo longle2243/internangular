@@ -22,7 +22,7 @@
     </div>
 
     <!-- INTERNATIONAL PHONE -->
-    <div *ngIf="controlname=='phone'">
+    <div *ngIf="controlname==='phone'">
         <div class="text-danger" *ngIf="form.controls[controlname].errors?.['pattern']">
             {{controlname}} Only number
         </div>
@@ -32,10 +32,10 @@
     </div>
 
     <!-- AUTHENTICATION -->
-    <div class="text-danger" *ngIf="controlname=='username' && form.controls[controlname].errors?.['pattern']">
+    <div class="text-danger" *ngIf="controlname==='username' && form.controls[controlname].errors?.['pattern']">
         {{controlname}} must contain only number and letters
     </div>
-    <div class="text-danger" *ngIf="controlname=='password' && form.controls[controlname].errors?.['pattern']">
+    <div class="text-danger" *ngIf="controlname==='password' && form.controls[controlname].errors?.['pattern']">
         {{controlname}} must contain at least one uppercase, one lowercase, and one number
     </div>
 </div>

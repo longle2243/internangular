@@ -4,18 +4,19 @@ import { CommonModule } from '@angular/common';
 import { AuthenticationRoutingModule } from './authentication-routing.module';
 import { AuthenticationComponent } from './authentication.component';
 import { ReactiveFormsModule } from '@angular/forms';
-import { ShowerrorComponent } from './common/showerror/showerror.component';
+import { ShareModule } from '@app/modules/share/share.module';
+
 
 
 @NgModule({
   declarations: [
     AuthenticationComponent,
-    ShowerrorComponent
   ],
   imports: [
     CommonModule,
     AuthenticationRoutingModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    ShareModule
   ],
 })
 export class AuthenticationModule { }

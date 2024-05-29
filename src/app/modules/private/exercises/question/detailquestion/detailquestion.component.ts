@@ -1,9 +1,10 @@
 import { HttpResponse } from '@angular/common/http';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Answer } from '@app/interfaces/answer.interface';
 import { Question } from '@app/interfaces/question.interface';
+import { Subject } from '@app/interfaces/subject.interface';
 import { PopupService } from '@app/services/popup.service';
 import { QuestionService } from '@app/services/question.service';
 import { SubjectService } from '@app/services/subject.service';
@@ -13,10 +14,10 @@ import { SubjectService } from '@app/services/subject.service';
   templateUrl: './detailquestion.component.html',
   styleUrl: './detailquestion.component.scss'
 })
-export class DetailquestionComponent {
-  id: any;
+export class DetailquestionComponent implements OnInit{
+  id?: number;
   question?: Question;
-  subjects: any;
+  subjects?: Subject[];
   isEdit = true;
 
   questionDifficulty = [
@@ -42,14 +43,14 @@ export class DetailquestionComponent {
   ) { }
 
   ngOnInit(): void {
-    this.id = this.acrouter.snapshot.params['id'];
+    this.id = this.acrouter.snapshot.params['id'] as number;
     this.onOffEdit();
     this.loadSubject();
     this.loadQuestion();
   }
 
   loadQuestion() {
-    this.questionSV.getItem(this.id).subscribe((res) => {
+    this.questionSV.getItem(this.id!).subscribe((res) => {
       this.question = res;
       this.patchValue();
     })
@@ -67,7 +68,7 @@ export class DetailquestionComponent {
     if (this.form.valid) {
       this.popupSV.popUpConfirm("Are you sure?").then((result) => {
         if (result.isConfirmed) {
-          this.questionSV.update(this.id, this.form.value as Question).subscribe({
+          this.questionSV.update(this.id!, this.form.value as Question).subscribe({
             next: (res: HttpResponse<any>) => {
               if (res.status == 200) {
                 this.popupSV.popUpSuccess("Updated!").then(() => {
@@ -87,7 +88,7 @@ export class DetailquestionComponent {
   delelte() {
     this.popupSV.popUpConfirm("Are you sure?").then((result) => {
       if (result.isConfirmed) {
-        this.questionSV.deleteItem(this.id).subscribe({
+        this.questionSV.deleteItem(this.id!).subscribe({
           next: (res: HttpResponse<any>) => {
             if (res.status == 200) {
               this.popupSV.popUpSuccess("Deleted!").then(() => {

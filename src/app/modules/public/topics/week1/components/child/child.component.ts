@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, Input  } from '@angular/core';
 
 @Component({
   selector: 'app-child',
@@ -8,7 +8,4 @@ import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 export class ChildComponent {
   @Input() username ="";
 
-  // ngOnChanges(changes: SimpleChanges): void {
-  //   console.log(changes);
-  // }
 }
