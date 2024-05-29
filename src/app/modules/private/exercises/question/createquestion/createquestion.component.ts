@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, Validators } from '@angular/forms';
 import { popUpConfirm, popUpSuccess } from '@app/functions/popup-function';
 import { Question } from '@app/interfaces/question.interface';
@@ -20,7 +20,8 @@ export class CreatequestionComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private subjectSV: SubjectService,
-    private questionSV: QuestionService
+    private questionSV: QuestionService,
+    private cdr: ChangeDetectorRef
   ) {
     this.addAnswer();
   }
@@ -94,6 +95,8 @@ export class CreatequestionComponent implements OnInit {
       if (res) {
         popUpSuccess('Created!');
         this.form.reset();
+        this.form.controls['type'].setValue(this.answerType[0]);
+        this.onTypeCheck();
       }
     });
   }
@@ -113,6 +116,7 @@ export class CreatequestionComponent implements OnInit {
         answer.get('iscorrect')?.setValue(false);
       });
       this.answers.at(id).get('iscorrect')?.setValue(true);
+      this.cdr.detectChanges();
     } else {
       const currentValue = this.answers.at(id).get('iscorrect')?.value;
       if (!currentValue) {

@@ -1,18 +1,29 @@
 <div [formGroup]="user">
-  <div>
-    <label for="firstname">First Name:</label>
-    <input formControlName="firstname" />
+  <div class="formbold-input-flex">
+    <div>
+      <label for="firstname" class="formbold-form-label"> First name </label>
+      <input
+        type="text"
+        formControlName="firstname"
+        class="formbold-form-input" />
+    </div>
+    <div>
+      <label for="lastname" class="formbold-form-label"> Last name </label>
+      <input
+        type="text"
+        formControlName="lastname"
+        class="formbold-form-input" />
+    </div>
   </div>
-  <div>
-    <label for="lastname">Last Name:</label>
-    <input formControlName="lastname" />
-  </div>
-  <div>
-    <label for="phone">Phone:</label>
-    <input formControlName="phone" />
-  </div>
-  <div>
-    <label for="email">Email:</label>
-    <input type="email" formControlName="email" />
+
+  <div class="formbold-input-flex">
+    <div>
+      <label for="email" class="formbold-form-label"> Email </label>
+      <input type="email" class="formbold-form-input" formControlName="email" />
+    </div>
+    <div>
+      <label for="phone" class="formbold-form-label"> Phone number </label>
+      <input type="text" class="formbold-form-input" formControlName="phone" />
+    </div>
   </div>
 </div>

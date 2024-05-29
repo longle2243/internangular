@@ -1,23 +1,29 @@
-<div>
+<div class="body">
+  <div class="formbold-form-title">
+    <h2 class="">Personal Infomation</h2>
+  </div>
   <form [formGroup]="employee" (ngSubmit)="onSubmit()">
     <app-userform [user]="employee" />
     <div>
-      <div>
-        <label for="empID">Employee ID:</label>
-        <input formControlName="empID" />
+      <div class="formbold-mb-3">
+        <label for="empID" class="formbold-form-label"> Employee ID: </label>
+        <input
+          type="text"
+          formControlName="empID"
+          class="formbold-form-input" />
       </div>
-      <div>
-        <label for="possition">Position:</label>
-        <input formControlName="position" />
-      </div>
-      <div>
-        <label for="role">Role:</label>
-        <input formControlName="role" />
+
+      <div class="formbold-mb-3">
+        <label for="possition" class="formbold-form-label"> Position: </label>
+        <input
+          type="text"
+          formControlName="position"
+          class="formbold-form-input" />
       </div>
     </div>
-
+    <app-addressform [address]="employee" />
     <div>
-      <button class="btn btn-primary" type="submit">SUBMIT</button>
+      <button class="formbold-btn" type="submit">SUBMIT</button>
     </div>
   </form>
 </div>

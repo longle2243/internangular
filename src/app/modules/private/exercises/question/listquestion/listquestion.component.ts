@@ -65,7 +65,7 @@ export class ListquestionComponent implements OnInit {
     this.acrouter.queryParams.subscribe(param => {
       this.valuesearch = param['search'] || '';
       this.valuefilter = param['filter'] || '';
-      this.valuefilter = param['page'] || '';
+      this.pageNumber = param['page'] || '';
       this.loadData();
     });
   }
@@ -102,7 +102,7 @@ export class ListquestionComponent implements OnInit {
     } else if (this.valuesearch) {
       this.search();
     } else if (this.pageNumber) {
-
+      this.p=this.pageNumber;
     } else {
       this.datafilter = this.questions;
     }
@@ -131,7 +131,6 @@ export class ListquestionComponent implements OnInit {
   }
 
   pageChanged(page:number){
-    // this.p = this.pageNumber |
     this.router.navigate([], {
       queryParams: { filter: this.valuefilter, search: this.valuesearch, page: page },
     });

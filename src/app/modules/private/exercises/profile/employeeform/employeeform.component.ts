@@ -18,7 +18,12 @@ export class EmployeeformComponent {
 
       empID: ['', Validators.required],
       position: ['', Validators.required],
-      role: ['', Validators.required],
+
+      addressline: ['', Validators.required],
+      city: ['', Validators.required],
+      post: ['', Validators.required],
+      country: ['', Validators.required],
+
     });
   }
 

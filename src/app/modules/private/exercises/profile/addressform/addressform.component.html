@@ -1,1 +1,31 @@
-<p>addressform works!</p>
+<div [formGroup]="address">
+  <div class="formbold-input-flex">
+    <div>
+      <label for="addressline" class="formbold-form-label">
+        Address Line
+      </label>
+      <input
+        type="text"
+        class="formbold-form-input"
+        formControlName="addressline" />
+    </div>
+    <div>
+      <label for="city" class="formbold-form-label"> City </label>
+      <input type="text" class="formbold-form-input" formControlName="city" />
+    </div>
+  </div>
+
+  <div class="formbold-input-flex">
+    <div>
+      <label for="post" class="formbold-form-label"> Post </label>
+      <input type="text" class="formbold-form-input" formControlName="post" />
+    </div>
+    <div>
+      <label for="country" class="formbold-form-label"> Country </label>
+      <input
+        type="text"
+        class="formbold-form-input"
+        formControlName="country" />
+    </div>
+  </div>
+</div>
