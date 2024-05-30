@@ -1,1 +1,16 @@
-<p>adminform works!</p>
+<!-- <nav class="nav nav1">
+  <a class="nav-link" routerLink="/private/exercises/profile/admin">Admin </a>
+  <a class="nav-link" routerLink="/private/exercises/profile/employee"
+    >Employee
+  </a>
+</nav> -->
+<div class="body">
+  <div class="formbold-form-title">
+    <h2 class="">Admin Infomation</h2>
+  </div>
+  <form [formGroup]="employee" (ngSubmit)="onSubmit()">
+    <app-userform [formgroup]="employee" />
+    <app-addressform [formarray]="address" />
+    <button class="formbold-btn" type="submit">SUBMIT</button>
+  </form>
+</div>

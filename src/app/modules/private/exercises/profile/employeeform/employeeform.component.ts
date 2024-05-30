@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-employeeform',
@@ -7,27 +7,28 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   styleUrl: './employeeform.component.scss',
 })
 export class EmployeeformComponent {
-  employee: FormGroup;
+  constructor(private fb: FormBuilder) {}
 
-  constructor(private fb: FormBuilder) {
-    this.employee = this.fb.group({
-      firstname: ['', Validators.required],
-      lastname: ['', Validators.required],
-      phone: ['', Validators.required],
-      email: ['', [Validators.required, Validators.email]],
+  // FORM
+  employee = this.fb.group({
+    personalInfo: this.fb.group({}),
+    empID: ['', Validators.required],
+    position: ['', Validators.required],
+    address: this.fb.array([]),
+  });
 
-      empID: ['', Validators.required],
-      position: ['', Validators.required],
+  get address() {
+    return this.employee.controls['address'] as FormArray;
+  }
 
-      addressline: ['', Validators.required],
-      city: ['', Validators.required],
-      post: ['', Validators.required],
-      country: ['', Validators.required],
-
-    });
+  get personalInfo(){
+    return this.employee.controls['personalInfo'] as FormGroup;
   }
 
   onSubmit() {
-    console.log(this.employee.value);
+    this.employee.markAllAsTouched();
+    if (this.employee.valid) {
+      console.log(this.employee.value);
+    }
   }
 }

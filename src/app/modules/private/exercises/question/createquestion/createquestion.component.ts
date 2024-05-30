@@ -15,7 +15,6 @@ export class CreatequestionComponent implements OnInit {
   subjects?: Subject[];
   questionDifficulty = ['Easy', 'Medium', 'Hard'];
   answerType = ['single', 'multiple'];
-  ischecked = false;
 
   constructor(
     private fb: FormBuilder,
@@ -24,14 +23,17 @@ export class CreatequestionComponent implements OnInit {
     private cdr: ChangeDetectorRef
   ) {
     this.addAnswer();
+    console.log(this.answers.value);
   }
 
   ngOnInit(): void {
     this.loadSubject();
     this.form.controls['type'].setValue(this.answerType[0]);
+    this.cdr.detectChanges();
   }
 
   onSubmit() {
+    this.answers.at(0).get('iscorrect')?.value;
     this.form.markAllAsTouched();
     if (this.form.valid) {
       this.createQuestion();
@@ -74,22 +76,6 @@ export class CreatequestionComponent implements OnInit {
     });
   }
 
-  deleteChoice(index: number) {
-    popUpConfirm('Are you sure ?').then(res => {
-      if (res.isConfirmed) {
-        this.answers.removeAt(index);
-      }
-    });
-  }
-
-  deleteCorrect(index: number) {
-    popUpConfirm('Are you sure ?').then(res => {
-      if (res.isConfirmed) {
-        this.answers.removeAt(index);
-      }
-    });
-  }
-
   createQuestion() {
     this.questionSV.create(this.form.value as Question).subscribe(res => {
       if (res) {
@@ -111,12 +97,13 @@ export class CreatequestionComponent implements OnInit {
   }
 
   onOptionChange(id: number) {
+    console.log(this.answers.value);
     if (this.form.controls['type'].value === 'single') {
       this.answers.controls.map(answer => {
         answer.get('iscorrect')?.setValue(false);
       });
       this.answers.at(id).get('iscorrect')?.setValue(true);
-      this.cdr.detectChanges();
+      // this.cdr.detectChanges();
     } else {
       const currentValue = this.answers.at(id).get('iscorrect')?.value;
       if (!currentValue) {
@@ -126,5 +113,11 @@ export class CreatequestionComponent implements OnInit {
       }
     }
     console.log(this.answers.value);
+  }
+
+  getIscorrect(i: number) {
+    console.log("HAHA: "+this.answers.at(i).get('iscorrect')?.value);
+    
+    return !this.answers.at(i).get('iscorrect')?.value;
   }
 }

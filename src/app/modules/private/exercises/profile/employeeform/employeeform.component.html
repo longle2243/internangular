@@ -1,9 +1,15 @@
+<!-- <nav class="nav nav1">
+  <a class="nav-link" routerLink="/private/exercises/profile/admin">Admin </a>
+  <a class="nav-link" routerLink="/private/exercises/profile/employee"
+    >Employee
+  </a>
+</nav> -->
 <div class="body">
   <div class="formbold-form-title">
     <h2 class="">Personal Infomation</h2>
   </div>
   <form [formGroup]="employee" (ngSubmit)="onSubmit()">
-    <app-userform [user]="employee" />
+    <app-userform [formgroup]="personalInfo" />
     <div>
       <div class="formbold-mb-3">
         <label for="empID" class="formbold-form-label"> Employee ID: </label>
@@ -11,6 +17,7 @@
           type="text"
           formControlName="empID"
           class="formbold-form-input" />
+          <app-showerror [form]="employee" [controlname]="'empID'"/>
       </div>
 
       <div class="formbold-mb-3">
@@ -19,11 +26,13 @@
           type="text"
           formControlName="position"
           class="formbold-form-input" />
+          <app-showerror [form]="employee" [controlname]="'position'"/>
+
       </div>
     </div>
-    <app-addressform [address]="employee" />
-    <div>
-      <button class="formbold-btn" type="submit">SUBMIT</button>
-    </div>
+
+    <app-addressform [formarray]="address" />
+
+    <button class="formbold-btn" type="submit">SUBMIT</button>
   </form>
 </div>

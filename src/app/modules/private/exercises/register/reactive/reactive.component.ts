@@ -21,23 +21,12 @@ import { Countries } from '@app/interfaces/country.interface';
 export class ReactiveComponent implements OnInit {
   userform: FormGroup;
   accountform: FormGroup;
-
   isPopupOpen = false;
   popupImageSrc = '';
-
-  // countrylist = [
-  //   { name: 'New York', phone: '01' },
-  //   { name: 'Viet nam', phone: '84' },
-  // ]
   genderlist = ['Male', 'Female'];
-
   countries!: Countries[];
+  IntlPhone?: string;
 
-  fetchData() {
-    this.http.get<Countries[]>('assets/countrycode.json').subscribe(data => {
-      this.countries = data;
-    });
-  }
   constructor(private http: HttpClient) {
     (this.userform = new FormGroup(
       {
@@ -54,7 +43,7 @@ export class ReactiveComponent implements OnInit {
         country: new FormControl('VN', [Validators.required]),
         phone: new FormControl('', [
           Validators.required,
-          Validators.pattern(/^[0-9]*$/),
+          // Validators.pattern(/^[0-9]*$/),
         ]),
         bio: new FormControl('', [Validators.maxLength(256)]),
       },
@@ -85,23 +74,41 @@ export class ReactiveComponent implements OnInit {
     this.fetchData();
   }
 
+  fetchData() {
+    this.http.get<Countries[]>('assets/countrycode.json').subscribe(data => {
+      this.countries = data;
+    });
+  }
+
   isValidIntlPhone: ValidatorFn = (
     control: AbstractControl
   ): ValidationErrors | null => {
     const phone = control.get('phone');
     const countryCode = control.get('country');
     const phoneUtil: PhoneNumberUtil = PhoneNumberUtil.getInstance();
-    if (phone?.value.length > 1) {
+
+    if (phone?.value) {
       const numberPhone = phoneUtil.parse(phone?.value, countryCode?.value);
+
+      // Check Validate Phone
       const validIntlPhone = phoneUtil.isValidNumberForRegion(
         numberPhone,
         countryCode?.value
       );
-      const number = phoneUtil.parseAndKeepRawInput(
-        phone?.value,
-        countryCode?.value
-      );
-      console.log(phoneUtil.getRegionCodeForNumber(number));
+
+      // Set Value Phone = countrycode + number
+      if (validIntlPhone) {
+        if (phone?.value[0] === '0' || phone?.value[0] === '+') {
+          phone?.value.slice(1);
+          const nationalNumber = numberPhone.getNationalNumber();
+          const countryCode = numberPhone.getCountryCode();
+          if (nationalNumber !== undefined && countryCode !== undefined) {
+            this.IntlPhone = countryCode.toString() + nationalNumber.toString();
+            // console.log(this.IntlPhone);
+          }
+        }
+      }
+
       return validIntlPhone ? { itnlphone: true } : null;
     }
     return null;
@@ -133,10 +140,12 @@ export class ReactiveComponent implements OnInit {
 
   usersubmit() {
     this.userform.markAllAsTouched();
-    if (this.userform.valid) {
-      alert('USER VALID');
-      console.log(this.userform.controls);
-    }
+    // if (this.userform.valid) {
+    // alert('USER VALID');
+    this.userform.controls['phone'].setValue(this.IntlPhone);
+    console.log(this.userform.controls['phone'].value);
+    this.userform.reset()
+    // }
   }
 
   accountsubmit() {

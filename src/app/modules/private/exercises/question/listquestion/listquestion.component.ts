@@ -100,6 +100,7 @@ export class ListquestionComponent implements OnInit {
     } else if (this.valuefilter) {
       this.filter();
     } else if (this.valuesearch) {
+      this.p = 1;
       this.search();
     } else if (this.pageNumber) {
       this.p=this.pageNumber;

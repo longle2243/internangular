@@ -31,7 +31,7 @@ export class AuthenticationComponent {
     if (this.form.valid) {
       this.authService.login(this.form.value).subscribe({
         next: () => {
-          this.router.navigateByUrl('/private/exercises/question/list');
+          this.router.navigateByUrl('/private/exercises');
         },
         error: () => {
           this.Unauthorized = true;

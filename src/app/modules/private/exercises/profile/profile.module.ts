@@ -7,6 +7,7 @@ import { UserformComponent } from './userform/userform.component';
 import { AdminformComponent } from './adminform/adminform.component';
 import { EmployeeformComponent } from './employeeform/employeeform.component';
 import { AddressformComponent } from './addressform/addressform.component';
+import { ShareModule } from '@app/modules/share/share.module';
 
 @NgModule({
   declarations: [
@@ -15,6 +16,6 @@ import { AddressformComponent } from './addressform/addressform.component';
     EmployeeformComponent,
     AddressformComponent,
   ],
-  imports: [CommonModule, ProfileRoutingModule, ReactiveFormsModule],
+  imports: [CommonModule, ProfileRoutingModule, ReactiveFormsModule, ShareModule],
 })
 export class ProfileModule {}
