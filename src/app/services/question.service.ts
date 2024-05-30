@@ -1,7 +1,7 @@
 import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Question } from '@app/interfaces/question.interface';
-import { Observable } from 'rxjs';
+import { Observable, } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -34,4 +34,5 @@ export class QuestionService {
       observe: 'response',
     });
   }
+
 }

@@ -83,30 +83,26 @@ export class ReactiveComponent implements OnInit {
   isValidIntlPhone: ValidatorFn = (
     control: AbstractControl
   ): ValidationErrors | null => {
-    const phone = control.get('phone');
-    const countryCode = control.get('country');
+    const phoneOriginal = control.get('phone')?.value;
+    const countryCodeOriginal = control.get('country')?.value;
     const phoneUtil: PhoneNumberUtil = PhoneNumberUtil.getInstance();
 
-    if (phone?.value) {
-      const numberPhone = phoneUtil.parse(phone?.value, countryCode?.value);
+    if (phoneOriginal) {
+      // Format numberPhone
+      const phoneFormated = phoneUtil.parse(phoneOriginal, countryCodeOriginal);
 
-      // Check Validate Phone
+      // Is Phone & Country match
       const validIntlPhone = phoneUtil.isValidNumberForRegion(
-        numberPhone,
-        countryCode?.value
+        phoneFormated,
+        countryCodeOriginal
       );
 
-      // Set Value Phone = countrycode + number
+      // Handle    Phone = Country + Number
+      // Ex: 84923456789 = 84      + 923456789
       if (validIntlPhone) {
-        if (phone?.value[0] === '0' || phone?.value[0] === '+') {
-          phone?.value.slice(1);
-          const nationalNumber = numberPhone.getNationalNumber();
-          const countryCode = numberPhone.getCountryCode();
-          if (nationalNumber !== undefined && countryCode !== undefined) {
-            this.IntlPhone = countryCode.toString() + nationalNumber.toString();
-            // console.log(this.IntlPhone);
-          }
-        }
+        const phone = phoneFormated.getNationalNumber();
+        const countryCode = phoneFormated.getCountryCode();
+        this.IntlPhone = countryCode!.toString() + phone!.toString();
       }
 
       return validIntlPhone ? { itnlphone: true } : null;
@@ -144,7 +140,7 @@ export class ReactiveComponent implements OnInit {
     // alert('USER VALID');
     this.userform.controls['phone'].setValue(this.IntlPhone);
     console.log(this.userform.controls['phone'].value);
-    this.userform.reset()
+    this.userform.reset();
     // }
   }
 

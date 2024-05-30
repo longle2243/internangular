@@ -59,6 +59,7 @@ export class ListquestionComponent implements OnInit {
           this.isTimeOut = true;
         },
       });
+
   }
 
   getParam() {

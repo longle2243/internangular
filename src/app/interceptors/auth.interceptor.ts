@@ -1,42 +1,52 @@
 import {
-  HttpEvent,
-  HttpHandler,
-  HttpInterceptor,
-  HttpRequest,
+  HttpErrorResponse,
+  HttpInterceptorFn,
   HttpResponse,
 } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-import { User } from '../interfaces/user.interface';
+import { inject } from '@angular/core';
 import { Router } from '@angular/router';
+// import { AuthService } from '@app/services/auth.service';
+import { catchError, tap, throwError } from 'rxjs';
 
-@Injectable()
-export class authInterceptor implements HttpInterceptor {
-  constructor(private router: Router){}
-  intercept(
-    req: HttpRequest<User>,
-    next: HttpHandler
-  ): Observable<HttpEvent<HttpResponse<User>>> {
-    
-    const token = localStorage.getItem('token');
+export const authInterceptor: HttpInterceptorFn = (req, next) => {
+  const token = localStorage.getItem('token');
+  const router = inject(Router);
+  // const authSV = inject(AuthService);
 
-    if (token) {
-      const cloned = req.clone({
-        headers: req.headers.set('Authorization', 'Bearer ' + token),
-      });
-      console.log('visited INTERCETOR: ');
 
-      return next.handle(cloned);
+  if (token) {
+    const cloned = req.clone({
+      headers: req.headers.set('Authorization', 'Bearer ' + token),
+    });
 
-      // return next.handle(cloned).pipe(
-      //   catchError((error: any) => {
-      //     if (error.status == 401 || error.status == 0) {
-      //       this.router.navigate(['/'])
-      //     } 
-      //     return error
-      //   }),
-      // );
-    }
-    return next.handle(req);
+    return next(cloned).pipe(
+      tap(res => {
+        if (res instanceof HttpResponse) {
+          if (res.url === "https://dummyjson.com/users/1") {
+            // console.log(res);
+            localStorage.removeItem("token")
+            // authSV.isAuthenticated();
+            router.navigate(['/login']);
+          }
+        }
+      }),
+      catchError((err: HttpErrorResponse) => {
+        if (err.status === 401) {
+          // Call Resfresh Token
+          localStorage.removeItem("token")
+          router.navigate(['/login']);
+        }
+        return throwError(() => err);
+      })
+    );
   }
-}
+
+  return next(req).pipe(
+    catchError((err: HttpErrorResponse) => {
+      if (err.status === 401) {
+        router.navigate(['/login']);
+      }
+      return throwError(() => err);
+    })
+  );
+};

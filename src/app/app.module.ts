@@ -5,7 +5,7 @@ import {
 } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, provideHttpClient, withInterceptors } from '@angular/common/http';
 import { JWT_OPTIONS, JwtHelperService } from '@auth0/angular-jwt';
 import { AuthService } from './services/auth.service';
 import { authInterceptor } from './interceptors/auth.interceptor';
@@ -19,7 +19,7 @@ import { authInterceptor } from './interceptors/auth.interceptor';
     AuthService,
     JwtHelperService,
     { provide: JWT_OPTIONS, useValue: JWT_OPTIONS },
-    { provide: HTTP_INTERCEPTORS, useClass: authInterceptor, multi: true },
+    provideHttpClient(withInterceptors([authInterceptor])),
   ],
   bootstrap: [AppComponent],
 })

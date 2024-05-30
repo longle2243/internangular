@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { AuthService } from './services/auth.service';
 import { Router } from '@angular/router';
+import { FakeapiService } from './services/fakeapi.service';
 
 @Component({
   selector: 'app-root',
@@ -12,7 +13,8 @@ export class AppComponent {
 
   constructor(
     private authSV: AuthService,
-    private router: Router
+    private router: Router,
+    private fakeSV: FakeapiService
   ) {}
 
   isLoggedIn(): boolean {
@@ -22,5 +24,9 @@ export class AppComponent {
   logout() {
     this.authSV.logout();
     this.router.navigateByUrl('/login');
+  }
+
+  unauthorized() {
+    this.fakeSV.fake().subscribe();
   }
 }
