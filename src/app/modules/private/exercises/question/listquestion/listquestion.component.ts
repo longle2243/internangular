@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpErrorResponse } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
 import { timeout } from 'rxjs';
 import { QuestionService } from '@app/services/question.service';
@@ -9,7 +8,6 @@ import { Subject } from '@app/interfaces/subject.interface';
 import {
   popUpConfirm,
   popUpSuccess,
-  showError,
 } from '@app/functions/popup-function';
 
 @Component({
@@ -79,9 +77,6 @@ export class ListquestionComponent implements OnInit {
           next: () => {
             popUpSuccess('Deleted!');
             this.loadQuestion();
-          },
-          error: (error: HttpErrorResponse) => {
-            showError(error);
           },
         });
       }

@@ -1,11 +1,9 @@
-import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import {
   popUpConfirm,
   popUpSuccess,
-  showError,
 } from '@app/functions/popup-function';
 import { Answer } from '@app/interfaces/answer.interface';
 import { Question } from '@app/interfaces/question.interface';
@@ -49,9 +47,11 @@ export class DetailquestionComponent implements OnInit {
   }
 
   loadQuestion() {
-    this.questionSV.getItem(this.id!).subscribe(res => {
+    this.questionSV.getItem(this.id!).subscribe({
+      next: (res) => {
       this.question = res;
       this.patchValue();
+      },
     });
   }
 
@@ -74,9 +74,6 @@ export class DetailquestionComponent implements OnInit {
                   location.reload();
                 });
               },
-              error: (error: HttpErrorResponse) => {
-                showError(error);
-              },
             });
         }
       });
@@ -91,9 +88,6 @@ export class DetailquestionComponent implements OnInit {
             popUpSuccess('Deleted!').then(() => {
               this.router.navigateByUrl('private/exercises/question/list');
             });
-          },
-          error: (error: HttpErrorResponse) => {
-            showError(error);
           },
         });
       }
