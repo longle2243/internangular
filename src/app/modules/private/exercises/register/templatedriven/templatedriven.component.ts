@@ -1,31 +1,33 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { NgForm, NgModel } from '@angular/forms';
+import { Countries } from '@app/interfaces/country.interface';
 import { PersonalInfo } from '@app/interfaces/personalinfo.interface';
 import { Register } from '@app/interfaces/register.interface';
+import { HttpClient } from '@angular/common/http';
+import { PhoneNumberUtil } from 'google-libphonenumber';
 
 @Component({
   selector: 'app-templatedriven',
   templateUrl: './templatedriven.component.html',
   styleUrl: './templatedriven.component.scss',
 })
-export class TemplatedrivenComponent {
+export class TemplatedrivenComponent implements OnInit {
   userform: PersonalInfo;
   accountform: Register;
-  countrylist = [
-    { name: 'New York', phone: '01' },
-    { name: 'Viet nam', phone: '84' },
-  ];
+  countries!: Countries[];
   genderlist = ['Male', 'Female'];
+  IntlPhone?: string;
 
-  constructor() {
+  constructor(private http: HttpClient) {
     this.userform = {
       fullname: '',
       birthday: '',
       gender: 'Male',
-      country: 'New York',
+      country: '',
       phone: '',
       bio: '',
     };
+
     this.accountform = {
       username: '',
       email: '',
@@ -35,9 +37,15 @@ export class TemplatedrivenComponent {
     };
   }
 
+  ngOnInit(): void {
+    this.fetchData();
+  }
+
+  // FORM
   usersubmit(form: NgForm) {
     form.form.markAllAsTouched();
     if (form.valid) {
+      this.userform.phone = this.IntlPhone!;
       console.log('OK');
       alert('User valid');
     }
@@ -51,10 +59,36 @@ export class TemplatedrivenComponent {
     }
   }
 
-  isItnlPhone(country: string, phone: string): boolean {
-    const selectcounry = this.countrylist.find(c => c.name === country);
-    const firstTwoDigits = phone.substring(0, 2);
-    return selectcounry?.phone == firstTwoDigits;
+  // SERVICE
+  fetchData() {
+    this.http.get<Countries[]>('assets/countrycode.json').subscribe(data => {
+      this.countries = data;
+    });
+  }
+
+  isItnlPhone(countryCodeOriginal: string, phoneOriginal: string): boolean {
+    const phoneUtil: PhoneNumberUtil = PhoneNumberUtil.getInstance();
+    if (countryCodeOriginal && phoneOriginal) {
+      // Format numberPhone
+      const phoneFormated = phoneUtil.parse(phoneOriginal, countryCodeOriginal);
+
+      // Is Phone & Country match
+      const validIntlPhone = phoneUtil.isValidNumberForRegion(
+        phoneFormated,
+        countryCodeOriginal
+      );
+
+      // Handle    Phone = Country + Number
+      // Ex: 84923456789 = 84      + 923456789
+      if (validIntlPhone) {
+        const phone = phoneFormated.getNationalNumber();
+        const countryCode = phoneFormated.getCountryCode();
+        this.IntlPhone = countryCode!.toString() + phone!.toString();
+        this.userform.phone = this.IntlPhone;
+        return true;
+      }
+    }
+    return false;
   }
 
   isNotMatch(password: string, confirm: string): boolean {
@@ -64,6 +98,7 @@ export class TemplatedrivenComponent {
   isInValidandTouched(model: NgModel) {
     return model.invalid && (model.dirty || model.touched);
   }
+
   isTouchedandDirty(model: NgModel) {
     return model.invalid && (model.dirty || model.touched);
   }

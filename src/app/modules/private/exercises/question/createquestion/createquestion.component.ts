@@ -15,6 +15,7 @@ export class CreatequestionComponent implements OnInit {
   subjects?: Subject[];
   questionDifficulty = ['Easy', 'Medium', 'Hard'];
   answerType = ['single', 'multiple'];
+  count: number = 1;
 
   constructor(
     private fb: FormBuilder,
@@ -23,13 +24,12 @@ export class CreatequestionComponent implements OnInit {
     private cdr: ChangeDetectorRef
   ) {
     this.addAnswer();
-    console.log(this.answers.value);
+    // this.cdr.reattach();
   }
-
   ngOnInit(): void {
     this.loadSubject();
     this.form.controls['type'].setValue(this.answerType[0]);
-    this.cdr.detectChanges();
+    // this.cdr.detectChanges();
   }
 
   onSubmit() {
@@ -38,6 +38,16 @@ export class CreatequestionComponent implements OnInit {
     if (this.form.valid) {
       this.createQuestion();
     }
+  }
+
+  addCount(){
+    this.count++;
+  }
+  cdrCountdetach(){
+    this.cdr.detach()
+  }
+  cdrCountdetectChanges(){
+    this.cdr.detectChanges()
   }
 
   // SERVICE
@@ -65,7 +75,11 @@ export class CreatequestionComponent implements OnInit {
       content: [null, Validators.required],
       iscorrect: [false, Validators.required],
     });
+
     this.answers.push(answer);
+    // this.cdr.detach();
+    console.log('add answer');
+    console.log(this.answers.value);
   }
 
   deleteAnswer(index: number) {
@@ -89,21 +103,37 @@ export class CreatequestionComponent implements OnInit {
 
   // LOGIC HANDLE TYPE SINGLE/MULTIPLE CHOICE ANSWER
   onTypeCheck(): void {
-    if (this.form.controls['type'].value === 'single') {
-      this.answers.controls.map(answer => {
-        answer.get('iscorrect')?.setValue(false);
-      });
-    }
+    // if (this.form.controls['type'].value === 'single') {
+    this.answers.controls.map(answer => {
+      answer.get('iscorrect')?.setValue(false);
+    });
+
+    // }
   }
 
   onOptionChange(id: number) {
-    console.log(this.answers.value);
+    // this.cdr.detach();
+
+    // console.log('before: ');
+    // console.log(this.answers.value);
+
     if (this.form.controls['type'].value === 'single') {
+      console.log('Orginal');
+      console.log(this.answers.value);
+
       this.answers.controls.map(answer => {
-        answer.get('iscorrect')?.setValue(false);
+        answer.get('iscorrect')?.setValue('');
       });
+
+      console.log('All False');
+      console.log(this.answers.value);
+
       this.answers.at(id).get('iscorrect')?.setValue(true);
-      // this.cdr.detectChanges();
+
+      console.log('Set True');
+      console.log(this.answers.value);
+
+      // this.cdr.markForCheck();
     } else {
       const currentValue = this.answers.at(id).get('iscorrect')?.value;
       if (!currentValue) {
@@ -112,12 +142,18 @@ export class CreatequestionComponent implements OnInit {
         this.answers.at(id).get('iscorrect')?.setValue(true);
       }
     }
-    console.log(this.answers.value);
+
+    // this.cdr.detectChanges();
+    // this.cdr.markForCheck();
+
+    // this.cdr.reattach();
+    // console.log('after: ');
+    // console.log(this.answers.value);
   }
 
   getIscorrect(i: number) {
-    console.log("HAHA: "+this.answers.at(i).get('iscorrect')?.value);
-    
-    return !this.answers.at(i).get('iscorrect')?.value;
+    // console.log(this.answers.at(i).get('iscorrect')?.value);
+    // this.cdr.detectChanges();
+    return this.answers.at(i).get('iscorrect')?.value;
   }
 }

@@ -1,10 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import {
-  popUpConfirm,
-  popUpSuccess,
-} from '@app/functions/popup-function';
+import { popUpConfirm, popUpSuccess } from '@app/functions/popup-function';
 import { Answer } from '@app/interfaces/answer.interface';
 import { Question } from '@app/interfaces/question.interface';
 import { Subject } from '@app/interfaces/subject.interface';
@@ -21,13 +18,14 @@ export class DetailquestionComponent implements OnInit {
   question?: Question;
   subjects?: Subject[];
   isEdit = true;
-
+  answerType = ['single', 'multiple'];
   questionDifficulty = ['Easy', 'Medium', 'Hard'];
 
   form = this.fb.group({
     subject: ['', Validators.required],
     difficulty: ['', Validators.required],
     content: ['', Validators.required],
+    type: ['', Validators.required],
     answers: this.fb.array([]),
   });
 
@@ -48,9 +46,9 @@ export class DetailquestionComponent implements OnInit {
 
   loadQuestion() {
     this.questionSV.getItem(this.id!).subscribe({
-      next: (res) => {
-      this.question = res;
-      this.patchValue();
+      next: res => {
+        this.question = res;
+        this.patchValue();
       },
     });
   }
@@ -63,6 +61,7 @@ export class DetailquestionComponent implements OnInit {
 
   onSubmit() {
     this.form.markAllAsTouched();
+    
     if (this.form.valid) {
       popUpConfirm('Are you sure?').then(result => {
         if (result.isConfirmed) {
@@ -122,6 +121,7 @@ export class DetailquestionComponent implements OnInit {
       subject: this.question?.subject,
       difficulty: this.question?.difficulty,
       content: this.question?.content,
+      type: this.question?.type,
     });
 
     this.answers.clear();
@@ -141,9 +141,35 @@ export class DetailquestionComponent implements OnInit {
     controlNames.map(control => {
       if (this.isEdit) {
         this.form.controls[control].enable();
+
       } else {
         this.form.controls[control].disable();
       }
     });
+  }
+
+  // LOGIC HANDLE TYPE SINGLE/MULTIPLE CHOICE ANSWER
+  onTypeCheck(): void {
+    this.answers.controls.map(answer => {
+      answer.get('iscorrect')?.setValue(false);
+    });
+  }
+
+  onOptionChange(id: number) {
+    if (this.form.controls['type'].value === 'single') {
+      this.answers.controls.map(answer => {
+        answer.get('iscorrect')?.setValue(false);
+      });
+
+      this.answers.at(id).get('iscorrect')?.setValue(true);
+    } else {
+      const currentValue = this.answers.at(id).get('iscorrect')?.value;
+
+      if (!currentValue) {
+        this.answers.at(id).get('iscorrect')?.setValue(false);
+      } else {
+        this.answers.at(id).get('iscorrect')?.setValue(true);
+      }
+    }
   }
 }

@@ -5,5 +5,6 @@ export interface Question {
   subject: string;
   content: string;
   difficulty: string;
+  type: string;
   answers: Answer[];
 }

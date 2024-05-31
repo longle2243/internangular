@@ -17,14 +17,11 @@
 
   <!-- CUSTOM VALIDATE -->
   <!-- Phone validate -->
-  <div *ngIf="model.name === 'phone'">
+  <!-- <div *ngIf="model.name === 'phone'">
     <div class="text-danger" *ngIf="model.errors?.['pattern']">
       {{ model.name }} Only number
     </div>
-    <!-- <div class="text-danger" *ngIf="model.errors?.['itnlphone']">
-            Phone incorrect for the selected country
-        </div> -->
-  </div>
+  </div> -->
   <div
     class="text-danger"
     *ngIf="model.name === 'username' && model.errors?.['pattern']">

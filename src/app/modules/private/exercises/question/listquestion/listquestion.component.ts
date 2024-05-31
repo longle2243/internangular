@@ -5,10 +5,7 @@ import { QuestionService } from '@app/services/question.service';
 import { SubjectService } from '@app/services/subject.service';
 import { Question } from '@app/interfaces/question.interface';
 import { Subject } from '@app/interfaces/subject.interface';
-import {
-  popUpConfirm,
-  popUpSuccess,
-} from '@app/functions/popup-function';
+import { popUpConfirm, popUpSuccess } from '@app/functions/popup-function';
 
 @Component({
   selector: 'app-listquestion',
@@ -57,7 +54,6 @@ export class ListquestionComponent implements OnInit {
           this.isTimeOut = true;
         },
       });
-
   }
 
   getParam() {
@@ -86,20 +82,27 @@ export class ListquestionComponent implements OnInit {
   // FUNCTION GROUP: SEARCH & FILTER
   onSearchFilter() {
     this.router.navigate([], {
-      queryParams: { filter: this.valuefilter, search: this.valuesearch },
+      queryParams: {
+        filter: this.valuefilter,
+        search: this.valuesearch,
+        page: this.p,
+      },
     });
   }
 
   loadData() {
     if (this.valuefilter && this.valuesearch) {
+      this.p = 1;
       this.searchfilter();
     } else if (this.valuefilter) {
+      this.p = 1;
       this.filter();
     } else if (this.valuesearch) {
       this.p = 1;
       this.search();
     } else if (this.pageNumber) {
-      this.p=this.pageNumber;
+      this.p = this.pageNumber;
+      this.datafilter = this.questions;
     } else {
       this.datafilter = this.questions;
     }
@@ -127,9 +130,14 @@ export class ListquestionComponent implements OnInit {
     );
   }
 
-  pageChanged(page:number){
+  pageChanged(page: number) {
+    this.p = page;
     this.router.navigate([], {
-      queryParams: { filter: this.valuefilter, search: this.valuesearch, page: page },
+      queryParams: {
+        filter: this.valuefilter,
+        search: this.valuesearch,
+        page: page,
+      },
     });
   }
 }

@@ -68,7 +68,9 @@
               class="form-control"
               name="gender"
               [(ngModel)]="userform.gender">
-              <option *ngFor="let g of genderlist" [value]="g">{{ g }}</option>
+              <option *ngFor="let gender of genderlist" [value]="gender">
+                {{ gender }}
+              </option>
             </select>
           </div>
 
@@ -76,13 +78,13 @@
             <div class="form-group country">
               <label for="country">Country</label>
               <select
-                id="country"
                 class="form-control"
                 name="country"
                 #country="ngModel"
+                (change)="isItnlPhone(userform.country, userform.phone)"
                 [(ngModel)]="userform.country">
-                <option *ngFor="let ct of countrylist" [value]="ct.name">
-                  {{ ct.name }}
+                <option *ngFor="let ct of countries" [value]="ct.code">
+                  {{ ct.name }} : {{ ct.dial_code }}
                 </option>
               </select>
             </div>
@@ -100,15 +102,16 @@
                 #phone="ngModel"
                 [(ngModel)]="userform.phone"
                 required
-                pattern="[0-9]*"
+                (change)="isItnlPhone(userform.country, userform.phone)"
                 [class.invalid-input]="isInValidandTouched(phone)" />
               <app-showerrortemplate [model]="phone" />
-              <div *ngIf="isInValidandTouched(phone)">
-                <div
-                  class="text-danger"
-                  *ngIf="!isItnlPhone(userform.country, userform.phone)">
-                  Phone incorrect for the selected country
-                </div>
+              <div
+                class="text-danger"
+                *ngIf="
+                  !isItnlPhone(userform.country, userform.phone) &&
+                  (phone.dirty || phone.touched)
+                ">
+                Phone incorrect for the selected country
               </div>
             </div>
           </div>

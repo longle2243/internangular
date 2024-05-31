@@ -8,6 +8,7 @@
   </div>
   <div class="body">
     <h5 class="titleform">Question Form</h5>
+
     <form class="flexrow flexspace" [formGroup]="form">
       <div class="flexcolumn width50">
         <label for="subject">Subject</label>
@@ -57,6 +58,13 @@
           (click)="onSubmit()">
           Submit
         </button>
+        <div>
+          <p>{{ count }}</p>
+          <button (click)="addCount()">add</button>
+          <button (click)="cdrCountdetach()">detach</button>
+          <button (click)="cdrCountdetectChanges()">detectChanges</button>
+          <p>TEST: {{ this.form.value | json}}</p>
+        </div>
       </div>
 
       <hr />
@@ -80,7 +88,7 @@
                   <div>
                     <input
                       type="radio"
-                      [value]="getIscorrect(i)"
+                      [value]="true"
                       name="iscorrect"
                       formControlName="iscorrect"
                       *ngIf="this.form.controls['type'].value === 'single'"
