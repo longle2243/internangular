@@ -26,7 +26,7 @@ export function popUpFailed(title: string) {
 }
 
 export function showError(error: HttpErrorResponse) {
-  if (error.status == 404) {
+  if (error.status === 404) {
     popUpFailed('Not Found!');
   } else {
     popUpFailed('Failed!');

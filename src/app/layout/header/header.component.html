@@ -1,0 +1,27 @@
+<header>
+  <div class="flexrow">
+    <nav class="nav">
+      <a class="nav-link" routerLink="/public/topics">TOPICS</a>
+      <a class="nav-link" routerLink="/private/exercises">EXERCISES</a>
+      <a class="nav-link" routerLink="/products">Products NgRx</a>
+      <a class="nav-link" routerLink="/products2">Products RxJS</a>
+      <!-- <a class="nav-link" (click)="unauthorized()">Fake Response 401</a> -->
+    </nav>
+
+    <div class="dropdown">
+      <p class="nav-link" routerLink="/cartrxjs">
+        <fa-icon [icon]="facart"></fa-icon>
+        rxjs: {{ amountItem }}
+      </p>
+      <div class="dropdown-content">
+        <div *ngFor="let item of cartdropdown; let i = index">
+          <p class="nav-link">{{ item.product.name }}/ amount: {{ item.amount }}</p>
+        </div>
+      </div>
+    </div>
+    <a class="nav-link" routerLink="/cart"> <app-carticon></app-carticon></a>
+    <button class="btn btn-secondary" (click)="logout()" *ngIf="isLoggedIn()">
+      LOG OUT
+    </button>
+  </div>
+</header>

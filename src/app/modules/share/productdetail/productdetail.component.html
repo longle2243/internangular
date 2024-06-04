@@ -1,0 +1,15 @@
+<div class="main">
+  <div class="flexrow">
+    <div *ngFor="let product of products; let i = index">
+      <div class="card" style="width: 18rem; margin-top: 10px">
+        <div class="card-body">
+          <h5 class="card-title">{{ product.name }}</h5>
+          <p class="card-text">128GB - {{ product.price }} Tr VND</p>
+          <button class="btn btn-primary" (click)="addToCart(i)">
+            Add to Cart
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

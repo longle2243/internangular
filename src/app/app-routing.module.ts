@@ -1,6 +1,10 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { authGuard } from './guards/auth.guard';
+import { CartComponent } from './modules/share/cart/cart.component';
+import { ProductdetailComponent } from './modules/share/productdetail/productdetail.component';
+import { ProductRxjsComponent } from './modules/share/product-rxjs/product-rxjs.component';
+import { CartrxjsComponent } from './modules/share/cartrxjs/cartrxjs.component';
 
 const routes: Routes = [
   {
@@ -20,6 +24,22 @@ const routes: Routes = [
       import('./modules/auth/authentication.module').then(
         m => m.AuthenticationModule
       ),
+  },
+  {
+    path: 'products',
+    component: ProductdetailComponent
+  },
+  {
+    path: 'cart',
+    component: CartComponent
+  },
+  {
+    path: 'products2',
+    component: ProductRxjsComponent
+  },
+  {
+    path: 'cartrxjs',
+    component: CartrxjsComponent
   },
 ];
 

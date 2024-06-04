@@ -1,12 +1,3 @@
-<div class="flexrow">
-  <nav class="nav">
-    <a class="nav-link" routerLink="/public/topics">TOPICS</a>
-    <a class="nav-link" routerLink="/private/exercises">EXERCISES</a>
-    <a class="nav-link" (click)="unauthorized()">Fake Response 401</a>
-  </nav>
-  <button class="btn btn-secondary" (click)="logout()" *ngIf="isLoggedIn()">
-    LOG OUT
-  </button>
-</div>
-
+<app-header />
 <router-outlet />
+<app-footer />

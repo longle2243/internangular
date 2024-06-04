@@ -1,0 +1,45 @@
+<div class="card">
+    <div class="row">
+      <div class="col-md-8 cart">
+        <div class="title">
+          <div class="row">
+            <div class="col">
+              <h4><b>Cart RXJS</b></h4>
+            </div>
+            <div class="col align-self-center text-right text-muted">
+              {{ (this.cart$ | async)?.length }} items
+            </div>
+          </div>
+        </div>
+  
+        <div *ngFor="let item of cart$ | async; let i = index">
+          <div class="row border-top border-bottom">
+            <div class="row main align-items-center">
+              <div class="col">
+                <div class="row text-muted">{{ item.product.name }}</div>
+              </div>
+              <div class="col">
+                <button (click)="removeFromCart(item.product.id)">-</button>
+              </div>
+              <div class="col">
+                <div class="row text-muted">{{ item.amount }}</div>
+              </div>
+              <div class="col">
+                <button (click)="addToCart(item.product)">+</button>
+              </div>
+              <div class="col">
+                <button (click)="removeFromCart(item.product.id)">Remove</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4 summary">
+        <div>
+          <h5><b>Summary</b></h5>
+        </div>
+        <!-- <button class="btn" (click)="checkOutCart()">CHECKOUT</button> -->
+      </div>
+    </div>
+  </div>
+  
