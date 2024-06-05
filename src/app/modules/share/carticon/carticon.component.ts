@@ -15,10 +15,7 @@ export class CarticonComponent {
   cart$: Observable<Product[]>;
   cartlength?: number;
 
-  // cartCount$ = this.store.pipe(select(selectCartCount));
   constructor(private store: Store<AppState>) {
     this.cart$ = store.select(selectProducts);
-    // this.cart$.subscribe(result => {console.log(result);
-    // });
   }
 }

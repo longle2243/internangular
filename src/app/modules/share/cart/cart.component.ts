@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component } from '@angular/core';
+import { Component } from '@angular/core';
 import { AppState } from '@app/state/app.state';
 import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
@@ -13,24 +13,17 @@ import { Product } from '@app/interfaces/product.interface';
 })
 export class CartComponent {
   cart$: Observable<Product[]>;
-  constructor(
-    private store: Store<AppState>,
-    private cdr: ChangeDetectorRef
-  ) {
+  cartlength?: number;
+  
+  constructor(private store: Store<AppState>) {
     this.cart$ = store.select(selectProducts);
   }
 
-  // addToCart(id: number): void {
-  //   this.store.dispatch(addToCart({ product: this.products[id] }));
-  // }
-
   removeFromCart(id: number): void {
-    console.log(id);
     this.store.dispatch(removeFromCart({ id: id }));
-    // this.cdr.detectChanges();
   }
 
-  checkOutCart(): void{
+  checkOutCart(): void {
     this.store.dispatch(resetCart());
   }
 }

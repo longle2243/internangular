@@ -20,32 +20,38 @@ export class CartService {
         product: product,
         amount: 1,
       };
-      this.cartSubject.next([...currentCart, cartItem]);
+      // this.cartSubject.next([...currentCart, cartItem]);
+      currentCart.push(cartItem);
+      this.cartSubject.next(currentCart);
     }
   }
 
-  removeFromCart(id: number) {
+  removeFromCartItem(id: number) {
+    const currentCart = this.cartSubject.value;
+    const existItem = currentCart.find(item => item.product.id === id);
+    if (existItem) {
+      existItem.amount -= 1;
+      this.cartSubject.next([...currentCart]);
+    }
+  }
+
+  removeAllFromCartItem(id: number) {
     const currentCart = this.cartSubject.value.filter(
       item => item.product.id !== id
     );
-    console.log(this.cartSubject.value);
-    console.log(currentCart);
     this.cartSubject.next([...currentCart]);
   }
-}
-//   getAmount(){
-//     const currentCart = this.cartSubject.value;
-//     let totalAmount = 0;
-//     for(const item of currentCart){
-//       totalAmount += item.amount;
-//     }
-//     return totalAmount;
-//   }
-// }
 
-// interface CartState {
-//   count: number;
-// }
-// const initialState: CartState = {
-//   count: 0,
-// };
+  removeAllFromCart() {
+    this.cartSubject.next([]);
+  }
+
+  getAmount() {
+    const currentCart = this.cartSubject.value;
+    let totalAmount = 0;
+    for (const item of currentCart) {
+      totalAmount += item.amount;
+    }
+    return totalAmount;
+  }
+}

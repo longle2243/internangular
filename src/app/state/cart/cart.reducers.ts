@@ -10,7 +10,6 @@ export const initialState: CartState = {
   products: [],
 };
 
-
 export const cartReducer = createReducer(
   initialState,
   on(addToCart, (state, { product }) => ({
@@ -19,10 +18,19 @@ export const cartReducer = createReducer(
   })),
   on(removeFromCart, (state, { id }) => ({
     ...state,
-    products: state.products.filter(product => product.id !== id),
+    products: removeProduct(state.products, id),
   })),
-  on(resetCart, (state) => ({
+  on(resetCart, state => ({
     ...state,
-    products: []
+    products: [],
   }))
 );
+
+function removeProduct(products: Product[], productID: number): Product[] {
+  const temp = [...products];
+  const indexRemove = temp.findIndex(product => product.id === productID);
+  if (indexRemove > -1) {
+    temp.splice(indexRemove, 1);
+  }
+  return temp;
+}

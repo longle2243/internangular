@@ -20,18 +20,13 @@
               <div class="row">{{ product.price }}</div>
             </div>
             <div class="col">
-              <button (click)="removeFromCart(i)">Remove</button>
+              <button (click)="removeFromCart(product.id)">Remove</button>
             </div>
           </div>
         </div>
       </div>
-
-      <!-- <div class="back-to-shop">
-        <a class="nav-link" href="products"
-          ><span class="text-muted">Back to shop</span></a
-        >
-      </div> -->
     </div>
+    
     <div class="col-md-4 summary">
       <div>
         <h5><b>Summary</b></h5>
