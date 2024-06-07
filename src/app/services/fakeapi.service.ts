@@ -1,12 +1,13 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { API_URLS } from '@app/config/api.url';
 import { Observable } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class FakeapiService {
-  url = 'https://dummyjson.com/users/1';
+  url = API_URLS.fakeUsers;
 
   constructor(private http: HttpClient) {}
 

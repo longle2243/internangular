@@ -1,0 +1,12 @@
+<p>ngclass works!</p>
+<button (click)="isdanger = !isdanger">danger</button>
+<button (click)="iswarining = !iswarining">warning</button>
+<!-- <div class="box red-border blue-background"></div> -->
+<!-- <div class="box" [class.red-border]="true"></div> -->
+<!-- <div class="box" [class]="['red-border', 'blue-background']"></div> -->
+
+<!-- <div
+  class="box"
+  [class]="{ 'red-border': isdanger, 'blue-background': iswarining }"></div> -->
+
+<div [class]="classes"></div>

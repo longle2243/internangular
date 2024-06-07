@@ -12,6 +12,19 @@ const routes: Routes = [
     path: 'week2',
     loadChildren: () => import('./week2/week2.module').then(m => m.Week2Module),
   },
+  {
+    path: 'week3',
+    loadChildren: () => import('./week3/week3.module').then(m => m.Week3Module),
+  },
+  {
+    path: 'a100day',
+    loadChildren: () =>
+      import('./a100day/a100day.module').then(m => m.A100dayModule),
+  },
+  {
+    path: 'rxjs',
+    loadChildren: () => import('./rxjs/rxjs.module').then(m => m.RxjsModule),
+  },
 ];
 
 @NgModule({

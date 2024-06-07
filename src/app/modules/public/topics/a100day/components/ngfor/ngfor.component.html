@@ -1,0 +1,21 @@
+<nav class="nav">
+  <a class="nav-link" routerLink="..">back</a>
+</nav>
+<p>ngfor works!</p>
+
+<ul>
+  <li
+    *ngFor="
+      let user of users;
+      index as idx;
+      count as count;
+      odd as odd;
+      even as even
+    ">
+    <p>{{ idx }}</p>
+    <p>{{ user.name }} - {{ user.email }}</p>
+    <p>{{ count }}</p>
+    <p *ngIf="even">Even here!</p>
+    <p *ngIf="odd">Odd here!</p>
+  </li>
+</ul>

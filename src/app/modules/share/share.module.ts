@@ -6,9 +6,10 @@ import { CarticonComponent } from './carticon/carticon.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { CartComponent } from './cart/cart.component';
 import { ProductRxjsComponent } from './product-rxjs/product-rxjs.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ProductAddComponent } from './product-add/product-add.component';
 import { CartrxjsComponent } from './cartrxjs/cartrxjs.component';
+import { PersonalinfoComponent } from './personalinfo/personalinfo.component';
 
 @NgModule({
   declarations: [
@@ -19,14 +20,16 @@ import { CartrxjsComponent } from './cartrxjs/cartrxjs.component';
     ProductRxjsComponent,
     ProductAddComponent,
     CartrxjsComponent,
+    PersonalinfoComponent,
   ],
-  imports: [CommonModule, FontAwesomeModule, FormsModule],
+  imports: [CommonModule, FontAwesomeModule, FormsModule, ReactiveFormsModule],
   exports: [
     ShowerrorComponent,
     ProductdetailComponent,
     CarticonComponent,
     CartComponent,
     ProductRxjsComponent,
+    PersonalinfoComponent,
   ],
 })
 export class ShareModule {}

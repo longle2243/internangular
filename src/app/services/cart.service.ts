@@ -20,16 +20,16 @@ export class CartService {
         product: product,
         amount: 1,
       };
-      // this.cartSubject.next([...currentCart, cartItem]);
-      currentCart.push(cartItem);
-      this.cartSubject.next(currentCart);
+      this.cartSubject.next([...currentCart, cartItem]);
+      // currentCart.push(cartItem);
+      // this.cartSubject.next(currentCart);
     }
   }
 
   removeFromCartItem(id: number) {
     const currentCart = this.cartSubject.value;
     const existItem = currentCart.find(item => item.product.id === id);
-    if (existItem) {
+    if (existItem && existItem.amount > 1) {
       existItem.amount -= 1;
       this.cartSubject.next([...currentCart]);
     }

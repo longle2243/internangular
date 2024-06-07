@@ -1,0 +1,17 @@
+<nav class="nav">
+  <a class="nav-link" routerLink="..">back</a>
+</nav>
+
+<div>
+  <button (click)="user.age = user.age + 1">+</button>
+  <p>Age: {{ user.age }}</p>
+  <button (click)="user.age = user.age - 1">-</button>
+
+  <ng-template [ngIf]="user.age >= 18" [ngIfElse]="under18">
+    <app-binding [name]="user.name"></app-binding>
+  </ng-template>
+
+  <ng-template #under18>
+    <div *ngIf="user.age < 18">{{ user.name }}: too Young</div>
+  </ng-template>
+</div>

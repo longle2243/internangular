@@ -1,0 +1,11 @@
+<div class="body">
+  <h5>Profile</h5>
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <div>
+      <app-personalinfo [formgroup]="personalInfo"></app-personalinfo>
+      <input type="file" formControlName="avatar" />
+    </div>
+    <br>
+    <button class="btn btn-success">Submit</button>
+  </form>
+</div>

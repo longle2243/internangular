@@ -1,5 +1,6 @@
 import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { API_URLS } from '@app/config/api.url';
 import { Question } from '@app/interfaces/question.interface';
 import { Observable, } from 'rxjs';
 
@@ -7,7 +8,7 @@ import { Observable, } from 'rxjs';
   providedIn: 'root',
 })
 export class QuestionService {
-  url = 'https://6649bdcc4032b1331beeb174.mockapi.io/api/v1/questions';
+  url = API_URLS.questions;
 
   constructor(private http: HttpClient) {}
 
