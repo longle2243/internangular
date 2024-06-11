@@ -43,7 +43,7 @@ import { SidebarComponent } from './layout/sidebar/sidebar.component';
     AuthService,
     JwtHelperService,
     { provide: JWT_OPTIONS, useValue: JWT_OPTIONS },
-    provideHttpClient(withInterceptors([authInterceptor])),
+    // provideHttpClient(withInterceptors([authInterceptor])),
   ],
   bootstrap: [AppComponent],
 })
